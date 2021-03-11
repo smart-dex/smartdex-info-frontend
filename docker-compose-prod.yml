@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: pancake-info
+    image: "registry-server:5000/pancake-info"
+    #    environment:
+    #      PORT: 8011
+    ports:
+      - "8031:80"
+    environment:
+      REACT_APP_BASE_URL: https://citrus-api.sotatek.works
+    volumes:
+      - ./citrus_frontend:/app
+    #      - /app/node_modules
+#    command: >
+#      npm start
