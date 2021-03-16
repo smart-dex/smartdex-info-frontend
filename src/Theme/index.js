@@ -11,8 +11,10 @@ export default function ThemeProvider({ children }) {
 }
 
 const theme = (darkMode, color) => ({
-  customColor: color,
+  titleTable: '#5F5E76',
+  textHover: ' #0085FF',
   textColor: darkMode ? color : 'black',
+  changeDark: '#17C267',
 
   panelColor: darkMode ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0)',
   backgroundColor: darkMode ? '#191326' : '#f5f3f3',
@@ -30,6 +32,18 @@ const theme = (darkMode, color) => ({
   text3: darkMode ? '#6C7284' : '#888D9B',
   text4: darkMode ? '#565A69' : '#C3C5CB',
   text5: darkMode ? '#2C2F36' : '#EDEEF2',
+
+  backgroundMenu: !darkMode
+    ? 'linear-gradient(180deg, rgba(240, 248, 255, 0.38) 0%, rgba(232, 241, 251, 0.31) 57.44%, rgba(252, 252, 255, 0.57) 100%)'
+    : '#050C21',
+  textMenu: !darkMode ? '#5F5E76' : 'rgba(255, 255, 255, 0.87)',
+  hoverMenu: !darkMode ? '#E9F4FC' : '#303749',
+  description: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
+  updateText: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(95, 94, 118, 0.5)',
+  border: darkMode ? 'rgba(91, 94, 119, 0.2)' : '#E2E2E8',
+  titleHeader: darkMode ? '#FFFFFF' : '#5F5E76',
+  lineMenu: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
+  iconMenu: darkMode ? ' rgba(255, 255, 255, 0.87)' : '#5F5E76',
 
   // special case text types
   white: '#FFFFFF',

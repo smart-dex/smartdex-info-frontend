@@ -8,36 +8,19 @@ import { useSavedTokens, useSavedPairs } from '../../contexts/LocalStorage'
 import { Hover } from '..'
 import TokenLogo from '../TokenLogo'
 import AccountSearch from '../AccountSearch'
-import { Bookmark, ChevronRight, X } from 'react-feather'
+import { X } from 'react-feather'
 import { ButtonFaded } from '../ButtonStyled'
 import FormattedName from '../FormattedName'
 
 const RightColumn = styled.div`
-  position: fixed;
-  right: 0;
-  top: 0px;
-  height: 100vh;
-  width: ${({ open }) => (open ? '160px' : '23px')};
-  padding: 1.25rem;
-  border-left: ${({ theme, open }) => '1px solid' + theme.bg3};
-  background-color: ${({ theme }) => theme.bg1};
-  z-index: 9999;
   overflow: auto;
+  margin-left: 34px;
+  padding-left: 27px;
+  border-left: 1px solid ${({ theme }) => theme.border};
   :hover {
     cursor: pointer;
   }
 `
-
-const SavedButton = styled(RowBetween)`
-  padding-bottom: ${({ open }) => open && '20px'};
-  border-bottom: ${({ theme, open }) => open && '1px solid' + theme.bg3};
-  margin-bottom: ${({ open }) => open && '1.25rem'};
-
-  :hover {
-    cursor: pointer;
-  }
-`
-
 const ScrollableDiv = styled(AutoColumn)`
   overflow: auto;
   padding-bottom: 60px;
@@ -46,36 +29,30 @@ const ScrollableDiv = styled(AutoColumn)`
 const StyledIcon = styled.div`
   color: ${({ theme }) => theme.text2};
 `
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: ${({ theme }) => theme.textMenu};
+`
 
-function PinnedData({ history, open, setSavedOpen }) {
+const Description = styled.div`
+  font-weight: 500;
+  font-size: 11px;
+  color: ${({ theme }) => theme.description};
+  opacity: 0.5;
+`
+function PinnedData({ history, open, isDark }) {
   const [savedPairs, , removePair] = useSavedPairs()
   const [savedTokens, , removeToken] = useSavedTokens()
 
   return !open ? (
-    <RightColumn open={open} onClick={() => setSavedOpen(true)}>
-      <SavedButton open={open}>
-        <StyledIcon>
-          <Bookmark size={20} />
-        </StyledIcon>
-      </SavedButton>
-    </RightColumn>
+    <RightColumn></RightColumn>
   ) : (
-    <RightColumn gap="1rem" open={open}>
-      <SavedButton onClick={() => setSavedOpen(false)} open={open}>
-        <RowFixed>
-          <StyledIcon>
-            <Bookmark size={16} />
-          </StyledIcon>
-          <TYPE.main ml={'4px'}>Saved</TYPE.main>
-        </RowFixed>
-        <StyledIcon>
-          <ChevronRight />
-        </StyledIcon>
-      </SavedButton>
+    <RightColumn gap="1rem">
       <AccountSearch small={true} />
       <AutoColumn gap="40px" style={{ marginTop: '2rem' }}>
         <AutoColumn gap={'12px'}>
-          <TYPE.main>Pinned Pairs</TYPE.main>
+          <Title>Pinned Pairs</Title>
           {Object.keys(savedPairs).filter((key) => {
             return !!savedPairs[key]
           }).length > 0 ? (
@@ -107,11 +84,11 @@ function PinnedData({ history, open, setSavedOpen }) {
                 )
               })
           ) : (
-            <TYPE.light>Pinned pairs will appear here.</TYPE.light>
+            <Description>Pinned pairs will appear here.</Description>
           )}
         </AutoColumn>
         <ScrollableDiv gap={'12px'}>
-          <TYPE.main>Pinned Tokens</TYPE.main>
+          <Title>Pinned Tokens</Title>
           {Object.keys(savedTokens).filter((key) => {
             return !!savedTokens[key]
           }).length > 0 ? (
@@ -140,7 +117,7 @@ function PinnedData({ history, open, setSavedOpen }) {
                 )
               })
           ) : (
-            <TYPE.light>Pinned tokens will appear here.</TYPE.light>
+            <Description>Pinned tokens will appear here.</Description>
           )}
         </ScrollableDiv>
       </AutoColumn>
