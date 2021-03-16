@@ -72,6 +72,18 @@ const DashGrid = styled.div`
     justify-content: flex-end;
   }
 `
+const Description = styled.div`
+  font-weight: 500;
+  font-size: 11px;
+  color: ${({ theme }) => theme.description};
+  opacity: 0.5;
+  padding-top: 8px;
+`
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: ${({ theme }) => theme.textMenu};
+`
 
 function AccountSearch({ history, small }) {
   const [accountValue, setAccountValue] = useState()
@@ -136,14 +148,14 @@ function AccountSearch({ history, small }) {
                 )
               })
             ) : (
-              <TYPE.light style={{ marginTop: '1rem' }}>No saved accounts</TYPE.light>
+              <Description style={{ marginTop: '1rem' }}>No saved accounts</Description>
             )}
           </Panel>
         )}
 
         {small && (
           <>
-            <TYPE.main>{'Accounts'}</TYPE.main>
+            <Title>{'Accounts'}</Title>
             {savedAccounts?.length > 0 ? (
               savedAccounts.map((account) => {
                 return (
@@ -164,7 +176,7 @@ function AccountSearch({ history, small }) {
                 )
               })
             ) : (
-              <TYPE.light>No pinned wallets</TYPE.light>
+              <Description>No pinned wallets</Description>
             )}
           </>
         )}
