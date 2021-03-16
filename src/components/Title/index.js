@@ -1,11 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-
 import { Flex } from 'rebass'
 import Link from '../Link'
 import { RowFixed } from '../Row'
-import Logo from '../../assets/logo-white.png'
 
 const TitleWrapper = styled.div`
   text-decoration: none;
@@ -17,11 +15,13 @@ const TitleWrapper = styled.div`
   z-index: 10;
 `
 
-const UniIcon = styled(Link)`
-  transition: transform 0.3s ease;
-  :hover {
-    transform: rotate(-5deg);
-  }
+const UniIcon = styled(Link)``
+
+const TitleStyle = styled.div`
+  font-weight: 800;
+  font-size: 26px;
+  color: ${({ theme }) => theme.titleHeader};
+  padding: 22px;
 `
 
 export default function Title() {
@@ -32,7 +32,7 @@ export default function Title() {
       <Flex alignItems="center">
         <RowFixed>
           <UniIcon id="link" onClick={() => history.push('/')}>
-            <img width={'150px'} src={Logo} alt="logo" />
+            <TitleStyle>PancakeSwap</TitleStyle>
           </UniIcon>
         </RowFixed>
       </Flex>

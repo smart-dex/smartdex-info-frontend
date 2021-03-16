@@ -86,7 +86,9 @@ const ListWrapper = styled.div`
 `
 
 const ClickableText = styled(Text)`
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.titleTable};
+  font-weight: bold;
+  font-size: 14px;
   &:hover {
     cursor: pointer;
     opacity: 0.6;
