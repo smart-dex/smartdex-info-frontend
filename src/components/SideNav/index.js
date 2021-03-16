@@ -5,7 +5,6 @@ import Title from '../Title'
 import { BasicLink } from '../Link'
 import { useMedia } from 'react-use'
 import { withRouter } from 'react-router-dom'
-import { Bookmark } from 'react-feather'
 import Link from '../Link'
 import { useSessionStart } from '../../contexts/Application'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
@@ -50,7 +49,12 @@ const Option = styled.div`
     background: ${({ theme }) => theme.hoverMenu};
   }
 `
-
+const OptionSave = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  padding: 12px 25px;
+  color: ${({ theme, activeText }) => (activeText ? theme.textHover : theme.textMenu)};
+`
 const DesktopWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,7 +69,7 @@ const MobileWrapper = styled.div`
 `
 
 const HeaderText = styled.div`
-  padding: 4px 25px;
+  padding: 2px 0px;
   font-weight: normal;
   font-size: 14px;
   line-height: 143%;
@@ -121,6 +125,9 @@ const SaveStyle = styled.a`
 `
 const StyledIcon = styled.div`
   color: ${({ theme }) => theme.text2};
+  path {
+    stroke: ${({ theme }) => theme.iconMenu};
+  }
 `
 const LineStyle = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lineMenu};
@@ -139,6 +146,13 @@ const DropIcon = styled.div`
   width: 12px;
   height: 8px;
   transform: ${({ open }) => (open ? 'rotate(360deg)' : 'rotate(180deg)')};
+  margin-top: 4px;
+`
+const AutoColumnBottom = styled(AutoColumn)`
+  margin: 48px 25px;
+  padding-bottom: 30px;
+  display: grid;
+  border-bottom: 1px solid ${({ theme }) => theme.lineMenu};
 `
 
 function SideNav({ history, savedOpen, setSavedOpen }) {
@@ -275,9 +289,17 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
                 <SaveStyle open={savedOpen} onClick={() => setSavedOpen(!savedOpen)}>
                   <div style={{ display: 'flex' }}>
                     <StyledIcon>
-                      <Bookmark size={20} />
+                      <svg width="17" height="22" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M1 3.27428V19.8606C1 20.8727 2.00357 21.381 2.59061 20.6646L8.45455 13.5086L14.3185 20.6646C14.9055 21.381 15.9091 20.8738 15.9091 19.8606V3.27428C15.9091 2.67111 15.7127 2.09263 15.3632 1.66612C15.0137 1.23961 14.5397 1 14.0455 1H2.86364C2.36937 1 1.89535 1.23961 1.54585 1.66612C1.19635 2.09263 1 2.67111 1 3.27428V3.27428Z"
+                          stroke-opacity="0.87"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
                     </StyledIcon>
-                    <Option style={{ paddingLeft: '12px', paddingTop: '0px' }}>Saved</Option>
+                    <OptionSave style={{ paddingLeft: '12px', paddingTop: '0px' }}>Saved</OptionSave>
                   </div>
                   <DropIcon open={savedOpen} />
                 </SaveStyle>
@@ -285,7 +307,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
               </AutoColumn>
             )}
           </AutoColumn>
-          <AutoColumn gap="0.5rem" style={{ marginBottom: '4rem' }}>
+          <AutoColumnBottom gap="0.5rem">
             <HeaderText>
               <Link href="https://pancakeswap.finance/" target="_blank">
                 PancakeSwap
@@ -302,7 +324,8 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
               </Link>
             </HeaderText>
             <Toggle isActive={isDark} toggle={toggleDarkMode} />
-          </AutoColumn>
+          </AutoColumnBottom>
+
           {!below1180 && (
             <Polling style={{ marginLeft: '.5rem' }}>
               <PollingDot />

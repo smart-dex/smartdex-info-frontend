@@ -15,7 +15,7 @@ import FormattedName from '../FormattedName'
 const RightColumn = styled.div`
   overflow: auto;
   margin-left: 34px;
-  padding-left: 27px;
+  padding-left: 16px;
   border-left: 1px solid ${({ theme }) => theme.border};
   :hover {
     cursor: pointer;
@@ -23,7 +23,7 @@ const RightColumn = styled.div`
 `
 const ScrollableDiv = styled(AutoColumn)`
   overflow: auto;
-  padding-bottom: 60px;
+  margin-top: 32px;
 `
 
 const StyledIcon = styled.div`
@@ -40,6 +40,7 @@ const Description = styled.div`
   font-size: 11px;
   color: ${({ theme }) => theme.description};
   opacity: 0.5;
+  padding-top: 8px;
 `
 function PinnedData({ history, open, isDark }) {
   const [savedPairs, , removePair] = useSavedPairs()

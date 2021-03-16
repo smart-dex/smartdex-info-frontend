@@ -77,6 +77,7 @@ const Description = styled.div`
   font-size: 11px;
   color: ${({ theme }) => theme.description};
   opacity: 0.5;
+  padding-top: 8px;
 `
 const Title = styled.div`
   font-weight: 500;

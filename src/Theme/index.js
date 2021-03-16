@@ -40,7 +40,7 @@ const theme = (darkMode, color) => ({
   hoverMenu: !darkMode ? '#E9F4FC' : '#303749',
   description: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
   updateText: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(95, 94, 118, 0.5)',
-  border: darkMode ? 'rgba(91, 94, 119, 0.2)' : '#E2E2E8',
+  border: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
   titleHeader: darkMode ? '#FFFFFF' : '#5F5E76',
   lineMenu: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
   iconMenu: darkMode ? ' rgba(255, 255, 255, 0.87)' : '#5F5E76',

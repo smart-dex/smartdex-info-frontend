@@ -4,9 +4,6 @@ import styled from 'styled-components'
 const IconWrapper = styled.div<{ isActive?: boolean }>`
   opacity: ${({ isActive }) => (isActive ? 0.8 : 0.4)};
   color: ${({ isActive }) => (isActive ? '#fff' : 'black')};
-  :hover {
-    opacity: 1;
-  }
 `
 
 const StyledToggle = styled.div`
@@ -15,7 +12,6 @@ const StyledToggle = styled.div`
   cursor: pointer;
   text-decoration: none;
   margin-top: 1rem;
-  padding: 12px 25px;
   :hover {
     text-decoration: none;
   }
@@ -82,10 +78,10 @@ export interface ToggleProps {
 }
 
 export default function Toggle({ isActive, toggle }: ToggleProps) {
-  const [check, setDark] = useState(true)
+  const [check, setDark] = useState(!isActive)
   const handleClick = () => {
-    setDark(!check)
     toggle()
+    setDark(!check)
   }
   const classChange = check ? 'dark' : 'light'
   return (
@@ -97,7 +93,6 @@ export default function Toggle({ isActive, toggle }: ToggleProps) {
         <input type="checkbox" className={classChange} onClick={handleClick} />
         <SliderStyle className="slider round"></SliderStyle>
       </SwitchStyle>
-      <span style={{ padding: '0 .5rem' }}>{'  '}</span>
       <span>
         <IconWrapper isActive={isActive}>Light</IconWrapper>
       </span>
