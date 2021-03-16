@@ -191,10 +191,10 @@ function SideNav({ history }) {
           )}
         </DesktopWrapper>
       ) : (
-        <MobileWrapper>
-          <Title />
-        </MobileWrapper>
-      )}
+          <MobileWrapper>
+            <Title />
+          </MobileWrapper>
+        )}
     </Wrapper>
   )
 }

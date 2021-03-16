@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { ResponsiveContainer } from 'recharts'
+import styled from 'styled-components'
 import { timeframeOptions } from '../../constants'
 import { useGlobalChartData, useGlobalData } from '../../contexts/GlobalData'
 import { useMedia } from 'react-use'
@@ -76,6 +77,27 @@ const GlobalChart = ({ display }) => {
     return () => window.removeEventListener('resize', handleResize)
   }, [isClient, width]) // Empty array ensures that effect is only run on mount and unmount
 
+  const ListOption = styled.div`
+    margin-left: 10px;
+    display: flex;
+    .active {
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      background: ${({ theme }) => theme.optionActive};
+      border-radius: 5px;
+      border: none;
+    }
+    .no-active {
+      width: 19px;
+      height: 19px;
+      text-align: center;
+      background: ${({ theme }) => theme.optionNoActive};
+      border-radius: 5px;
+      border: 1px solid ${({ theme }) => theme.borderChart};
+    }
+  `
+
   return chartDataFiltered ? (
     <>
       {below800 && (
@@ -118,25 +140,29 @@ const GlobalChart = ({ display }) => {
             zIndex: 10,
           }}
         >
-          <OptionButton
-            active={volumeWindow === VOLUME_WINDOW.DAYS}
-            onClick={() => setVolumeWindow(VOLUME_WINDOW.DAYS)}
-          >
-            <TYPE.body>D</TYPE.body>
-          </OptionButton>
-          <OptionButton
-            style={{ marginLeft: '4px' }}
-            active={volumeWindow === VOLUME_WINDOW.WEEKLY}
-            onClick={() => setVolumeWindow(VOLUME_WINDOW.WEEKLY)}
-          >
-            <TYPE.body>W</TYPE.body>
-          </OptionButton>
+          <ListOption>
+            <OptionButton
+              active={volumeWindow === VOLUME_WINDOW.DAYS}
+              onClick={() => setVolumeWindow(VOLUME_WINDOW.DAYS)}
+              className={volumeWindow === VOLUME_WINDOW.DAYS ? 'active' : 'no-active'}
+            >
+              <TYPE.body>D</TYPE.body>
+            </OptionButton>
+            <OptionButton
+              style={{ marginLeft: '4px' }}
+              active={volumeWindow === VOLUME_WINDOW.WEEKLY}
+              onClick={() => setVolumeWindow(VOLUME_WINDOW.WEEKLY)}
+              className={volumeWindow === VOLUME_WINDOW.WEEKLY ? 'active' : 'no-active'}
+            >
+              <TYPE.body>W</TYPE.body>
+            </OptionButton>
+          </ListOption>
         </RowFixed>
       )}
     </>
   ) : (
-    ''
-  )
+      ''
+    )
 }
 
 export default GlobalChart

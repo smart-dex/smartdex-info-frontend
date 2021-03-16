@@ -39,6 +39,9 @@ const Arrow = styled.div`
 
 const List = styled(Box)`
   -webkit-overflow-scrolling: touch;
+  .background-item {
+    background: ${({ theme }) => theme.backgroundItem};
+  }
 `
 
 const DashGrid = styled.div`
@@ -46,6 +49,7 @@ const DashGrid = styled.div`
   grid-gap: 1em;
   grid-template-columns: 100px 1fr 1fr;
   grid-template-areas: 'txn value time';
+  padding-right: 1.5rem;
 
   > * {
     justify-content: flex-end;
@@ -67,19 +71,17 @@ const DashGrid = styled.div`
   }
 
   @media screen and (min-width: 780px) {
-    max-width: 1320px;
     grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 'txn value amountToken amountOther time';
 
     > * {
       &:first-child {
-        width: 180px;
+        width: 230px;
       }
     }
   }
 
   @media screen and (min-width: 1080px) {
-    max-width: 1320px;
     grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 'txn value amountToken amountOther account time';
   }
@@ -103,30 +105,65 @@ const ClickableText = styled(Text)`
 const DataText = styled(Flex)`
   align-items: center;
   text-align: right;
-  color: ${({ theme }) => theme.text1};
-
-  & > * {
-    font-size: 1em;
-  }
-
-  @media screen and (max-width: 40em) {
-    font-size: 0.85rem;
-  }
+  color: ${({ theme }) => theme.colorHeader};
+  font-size: 13px;
+  font-weight: 500;
 `
 
 const SortText = styled.button`
   cursor: pointer;
   font-weight: ${({ active, theme }) => (active ? 500 : 400)};
-  margin-right: 0.75rem !important;
+  margin-right: .75rem;
   border: none;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 14px;
   padding: 0px;
-  color: ${({ active, theme }) => (active ? theme.text1 : theme.text3)};
+  color: ${({ active, theme }) => (active ? theme.activeTransaction : theme.noActiveTransaction)};
   outline: none;
 
   @media screen and (max-width: 600px) {
     font-size: 14px;
+  }
+`
+
+const HeaderLeftTransaction = styled.div`
+  .active {
+    color: ${({ theme }) => theme.activeTransaction};
+    font-weight: bold;
+  }
+  .no-active {
+    color: ${({ theme }) => theme.noActiveTransaction};
+    font-weight: 500;
+  }
+`
+
+const StyleDataLink = styled.div`
+  color: ${({ theme }) => theme.private};
+  font-weight: 500;
+  font-size: 13px;
+`
+
+const StyleHeader = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  color: ${({ theme }) => theme.activeTransaction};
+  svg {
+    width: 10px;
+    height: 7px;
+    path {
+      fill: ${({ theme }) => theme.activeTransaction};
+    }
+  }
+  .transform-svg {
+    transform: rotate(180deg);
+  }
+`
+
+const ListWrapper = styled.div`
+  .header {
+    background: ${({ theme }) => theme.backgroundHeader};
+    height: fit-content;
+    padding: 1rem 1.5rem 1rem 0;
   }
 `
 
@@ -279,12 +316,30 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   const below1080 = useMedia('(max-width: 1080px)')
   const below780 = useMedia('(max-width: 780px)')
 
+  const SortDesc = () => {
+    return (
+      <svg viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
+      </svg>
+    )
+  }
+
+  const SortEsc = () => {
+    return (
+      <svg className="transform-svg" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
+      </svg>
+    )
+  }
+
   const ListItem = ({ item }) => {
     return (
       <DashGrid style={{ height: '48px' }}>
         <DataText area="txn" fontWeight="500">
-          <Link color={color} external href={urls.showTransaction(item.hash)}>
-            {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
+          <Link external href={urls.showTransaction(item.hash)}>
+            <StyleDataLink style={{ paddingLeft: '1.5rem' }}>
+              {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
+            </StyleDataLink>
           </Link>
         </DataText>
         <DataText area="value">
@@ -304,8 +359,8 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         )}
         {!below1080 && (
           <DataText area="account">
-            <Link color={color} external href={'https://bscscan.com/address/' + item.account}>
-              {item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}
+            <Link external href={'https://bscscan.com/address/' + item.account}>
+              <StyleDataLink>{item.account && item.account.slice(0, 6) + '...' + item.account.slice(38, 42)}</StyleDataLink>
             </Link>
           </DataText>
         )}
@@ -315,48 +370,54 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   }
 
   return (
-    <>
-      <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
+    <ListWrapper>
+      <DashGrid className="header" center={true}>
         {below780 ? (
           <RowBetween area="txn">
             <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={color} />
           </RowBetween>
         ) : (
-          <RowFixed area="txn" gap="10px" pl={4}>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.ALL)
-              }}
-              active={txFilter === TXN_TYPE.ALL}
-            >
-              All
-            </SortText>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.SWAP)
-              }}
-              active={txFilter === TXN_TYPE.SWAP}
-            >
-              Swaps
-            </SortText>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.ADD)
-              }}
-              active={txFilter === TXN_TYPE.ADD}
-            >
-              Adds
-            </SortText>
-            <SortText
-              onClick={() => {
-                setTxFilter(TXN_TYPE.REMOVE)
-              }}
-              active={txFilter === TXN_TYPE.REMOVE}
-            >
-              Removes
-            </SortText>
-          </RowFixed>
-        )}
+            <RowFixed area="txn" gap="10px" pl={4}>
+              <HeaderLeftTransaction style={{ paddingLeft: '1.5rem' }}>
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.ALL)
+                  }}
+                  active={txFilter === TXN_TYPE.ALL}
+                  className={txFilter === TXN_TYPE.ALL ? 'active' : 'no-active'}
+                >
+                  All
+                </SortText>
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.SWAP)
+                  }}
+                  active={txFilter === TXN_TYPE.SWAP}
+                  className={txFilter === TXN_TYPE.SWAP ? 'active' : 'no-active'}
+                >
+                  Swaps
+                </SortText>
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.ADD)
+                  }}
+                  active={txFilter === TXN_TYPE.ADD}
+                  className={txFilter === TXN_TYPE.ADD ? 'active' : 'no-active'}
+                >
+                  Adds
+                </SortText>
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.REMOVE)
+                  }}
+                  active={txFilter === TXN_TYPE.REMOVE}
+                  className={txFilter === TXN_TYPE.REMOVE ? 'active' : 'not-active'}
+                >
+                  Removes
+                </SortText>
+              </HeaderLeftTransaction>
+            </RowFixed>
+          )}
 
         <Flex alignItems="center" justifyContent="flexStart">
           <ClickableText
@@ -367,7 +428,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
               setSortDirection(sortedColumn !== SORT_FIELD.VALUE ? true : !sortDirection)
             }}
           >
-            Total Value {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            <StyleHeader>Total Value {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
           </ClickableText>
         </Flex>
         {!below780 && (
@@ -380,8 +441,10 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.AMOUNT0 ? true : !sortDirection)
               }}
             >
-              {symbol0Override ? symbol0Override + ' Amount' : 'Token Amount'}{' '}
-              {sortedColumn === SORT_FIELD.AMOUNT0 ? (sortDirection ? '↑' : '↓') : ''}
+              <StyleHeader>
+                {symbol0Override ? symbol0Override + ' Amount' : 'Token Amount'}{' '}
+                {sortedColumn === SORT_FIELD.AMOUNT0 ? (sortDirection ? <SortEsc /> : <SortDesc />) : ''}
+              </StyleHeader>
             </ClickableText>
           </Flex>
         )}
@@ -396,14 +459,16 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                   setSortDirection(sortedColumn !== SORT_FIELD.AMOUNT1 ? true : !sortDirection)
                 }}
               >
-                {symbol1Override ? symbol1Override + ' Amount' : 'Token Amount'}{' '}
-                {sortedColumn === SORT_FIELD.AMOUNT1 ? (sortDirection ? '↑' : '↓') : ''}
+                <StyleHeader>
+                  {symbol1Override ? symbol1Override + ' Amount' : 'Token Amount'}{' '}
+                  {sortedColumn === SORT_FIELD.AMOUNT1 ? (sortDirection ? <SortEsc /> : <SortDesc />) : ''}
+                </StyleHeader>
               </ClickableText>
             </Flex>
           )}
           {!below1080 && (
             <Flex alignItems="center">
-              <TYPE.body area="account">Account</TYPE.body>
+              <TYPE.body area="account"><StyleHeader>Account</StyleHeader></TYPE.body>
             </Flex>
           )}
           <Flex alignItems="center">
@@ -415,7 +480,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.TIMESTAMP ? true : !sortDirection)
               }}
             >
-              Time {sortedColumn === SORT_FIELD.TIMESTAMP ? (!sortDirection ? '↑' : '↓') : ''}
+              <StyleHeader>Time {sortedColumn === SORT_FIELD.TIMESTAMP ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
             </ClickableText>
           </Flex>
         </>
@@ -427,15 +492,15 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         ) : filteredList.length === 0 ? (
           <EmptyCard>No recent transactions found.</EmptyCard>
         ) : (
-          filteredList.map((item, index) => {
-            return (
-              <div key={index}>
-                <ListItem key={index} index={index + 1} item={item} />
-                <Divider />
-              </div>
-            )
-          })
-        )}
+              filteredList.map((item, index) => {
+                return (
+                  <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
+                    <ListItem key={index} index={index + 1} item={item} />
+                    <Divider />
+                  </div>
+                )
+              })
+            )}
       </List>
       <PageButtons>
         <div
@@ -454,7 +519,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           <Arrow faded={page === maxPage ? true : false}>→</Arrow>
         </div>
       </PageButtons>
-    </>
+    </ListWrapper>
   )
 }
 

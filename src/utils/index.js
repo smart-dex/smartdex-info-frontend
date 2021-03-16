@@ -48,8 +48,7 @@ export function getPoolLink(token0Address, token1Address = null, remove = false)
     return (
       `https://exchange.pancakeswap.finance/#/` +
       (remove ? `remove` : `add`) +
-      `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${
-        token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
+      `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
       }`
     )
   }
@@ -59,9 +58,8 @@ export function getSwapLink(token0Address, token1Address = null) {
   if (!token1Address) {
     return `https://exchange.pancakeswap.finance/#/swap?inputCurrency=${token0Address}`
   } else {
-    return `https://exchange.pancakeswap.finance/#/swap?inputCurrency=${
-      token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
-    }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
+    return `https://exchange.pancakeswap.finance/#/swap?inputCurrency=${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address
+      }&outputCurrency=${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address}`
   }
 }
 
@@ -416,12 +414,12 @@ export function formattedPercent(percent, useBrackets = false) {
   }
   if (fixedPercent > 0) {
     if (fixedPercent > 100) {
-      return <Text fontWeight={500} color="green">{`+${percent?.toFixed(0).toLocaleString()}%`}</Text>
+      return <Text fontWeight={500} color="#17C267">{`+${percent?.toFixed(0).toLocaleString()}%`}</Text>
     } else {
-      return <Text fontWeight={500} color="green">{`+${fixedPercent}%`}</Text>
+      return <Text fontWeight={500} color="#17C267">{`+${fixedPercent}%`}</Text>
     }
   } else {
-    return <Text fontWeight={500} color="red">{`${fixedPercent}%`}</Text>
+    return <Text fontWeight={500} color="#FF6970">{`${fixedPercent}%`}</Text>
   }
 }
 

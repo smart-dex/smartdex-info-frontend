@@ -37,6 +37,9 @@ const Arrow = styled.div`
 
 const List = styled(Box)`
   -webkit-overflow-scrolling: touch;
+  .background-item {
+    background: ${({ theme }) => theme.backgroundItem};
+  }
 `
 
 const DashGrid = styled.div`
@@ -74,7 +77,13 @@ const DashGrid = styled.div`
   }
 `
 
-const ListWrapper = styled.div``
+const ListWrapper = styled.div`
+  .header {
+    background: ${({ theme }) => theme.backgroundHeader};
+    height: fit-content;
+    padding: 1rem 1.125rem 1rem 2.5rem;
+  }
+`
 
 const ClickableText = styled(Text)`
   color: ${({ theme }) => theme.text1};
@@ -88,15 +97,33 @@ const ClickableText = styled(Text)`
 
 const DataText = styled(Flex)`
   align-items: center;
-  text-align: center;
-  color: ${({ theme }) => theme.text1};
-
-  & > * {
-    font-size: 14px;
+  text-align: right;
+  color: ${({ theme }) => theme.colorHeader};
+  font-size: 13px;
+  .text-uppercase {
+    color: ${({ theme }) => theme.colorHeader};
   }
+`
 
-  @media screen and (max-width: 600px) {
-    font-size: 12px;
+const StyleDataLink = styled.div`
+  color: ${({ theme }) => theme.private};
+  font-weight: 500;
+  font-size: 13px;
+`
+
+const StyleHeader = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  color: ${({ theme }) => theme.activeTransaction};
+  svg {
+    width: 10px;
+    height: 7px;
+    path {
+      fill: ${({ theme }) => theme.activeTransaction};
+    }
+  }
+  .transform-svg {
+    transform: rotate(180deg);
   }
 `
 
@@ -163,12 +190,14 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
               margin={!below740}
             />
             <CustomLink style={{ marginLeft: '20px', whiteSpace: 'nowrap' }} to={'/pair/' + pairAddress} color={color}>
-              <FormattedName
-                text={pairData.token0.symbol + '-' + pairData.token1.symbol}
-                maxCharacters={below600 ? 8 : 16}
-                adjustSize={true}
-                link={true}
-              />
+              <StyleDataLink>
+                <FormattedName
+                  text={pairData.token0.symbol + '-' + pairData.token1.symbol}
+                  maxCharacters={below600 ? 8 : 16}
+                  adjustSize={true}
+                  link={true}
+                />
+              </StyleDataLink>
             </CustomLink>
           </DataText>
           <DataText area="liq">{liquidity}</DataText>
@@ -181,6 +210,22 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
     } else {
       return ''
     }
+  }
+
+  const SortDesc = () => {
+    return (
+      <svg viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
+      </svg>
+    )
+  }
+
+  const SortEsc = () => {
+    return (
+      <svg className="transform-svg" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
+      </svg>
+    )
   }
 
   const pairList =
@@ -202,7 +247,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
       .map((pairAddress, index) => {
         return (
           pairAddress && (
-            <div key={index}>
+            <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
               <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} pairAddress={pairAddress} />
               <Divider />
             </div>
@@ -215,10 +260,10 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
       <DashGrid
         center={true}
         disbaleLinks={disbaleLinks}
-        style={{ height: 'fit-content', padding: '0 1.125rem 1rem 1.125rem' }}
+        className="header"
       >
         <Flex alignItems="center" justifyContent="flexStart">
-          <TYPE.main area="name">Name</TYPE.main>
+          <TYPE.main area="name"><StyleHeader>Name</StyleHeader></TYPE.main>
         </Flex>
         <Flex alignItems="center" justifyContent="flexEnd">
           <ClickableText
@@ -228,7 +273,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
               setSortDirection(sortedColumn !== SORT_FIELD.LIQ ? true : !sortDirection)
             }}
           >
-            Liquidity {sortedColumn === SORT_FIELD.LIQ ? (!sortDirection ? '↑' : '↓') : ''}
+            <StyleHeader>Liquidity {sortedColumn === SORT_FIELD.LIQ ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
           </ClickableText>
         </Flex>
         <Flex alignItems="center">
@@ -239,8 +284,10 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
               setSortDirection(sortedColumn !== SORT_FIELD.VOL ? true : !sortDirection)
             }}
           >
-            Volume (24hrs)
-            {sortedColumn === SORT_FIELD.VOL ? (!sortDirection ? '↑' : '↓') : ''}
+            <StyleHeader>
+              Volume (24hrs)
+              {sortedColumn === SORT_FIELD.VOL ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}
+            </StyleHeader>
           </ClickableText>
         </Flex>
         {!below1080 && (
@@ -252,7 +299,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.VOL_7DAYS ? true : !sortDirection)
               }}
             >
-              Volume (7d) {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? '↑' : '↓') : ''}
+              <StyleHeader>Volume (7d) {sortedColumn === SORT_FIELD.VOL_7DAYS ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
             </ClickableText>
           </Flex>
         )}
@@ -265,7 +312,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.FEES ? true : !sortDirection)
               }}
             >
-              Fees (24hr) {sortedColumn === SORT_FIELD.FEES ? (!sortDirection ? '↑' : '↓') : ''}
+              <StyleHeader>Fees (24hr) {sortedColumn === SORT_FIELD.FEES ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
             </ClickableText>
           </Flex>
         )}
@@ -278,7 +325,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.APY ? true : !sortDirection)
               }}
             >
-              1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? '↑' : '↓') : ''}
+              <StyleHeader>1y Fees / Liquidity {sortedColumn === SORT_FIELD.APY ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
             </ClickableText>
             <QuestionHelper text={'Based on 24hr volume annualized'} />
           </Flex>
