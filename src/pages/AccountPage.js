@@ -14,7 +14,6 @@ import { TYPE } from '../Theme'
 import { ButtonDropdown } from '../components/ButtonStyled'
 import { PageWrapper, ContentWrapper, StyledIcon } from '../components'
 import DoubleTokenLogo from '../components/DoubleLogo'
-import { Activity } from 'react-feather'
 import Link from '../components/Link'
 import { FEE_WARNING_TOKENS } from '../constants'
 import { useMedia } from 'react-use'
@@ -338,7 +337,7 @@ function AccountPage({ account }) {
                     </AccountTitle>
                   </RowFixed>
                 </AutoColumn>
-                <AutoColumn gap="10px">
+                <AutoColumn gap="10px" style={{ paddingLeft: '9px' }}>
                   <RowBetween>
                     <AccountTitle>Fees Earned (Cumulative)</AccountTitle>
                     <div />
