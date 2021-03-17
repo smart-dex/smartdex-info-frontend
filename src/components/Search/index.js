@@ -24,7 +24,9 @@ const Container = styled.div`
   height: 48px;
   z-index: 30;
   position: relative;
-
+  border: 1px solid ${({ theme }) => theme.borderSearch};
+  box-sizing: border-box;
+  border-radius: 50px;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
@@ -433,7 +435,7 @@ export const Search = ({ small = false }) => {
           ref={wrapperRef}
           placeholder={
             small
-              ? ''
+              ? 'Search...'
               : below410
               ? 'Search...'
               : below470
