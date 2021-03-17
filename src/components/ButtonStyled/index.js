@@ -2,7 +2,7 @@ import React from 'react'
 import { Button as RebassButton } from 'rebass/styled-components'
 import styled from 'styled-components'
 import { Plus, ChevronDown, ChevronUp } from 'react-feather'
-import { darken, transparentize } from 'polished'
+import { darken } from 'polished'
 import { RowBetween } from '../Row'
 import { StyledIcon } from '..'
 
