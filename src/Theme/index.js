@@ -15,6 +15,7 @@ const theme = (darkMode, color) => ({
   textHover: ' #0085FF',
   textColor: darkMode ? color : 'black',
   changeDark: '#17C267',
+  buttonColor: '#0085FF',
 
   panelColor: darkMode ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0)',
   backgroundColor: darkMode ? '#191326' : '#f5f3f3',
@@ -44,6 +45,19 @@ const theme = (darkMode, color) => ({
   titleHeader: darkMode ? '#FFFFFF' : '#5F5E76',
   lineMenu: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
   iconMenu: darkMode ? ' rgba(255, 255, 255, 0.87)' : '#5F5E76',
+  backgroundInput: darkMode ? '#080F24' : '#F0F6FB',
+  textNoSave: darkMode ? 'rgba(255, 255, 255, 0.87)' : 'rgba(95, 94, 118, 0.5)',
+  borderInput: darkMode ? 'none' : '#EAE9F2',
+  bgHeaderTable: darkMode ? ' #0F162C' : '#F0F6FB',
+  rowTableColor: darkMode ? '#0F162C' : '#F8FBFE',
+  boxShadow: darkMode ? 'rgba(0, 0, 0, 0.08)' : 'rgba(120, 118, 148, 0.08)',
+  bgPanel: darkMode ? '#23293D' : '#FFFFFF',
+  textPaging: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
+  textPagingDisable: darkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(143, 143, 160, 0.8)',
+  selectArrow: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
+  prevDark: darkMode ? 'images/prevDark.png' : 'images/prev.png',
+  borderSearch: darkMode ? 'rgba(255, 255, 255, 0.38)' : '#EAE9F2',
+  backgroundPaging: darkMode ? 'rgba(0, 133, 255, 0.1)' : '#E9F4FC',
 
   // special case text types
   white: '#FFFFFF',
@@ -59,7 +73,7 @@ const theme = (darkMode, color) => ({
   //specialty colors
   modalBG: darkMode ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.6)',
   advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.4)',
-  onlyLight: darkMode ? '#22242a' : 'transparent',
+  onlyLight: darkMode ? '#151C31' : 'transparent',
   divider: darkMode ? 'rgba(43, 43, 43, 0.435)' : 'rgba(43, 43, 43, 0.035)',
 
   //primary colors

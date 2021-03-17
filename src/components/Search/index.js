@@ -24,7 +24,9 @@ const Container = styled.div`
   height: 48px;
   z-index: 30;
   position: relative;
-
+  border: 1px solid ${({ theme }) => theme.borderSearch};
+  box-sizing: border-box;
+  border-radius: 50px;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
@@ -92,7 +94,7 @@ const SearchIconLarge = styled(SearchIcon)`
   color: ${({ theme }) => theme.text3};
 `
 
-const CloseIcon = styled(X)`
+const CloseIcon = styled.div`
   height: 20px;
   width: 20px;
   margin-right: 0.5rem;
@@ -433,7 +435,7 @@ export const Search = ({ small = false }) => {
           ref={wrapperRef}
           placeholder={
             small
-              ? ''
+              ? 'Search...'
               : below410
               ? 'Search...'
               : below470
@@ -452,7 +454,19 @@ export const Search = ({ small = false }) => {
             }
           }}
         />
-        {!showMenu ? <SearchIconLarge /> : <CloseIcon onClick={() => toggleMenu(false)} />}
+        {!showMenu ? (
+          <SearchIconLarge />
+        ) : (
+          <CloseIcon onClick={() => toggleMenu(false)}>
+            {' '}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C17.53 2 22 6.47 22 12C22 17.53 17.53 22 12 22C6.47 22 2 17.53 2 12C2 6.47 6.47 2 12 2ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
+                fill="#A2A1B8"
+              />
+            </svg>
+          </CloseIcon>
+        )}
       </Wrapper>
       <Menu hide={!showMenu} ref={menuRef}>
         <Heading>
