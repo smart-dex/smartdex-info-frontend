@@ -47,7 +47,7 @@ const DashGrid = styled.div`
   grid-gap: 1em;
   grid-template-columns: 100px 1fr 1fr;
   grid-template-areas: 'name liq vol';
-  padding: 0 1.125rem;
+  padding: 0 1.125rem 0 2.25rem;
 
   > * {
     justify-content: flex-end;
@@ -60,13 +60,11 @@ const DashGrid = styled.div`
   }
 
   @media screen and (min-width: 740px) {
-    padding: 0 1.125rem;
     grid-template-columns: 1.5fr 1fr 1fr};
     grid-template-areas: ' name liq vol pool ';
   }
 
   @media screen and (min-width: 1080px) {
-    padding: 0 1.125rem;
     grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: ' name liq vol volWeek fees apy';
   }

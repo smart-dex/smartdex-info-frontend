@@ -89,6 +89,9 @@ const theme = (darkMode, color) => ({
   borderChart: darkMode ? '#0F162C' : '#E2E2E8',
   optionActive: darkMode ? '#0d2141' : '#E2E2E8',
   optionNoActive: darkMode ? '#151c31' : '#FFFFFF',
+  colorTitleSearch: darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(95, 94, 118, 0.5)',
+  backgroundPopupSearch: darkMode ? '#00071C' : '#FFFFFF',
+  shadowPopupSearch: darkMode ? 'rgba(0, 0, 0, 0.05)' : 'rgba(120, 118, 148, 0.05)',
 
   // other
   red1: '#FF6871',
@@ -185,7 +188,7 @@ export const ThemedBackground = styled.div`
 `
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('ttps://fonts.googleapis.com/css2?family=Kanit:wght@400;600&&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
   html { font-family: 'Montserrat', 'Kanit', sans-serif; }
   @supports (font-variation-settings: normal) {
     html { font-family: 'Montserrat', 'Kanit', sans-serif; }

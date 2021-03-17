@@ -114,11 +114,9 @@ const Menu = styled.div`
   overflow: auto;
   left: 0;
   padding-bottom: 20px;
-  background: ${({ theme }) => theme.bg6};
-  border-bottom-right-radius: 12px;
-  border-bottom-left-radius: 12px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.04);
+  background: ${({ theme }) => theme.backgroundPopupSearch};
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px ${({ theme }) => theme.shadowPopupSearch};
   display: ${({ hide }) => hide && 'none'};
 `
 
@@ -143,8 +141,13 @@ const Gray = styled.span`
   color: #888d9b;
 `
 
-const Blue = styled.span`
-  color: #2172e5;
+const Blue = styled.div`
+  color: ${({ theme }) => theme.private};
+  font-weight: 500;
+  font-size: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
   :hover {
     cursor: pointer;
   }
@@ -487,7 +490,7 @@ export const Search = ({ small = false }) => {
                 setPairsShown(pairsShown + 5)
               }}
             >
-              See more...
+              See more
             </Blue>
           </Heading>
         </div>
@@ -524,7 +527,7 @@ export const Search = ({ small = false }) => {
                 setTokensShown(tokensShown + 5)
               }}
             >
-              See more...
+              See more
             </Blue>
           </Heading>
         </div>

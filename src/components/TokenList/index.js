@@ -48,7 +48,7 @@ const DashGrid = styled.div`
   grid-gap: 1em;
   grid-template-columns: 100px 1fr 1fr;
   grid-template-areas: 'name liq vol';
-  padding: 0 1.125rem;
+  padding: 0 1.125rem 0 2.25rem;
 
   > * {
     justify-content: flex-end;

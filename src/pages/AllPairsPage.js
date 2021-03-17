@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import 'feather-icons'
+import styled from 'styled-components'
 
 import { TYPE } from '../Theme'
 import Panel from '../components/Panel'
@@ -19,18 +20,24 @@ function AllPairsPage() {
 
   const below800 = useMedia('(max-width: 800px)')
 
+  const StyleTitle = styled.div`
+    font-size: 24px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.description};
+  `
+
   return (
     <PageWrapper>
       <FullWrapper>
         <RowBetween>
-          <TYPE.largeHeader>Top Pairs</TYPE.largeHeader>
+          <TYPE.largeHeader><StyleTitle>Top Pairs</StyleTitle></TYPE.largeHeader>
           {!below800 && <Search small={true} />}
         </RowBetween>
         <Panel style={{ padding: below800 && '1rem 0 0 0 ' }}>
           <PairList pairs={allPairs} disbaleLinks={true} maxItems={50} />
         </Panel>
       </FullWrapper>
-    </PageWrapper>
+    </PageWrapper >
   )
 }
 
