@@ -54,10 +54,11 @@ const theme = (darkMode, color) => ({
   bgPanel: darkMode ? '#23293D' : '#FFFFFF',
   textPaging: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
   textPagingDisable: darkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(143, 143, 160, 0.8)',
-  selectArrow: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
+  selectArrow: darkMode ? '/images/selectArrowDark.png' : '/images/selectArrow.png',
   prevDark: darkMode ? 'images/prevDark.png' : 'images/prev.png',
   borderSearch: darkMode ? 'rgba(255, 255, 255, 0.38)' : '#EAE9F2',
   backgroundPaging: darkMode ? 'rgba(0, 133, 255, 0.1)' : '#E9F4FC',
+  bgAllPosition: darkMode ? '#23293D' : '#F0F6FB',
 
   // special case text types
   white: '#FFFFFF',

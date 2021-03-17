@@ -281,9 +281,7 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
         </div>
         <PagingMiddle>
           <SelectStyle onChange={handleChangeSelect} value={page}>
-            {listNumberPaging.map((item) => (
-              <option>{item + 1}</option>
-            ))}
+            {listNumberPaging && listNumberPaging.map((item) => <option>{item + 1}</option>)}
           </SelectStyle>
           {'  of ' + maxPage}
         </PagingMiddle>

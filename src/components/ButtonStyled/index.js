@@ -7,7 +7,7 @@ import { RowBetween } from '../Row'
 import { StyledIcon } from '..'
 
 const Base = styled(RebassButton)`
-  padding: 8px 12px;
+  padding: 8px 20px;
   font-size: 0.825rem;
   font-weight: 600;
   border-radius: 12px;
@@ -101,7 +101,7 @@ export const ButtonDark = styled(Base)`
 `
 
 export const ButtonFaded = styled(Base)`
-  background-color: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme }) => theme.bgAllPosition};
   color: (255, 255, 255, 0.5);
   white-space: nowrap;
 
@@ -133,11 +133,12 @@ export const OptionButton = styled.div`
   font-weight: 500;
   width: fit-content;
   white-space: nowrap;
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid ${({ theme }) => theme.bg4};
-  background-color: ${({ active, theme }) => active && theme.bg3};
-  color: ${({ theme }) => theme.text1};
+  margin-left: 16px !important;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.04em;
+  border-bottom: 2px solid ${({ theme, active }) => (active ? theme.textHover : 'transparent')};
+  color: ${({ theme, active }) => (active ? theme.textHover : theme.textMenu)};
 
   :hover {
     cursor: ${({ disabled }) => !disabled && 'pointer'};

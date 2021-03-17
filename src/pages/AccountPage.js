@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 import { useUserTransactions, useUserPositions, useMiningPositions } from '../contexts/User'
 import TxnList from '../components/TxnList'
@@ -11,25 +11,14 @@ import PairReturnsChart from '../components/PairReturnsChart'
 import PositionList from '../components/PositionList'
 import MiningPositionList from '../components/MiningPositionList'
 import { TYPE } from '../Theme'
-import { ButtonDropdown, ButtonLight } from '../components/ButtonStyled'
+import { ButtonDropdown } from '../components/ButtonStyled'
 import { PageWrapper, ContentWrapper, StyledIcon } from '../components'
 import DoubleTokenLogo from '../components/DoubleLogo'
-import { Bookmark, Activity } from 'react-feather'
+import { Activity } from 'react-feather'
 import Link from '../components/Link'
 import { FEE_WARNING_TOKENS } from '../constants'
-import { BasicLink } from '../components/Link'
 import { useMedia } from 'react-use'
 import Search from '../components/Search'
-import { useSavedAccounts } from '../contexts/LocalStorage'
-
-const AccountWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 6px 16px;
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
 
 const Header = styled.div``
 
@@ -40,8 +29,7 @@ const DashboardWrapper = styled.div`
 const DropdownWrapper = styled.div`
   position: relative;
   margin-bottom: 1rem;
-  border: 1px solid #edeef2;
-  border-radius: 12px;
+  border-radius: 10px;
 `
 
 const Flyout = styled.div`
@@ -49,12 +37,11 @@ const Flyout = styled.div`
   top: 38px;
   left: -1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.bgAllPosition};
   z-index: 999;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   padding-top: 4px;
-  border: 1px solid #edeef2;
   border-top: none;
 `
 
@@ -86,6 +73,70 @@ const Warning = styled.div`
   border-radius: 10px;
   margin-bottom: 1rem;
   width: calc(100% - 2rem);
+`
+
+const AccountTitle = styled.span`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const NonValue = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const TokenHeader = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: ${({ theme }) => theme.textMenu};
+`
+
+const ViewScan = styled.div`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-decoration-line: underline;
+  color: ${({ theme }) => theme.changeDark};
+`
+
+const TextAccount = styled.div`
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: ${({ theme }) => theme.textMenu};
+  padding-left: 16px;
+`
+
+const PanelStyle = styled(Panel)`
+  padding: 19px 21px;
+`
+const TitleTableStyle = styled.div`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  color: ${({ theme }) => theme.textMenu};
+`
+
+const NoStake = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  letter-spacing: -0.04em;
+  color: ${({ theme }) => theme.textMenu};
+`
+
+const LearnMore = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 25px;
+  letter-spacing: -0.04em;
+  text-decoration-line: underline;
+  color: ${({ theme }) => theme.textHover};
+  padding-top: 8px;
 `
 
 function AccountPage({ account }) {
@@ -154,18 +205,18 @@ function AccountPage({ account }) {
   const below600 = useMedia('(max-width: 600px)')
 
   // adding/removing account from saved accounts
-  const [savedAccounts, addAccount, removeAccount] = useSavedAccounts()
-  const isBookmarked = savedAccounts.includes(account)
-  const handleBookmarkClick = useCallback(() => {
-    ;(isBookmarked ? removeAccount : addAccount)(account)
-  }, [account, isBookmarked, addAccount, removeAccount])
+  // const [savedAccounts, addAccount, removeAccount] = useSavedAccounts()
+  // const isBookmarked = savedAccounts.includes(account)
+  // const handleBookmarkClick = useCallback(() => {
+  //   ;(isBookmarked ? removeAccount : addAccount)(account)
+  // }, [account, isBookmarked, addAccount, removeAccount])
 
   return (
     <PageWrapper>
       <ContentWrapper>
         <RowBetween>
           <TYPE.body>
-            <BasicLink to="/accounts">{'Accounts '}</BasicLink>→{' '}
+            <AccountTitle to="/accounts">{'Accounts '}</AccountTitle>→{' '}
             <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
               {' '}
               {account?.slice(0, 42)}{' '}
@@ -176,19 +227,11 @@ function AccountPage({ account }) {
         <Header>
           <RowBetween>
             <span>
-              <TYPE.header fontSize={24}>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TYPE.header>
+              <TokenHeader>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TokenHeader>
               <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
-                <TYPE.main fontSize={14}>View on BscScan</TYPE.main>
+                <ViewScan fontSize={14}>View on BscScan</ViewScan>
               </Link>
             </span>
-            <AccountWrapper>
-              <StyledIcon>
-                <Bookmark
-                  onClick={handleBookmarkClick}
-                  style={{ opacity: isBookmarked ? 0.8 : 0.4, cursor: 'pointer' }}
-                />
-              </StyledIcon>
-            </AccountWrapper>
           </RowBetween>
         </Header>
         <DashboardWrapper>
@@ -199,9 +242,14 @@ function AccountPage({ account }) {
                 {!activePosition && (
                   <RowFixed>
                     <StyledIcon>
-                      <Activity size={16} />
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M0 9.2H2.6076C3.06024 9.2 3.45644 8.89596 3.57355 8.45874L5.301 2.00961C5.57274 0.99511 7.02469 1.03186 7.24475 2.05882L10.1684 15.7026C10.377 16.6759 11.7245 16.7801 12.0802 15.8505L14.3791 9.84262C14.5272 9.45559 14.8987 9.2 15.3131 9.2H18"
+                          stroke-width="1.5"
+                        />
+                      </svg>
                     </StyledIcon>
-                    <TYPE.body ml={'10px'}>All Positions</TYPE.body>
+                    <TextAccount ml={'10px'}>All Positions</TextAccount>
                   </RowFixed>
                 )}
                 {activePosition && (
@@ -249,7 +297,19 @@ function AccountPage({ account }) {
                       >
                         <RowFixed>
                           <StyledIcon>
-                            <Activity size={16} />
+                            <svg
+                              width="18"
+                              height="18"
+                              viewBox="0 0 18 18"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M0 9.2H2.6076C3.06024 9.2 3.45644 8.89596 3.57355 8.45874L5.301 2.00961C5.57274 0.99511 7.02469 1.03186 7.24475 2.05882L10.1684 15.7026C10.377 16.6759 11.7245 16.7801 12.0802 15.8505L14.3791 9.84262C14.5272 9.45559 14.8987 9.2 15.3131 9.2H18"
+                                stroke="#5F5E76"
+                                stroke-width="1.5"
+                              />
+                            </svg>
                           </StyledIcon>
                           <TYPE.body ml={'10px'}>All Positions</TYPE.body>
                         </RowFixed>
@@ -261,111 +321,101 @@ function AccountPage({ account }) {
             </DropdownWrapper>
           )}
           {!hideLPContent && (
-            <Panel style={{ height: '100%', marginBottom: '1rem' }}>
+            <PanelStyle style={{ height: '100%', marginBottom: '1rem' }}>
               <AutoRow gap="20px">
                 <AutoColumn gap="10px">
                   <RowBetween>
-                    <TYPE.body>Liquidity (Including Fees)</TYPE.body>
+                    <AccountTitle>Liquidity (Including Fees)</AccountTitle>
                     <div />
                   </RowBetween>
                   <RowFixed align="flex-end">
-                    <TYPE.header fontSize={'24px'} lineHeight={1}>
+                    <AccountTitle>
                       {positionValue
                         ? formattedNum(positionValue, true)
                         : positionValue === 0
                         ? formattedNum(0, true)
                         : '-'}
-                    </TYPE.header>
+                    </AccountTitle>
                   </RowFixed>
                 </AutoColumn>
                 <AutoColumn gap="10px">
                   <RowBetween>
-                    <TYPE.body>Fees Earned (Cumulative)</TYPE.body>
+                    <AccountTitle>Fees Earned (Cumulative)</AccountTitle>
                     <div />
                   </RowBetween>
                   <RowFixed align="flex-end">
-                    <TYPE.header fontSize={'24px'} lineHeight={1} color={aggregateFees && 'green'}>
+                    <AccountTitle color={aggregateFees && 'green'}>
                       {aggregateFees ? formattedNum(aggregateFees, true, true) : '-'}
-                    </TYPE.header>
+                    </AccountTitle>
                   </RowFixed>
                 </AutoColumn>
               </AutoRow>
-            </Panel>
+            </PanelStyle>
           )}
           {!hideLPContent && (
             <PanelWrapper>
-              <Panel style={{ gridColumn: '1' }}>
+              <PanelStyle style={{ gridColumn: '1' }}>
                 {activePosition ? (
                   <PairReturnsChart account={account} position={activePosition} />
                 ) : (
                   <UserChart account={account} position={activePosition} />
                 )}
-              </Panel>
+              </PanelStyle>
             </PanelWrapper>
           )}
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Positions
-          </TYPE.main>{' '}
-          <Panel
+          <TitleTableStyle style={{ marginTop: '35px' }}>Positions</TitleTableStyle>{' '}
+          <PanelStyle
             style={{
-              marginTop: '1.5rem',
+              marginTop: '15px',
             }}
           >
             <PositionList positions={positions} />
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Liquidity Mining Pools
-          </TYPE.main>
-          <Panel
+          </PanelStyle>
+          <TitleTableStyle style={{ marginTop: '35px' }}>Liquidity Mining Pools</TitleTableStyle>
+          <PanelStyle
             style={{
-              marginTop: '1.5rem',
+              marginTop: '15px',
             }}
           >
             {miningPositions && <MiningPositionList miningPositions={miningPositions} />}
             {!miningPositions && (
               <AutoColumn gap="8px" justify="flex-start">
-                <TYPE.main>No Staked Liquidity.</TYPE.main>
+                <NoStake>No Staked Liquidity.</NoStake>
                 <AutoRow gap="8px" justify="flex-start">
-                  <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px' }}>Learn More</ButtonLight>{' '}
+                  <LearnMore>Learn More</LearnMore>{' '}
                 </AutoRow>{' '}
               </AutoColumn>
             )}
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Transactions
-          </TYPE.main>{' '}
-          <Panel
+          </PanelStyle>
+          <TitleTableStyle style={{ marginTop: '35px' }}>Transactions</TitleTableStyle>{' '}
+          <PanelStyle
             style={{
-              marginTop: '1.5rem',
+              marginTop: '15px',
             }}
           >
             <TxnList transactions={transactions} />
-          </Panel>
-          <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-            Wallet Stats
-          </TYPE.main>{' '}
-          <Panel
+          </PanelStyle>
+          <TitleTableStyle style={{ marginTop: '3rem' }}>Wallet Stats</TitleTableStyle>{' '}
+          <PanelStyle
             style={{
-              marginTop: '1.5rem',
+              marginTop: '15px',
             }}
           >
             <AutoRow gap="20px">
               <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</TYPE.header>
-                <TYPE.main>Total Value Swapped</TYPE.main>
+                <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</NonValue>
+                <AccountTitle>Total Value Swapped</AccountTitle>
               </AutoColumn>
               <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>
-                  {totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.002, true) : '-'}
-                </TYPE.header>
-                <TYPE.main>Total Fees Paid</TYPE.main>
+                <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.002, true) : '-'}</NonValue>
+                <AccountTitle>Total Fees Paid</AccountTitle>
               </AutoColumn>
               <AutoColumn gap="8px">
-                <TYPE.header fontSize={24}>{transactionCount ? transactionCount : '-'}</TYPE.header>
-                <TYPE.main>Total Transactions</TYPE.main>
+                <NonValue>{transactionCount ? transactionCount : '-'}</NonValue>
+                <AccountTitle>Total Transactions</AccountTitle>
               </AutoColumn>
             </AutoRow>
-          </Panel>
+          </PanelStyle>
         </DashboardWrapper>
       </ContentWrapper>
     </PageWrapper>
