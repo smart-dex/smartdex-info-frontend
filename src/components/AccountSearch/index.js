@@ -56,7 +56,7 @@ const Input = styled.input`
 const AccountLink = styled.span`
   display: flex;
   cursor: pointer;
-  color: ${({ theme }) => theme.link};
+  color: ${({ theme }) => theme.textHover};
   font-size: 14px;
   font-weight: 500;
 `

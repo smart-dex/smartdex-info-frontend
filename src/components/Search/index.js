@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Row, { RowFixed } from '../Row'
 import TokenLogo from '../TokenLogo'
-import { Search as SearchIcon, X } from 'react-feather'
+import { Search as SearchIcon } from 'react-feather'
 import { BasicLink } from '../Link'
 
 import { useAllTokenData, useTokenData } from '../../contexts/TokenData'

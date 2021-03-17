@@ -9,10 +9,7 @@ import { useMedia } from 'react-use'
 import { timeframeOptions } from '../../constants'
 import DropdownSelect from '../DropdownSelect'
 import { useUserLiquidityChart } from '../../contexts/User'
-import LocalLoader from '../LocalLoader'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
-import { TYPE } from '../../Theme'
-
 const ChartWrapper = styled.div`
   height: 100%;
   max-height: 390px;
@@ -20,6 +17,13 @@ const ChartWrapper = styled.div`
   @media screen and (max-width: 600px) {
     min-height: 200px;
   }
+`
+
+const AccountTitle = styled.span`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: ${({ theme }) => theme.textMenu};
 `
 
 const UserChart = ({ account }) => {
@@ -48,7 +52,7 @@ const UserChart = ({ account }) => {
       ) : (
         <RowBetween mb={40}>
           <AutoRow gap="10px">
-            <TYPE.main>Liquidity Value</TYPE.main>
+            <AccountTitle>Liquidity Value</AccountTitle>
           </AutoRow>
           <AutoRow justify="flex-end" gap="4px">
             <OptionButton
@@ -132,7 +136,7 @@ const UserChart = ({ account }) => {
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-        <LocalLoader />
+        <div style={{ height: '135px' }}></div>
       )}
     </ChartWrapper>
   )

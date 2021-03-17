@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useMedia } from 'react-use'
 import dayjs from 'dayjs'
-import LocalLoader from '../LocalLoader'
 import utc from 'dayjs/plugin/utc'
 import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
@@ -25,16 +24,6 @@ const PageButtons = styled.div`
   justify-content: center;
   margin-top: 2em;
   margin-bottom: 0.5em;
-`
-
-const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
-  opacity: ${(props) => (props.faded ? 0.3 : 1)};
-  padding: 0 20px;
-  user-select: none;
-  :hover {
-    cursor: pointer;
-  }
 `
 
 const List = styled(Box)`
@@ -79,7 +68,9 @@ const DashGrid = styled.div`
 const ListWrapper = styled.div``
 
 const ClickableText = styled(Text)`
-  color: ${({ theme }) => theme.text1};
+  font-weight: bold;
+  font-size: 14px;
+  color: ${({ theme }) => theme.textMenu};
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -87,6 +78,13 @@ const ClickableText = styled(Text)`
 
   text-align: end;
   user-select: none;
+
+  svg {
+    fill: ${({ theme }) => theme.textMenu};
+  }
+  .svg-rotate {
+    transform: rotate(180deg);
+  }
 `
 
 const DataText = styled(Flex)`
@@ -102,9 +100,106 @@ const DataText = styled(Flex)`
   }
 `
 
+const NoRecent = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  padding-top: 32px;
+  padding-bottom: 8px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const TableHeader = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  color: ${({ theme }) => theme.textMenu};
+`
+
+const TextPaging = styled.span`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  padding-left: 4px;
+`
+const PagingMiddle = styled.div`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 16px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const TextPagingNext = styled(TextPaging)`
+  padding-left: 0px;
+  padding-right: 6px;
+`
+const SelectStyle = styled.select`
+  width: 65px;
+  height: 39px;
+  padding: 10px;
+  background: #5f5e761a;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.textMenu};
+  margin-right: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  -webkit-appearance: none;
+  background-image: url(${({ theme }) => theme.selectArrow});
+  background-repeat: no-repeat;
+  background-position-x: 70%;
+  background-position-y: 16px;
+  cursor: pointer;
+  :focus {
+    outline: none;
+  }
+  option {
+    :hover {
+      background-color: yellow !important;
+    }
+  }
+`
+const Arrow = styled.div`
+  user-select: none;
+  width: 45px;
+  height: 16px;
+  background: ${({ disableButton }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : 'rgba(95, 94, 118, 0.1)')};
+  border-radius: 5px;
+  padding: 12px 15px;
+  :hover {
+    cursor: ${({ disableButton }) => (disableButton ? 'not-allowed' : 'pointer')};
+    background: ${({ disableButton, theme }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : theme.backgroundPaging)};
+    svg {
+      fill: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+    span {
+      color: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+  }
+  svg {
+    fill: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
+  span {
+    color: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
+`
+
+const ArrowNext = styled(Arrow)`
+  svg {
+    transform: rotate(180deg);
+  }
+`
 const SORT_FIELD = {
   VALUE: 'VALUE',
   pancakeswap_RETURN: 'pancakeswap_RETURN',
+}
+
+const listNumber = (maxPage) => {
+  let listNumberPaging = []
+  for (let i = 0; i < maxPage; i++) {
+    listNumberPaging.push(i)
+  }
+  return listNumberPaging
 }
 
 function PositionList({ positions }) {
@@ -119,6 +214,7 @@ function PositionList({ positions }) {
   // sorting
   const [sortDirection, setSortDirection] = useState(true)
   const [sortedColumn, setSortedColumn] = useState(SORT_FIELD.VALUE)
+  const listNumberPaging = listNumber(maxPage)
 
   useEffect(() => {
     setMaxPage(1) // edit this to do modular
@@ -252,6 +348,10 @@ function PositionList({ positions }) {
     )
   }
 
+  const handleChangeSelect = (e) => {
+    setPage(Number(e.target.value))
+  }
+
   const positionsSorted =
     positions &&
     positions
@@ -288,11 +388,11 @@ function PositionList({ positions }) {
       <DashGrid center={true} style={{ height: '32px', padding: 0 }}>
         {!below740 && (
           <Flex alignItems="flex-start" justifyContent="flexStart">
-            <TYPE.main area="number">#</TYPE.main>
+            <TableHeader area="number">#</TableHeader>
           </Flex>
         )}
         <Flex alignItems="flex-start" justifyContent="flex-start">
-          <TYPE.main area="number">Name</TYPE.main>
+          <TableHeader area="number">Name</TableHeader>
         </Flex>
         <Flex alignItems="center" justifyContent="flexEnd">
           <ClickableText
@@ -302,7 +402,27 @@ function PositionList({ positions }) {
               setSortDirection(sortedColumn !== SORT_FIELD.VALUE ? true : !sortDirection)
             }}
           >
-            {below740 ? 'Value' : 'Liquidity'} {sortedColumn === SORT_FIELD.VALUE ? (!sortDirection ? '↑' : '↓') : ''}
+            <span style={{ paddingRight: '8px' }}>{below740 ? 'Value' : 'Liquidity'}</span>
+            {sortedColumn === SORT_FIELD.VALUE ? (
+              !sortDirection ? (
+                <svg
+                  width="10"
+                  height="7"
+                  viewBox="0 0 10 7"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="svg-rotate"
+                >
+                  <path d="M4.65726 6.15376C4.69549 6.20928 4.74663 6.25467 4.8063 6.28603C4.86596 6.31739 4.93236 6.33377 4.99976 6.33377C5.06716 6.33377 5.13356 6.31739 5.19322 6.28603C5.25289 6.25467 5.30404 6.20928 5.34226 6.15376L9.09226 0.737094C9.13567 0.674617 9.16112 0.60144 9.16586 0.525513C9.1706 0.449585 9.15443 0.373812 9.11913 0.306424C9.08383 0.239037 9.03073 0.182614 8.96561 0.143284C8.90049 0.103955 8.82584 0.0832242 8.74976 0.083344H1.24976C1.17386 0.0836575 1.09948 0.104655 1.03463 0.144079C0.96977 0.183502 0.916886 0.23986 0.881664 0.307091C0.846441 0.374322 0.830212 0.449884 0.834722 0.525649C0.839232 0.601414 0.86431 0.674516 0.90726 0.737094L4.65726 6.15376Z" />
+                </svg>
+              ) : (
+                <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.65726 6.15376C4.69549 6.20928 4.74663 6.25467 4.8063 6.28603C4.86596 6.31739 4.93236 6.33377 4.99976 6.33377C5.06716 6.33377 5.13356 6.31739 5.19322 6.28603C5.25289 6.25467 5.30404 6.20928 5.34226 6.15376L9.09226 0.737094C9.13567 0.674617 9.16112 0.60144 9.16586 0.525513C9.1706 0.449585 9.15443 0.373812 9.11913 0.306424C9.08383 0.239037 9.03073 0.182614 8.96561 0.143284C8.90049 0.103955 8.82584 0.0832242 8.74976 0.083344H1.24976C1.17386 0.0836575 1.09948 0.104655 1.03463 0.144079C0.96977 0.183502 0.916886 0.23986 0.881664 0.307091C0.846441 0.374322 0.830212 0.449884 0.834722 0.525649C0.839232 0.601414 0.86431 0.674516 0.90726 0.737094L4.65726 6.15376Z" />
+                </svg>
+              )
+            ) : (
+              ''
+            )}
           </ClickableText>
         </Flex>
         {!below500 && (
@@ -321,14 +441,38 @@ function PositionList({ positions }) {
         )}
       </DashGrid>
       <Divider />
-      <List p={0}>{!positionsSorted ? <LocalLoader /> : positionsSorted}</List>
+      <List p={0}>{!positionsSorted ? <NoRecent>No recent positions found.</NoRecent> : positionsSorted}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>
-          <Arrow faded={page === 1 ? true : false}>←</Arrow>
+          <Arrow disableButton={page === 1 ? true : false}>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+
+            <TextPaging disableButton={page === 1 ? true : false}> Prev</TextPaging>
+          </Arrow>
         </div>
-        <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
+        <PagingMiddle>
+          <SelectStyle onChange={handleChangeSelect} value={page}>
+            {listNumberPaging && listNumberPaging.map((item) => <option>{item + 1}</option>)}
+          </SelectStyle>
+          {'  of ' + maxPage}
+        </PagingMiddle>
         <div onClick={() => setPage(page === maxPage ? page : page + 1)}>
-          <Arrow faded={page === maxPage ? true : false}>→</Arrow>
+          <ArrowNext disableButton={page === maxPage ? true : false}>
+            <TextPagingNext disableButton={page === maxPage ? true : false}> Next</TextPagingNext>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+          </ArrowNext>
         </div>
       </PageButtons>
     </ListWrapper>

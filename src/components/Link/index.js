@@ -20,7 +20,9 @@ WrappedLink.propTypes = {
 }
 
 const Link = styled(WrappedLink)`
-  color: ${({ color, theme }) => (color ? color : theme.link)};
+  color: ${({ color, theme }) => (color ? color : theme.buttonColor)};
+  font-weight: 500;
+  font-size: 14px;
 `
 
 export default Link
