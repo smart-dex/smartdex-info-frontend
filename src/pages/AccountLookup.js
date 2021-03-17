@@ -29,7 +29,7 @@ const TitleStyle = styled.div`
 const TitleTable = styled(TitleStyle)`
   font-size: 18px;
   line-height: 22px;
-  padding-top: 45px;
+  padding-top: 20px;
 `
 
 const PanelStyle = styled(Panel)`
