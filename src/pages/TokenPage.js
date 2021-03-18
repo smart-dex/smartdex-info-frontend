@@ -88,6 +88,48 @@ const WarningGrouping = styled.div`
   pointer-events: ${({ disabled }) => disabled && 'none'};
 `
 
+const IconArrow = styled.div`
+  margin: 0px 10px;
+  svg {
+    width: 8px;
+    height: 12px;
+    path {
+      stroke: ${({ theme }) => theme.colorHeader};
+    }
+  }
+`
+
+const StyleLinkBasiv = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: ${({ theme }) => theme.colorHeader};
+`
+
+const NamePair = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+  color: ${({ theme }) => theme.colorHeader};
+  display: flex;
+  div {
+    font-weight: 500;
+    font-size: 24px;
+    color: ${({ theme }) => theme.colorHeader};
+  }
+`
+
+const ValueTitle = styled.div`
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: ${({ theme }) => theme.colorHeader};
+  display: flex;
+  span {
+    font-weight: 500;
+    font-size: 12px;
+    margin-left: 1rem;
+  }
+`
+
 function TokenPage({ address, history }) {
   const {
     id,
@@ -169,8 +211,6 @@ function TokenPage({ address, history }) {
 
   return (
     <PageWrapper>
-      <ThemedBackground backgroundColor={transparentize(0.6, backgroundColor)} />
-
       <Warning
         type={'token'}
         show={!dismissed && listedTokens && !listedTokens.includes(address)}
@@ -180,13 +220,21 @@ function TokenPage({ address, history }) {
       <ContentWrapper>
         <RowBetween style={{ flexWrap: 'wrap', alingItems: 'start' }}>
           <AutoRow align="flex-end" style={{ width: 'fit-content' }}>
-            <TYPE.body>
-              <BasicLink to="/tokens">{'Tokens '}</BasicLink>→ {symbol}
-              {'  '}
+            <TYPE.body style={{ display: 'flex' }}>
+              <BasicLink to="/tokens"><StyleLinkBasiv>{'Tokens '}</StyleLinkBasiv></BasicLink>
+              <IconArrow>
+                <svg viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L7 7L0.999999 13" stroke-width="2" />
+                </svg>
+              </IconArrow>
+              <StyleLinkBasiv>
+                {symbol}
+                {'  '}
+              </StyleLinkBasiv>
             </TYPE.body>
             <Link
               style={{ width: 'fit-content' }}
-              color={backgroundColor}
+              color={'#0085FF'}
               external
               href={'https://bscscan.com/address/' + address}
             >
@@ -209,19 +257,21 @@ function TokenPage({ address, history }) {
             >
               <RowFixed style={{ flexWrap: 'wrap' }}>
                 <RowFixed style={{ alignItems: 'baseline' }}>
-                  <TokenLogo address={address} size="32px" style={{ alignSelf: 'center' }} />
+                  <TokenLogo address={address} size="30px" style={{ alignSelf: 'center' }} />
                   <TYPE.main fontSize={below1080 ? '1.5rem' : '2rem'} fontWeight={500} style={{ margin: '0 1rem' }}>
                     <RowFixed gap="6px">
-                      <FormattedName text={name ? name + ' ' : ''} maxCharacters={16} style={{ marginRight: '6px' }} />{' '}
-                      {formattedSymbol ? `(${formattedSymbol})` : ''}
+                      <NamePair className="aaaaaaaaaaaaaa">
+                        <FormattedName text={name ? name + ' ' : ''} maxCharacters={16} style={{ marginRight: '6px' }} />{' '}
+                        {formattedSymbol ? `(${formattedSymbol})` : ''}
+                      </NamePair>
                     </RowFixed>
                   </TYPE.main>{' '}
                   {!below1080 && (
                     <>
-                      <TYPE.main fontSize={'1.5rem'} fontWeight={500} style={{ marginRight: '1rem' }}>
+                      <ValueTitle style={{ marginRight: '1rem' }}>
                         {price}
-                      </TYPE.main>
-                      {priceChange}
+                        <span>{priceChange}</span>
+                      </ValueTitle>
                     </>
                   )}
                 </RowFixed>

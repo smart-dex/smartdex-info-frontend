@@ -87,6 +87,10 @@ const GlobalChart = ({ display }) => {
       background: ${({ theme }) => theme.optionActive};
       border-radius: 5px;
       border: none;
+      div {
+        color: ${({ theme }) => theme.textOptionActive};
+        font-weight: 600;
+      }
     }
     .no-active {
       width: 19px;
@@ -95,6 +99,10 @@ const GlobalChart = ({ display }) => {
       background: ${({ theme }) => theme.optionNoActive};
       border-radius: 5px;
       border: 1px solid ${({ theme }) => theme.borderChart};
+      div {
+        color: ${({ theme }) => theme.textOptionNoActive};
+        font-weight: 500;
+      }
     }
   `
 

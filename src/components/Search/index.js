@@ -117,11 +117,12 @@ const Menu = styled.div`
   background: ${({ theme }) => theme.backgroundPopupSearch};
   border-radius: 20px;
   box-shadow: 10px 10px 30px ${({ theme }) => theme.shadowPopupSearch};
+  border: 1px solid ${({ theme }) => theme.borderPopupSearch};
   display: ${({ hide }) => hide && 'none'};
 `
 
 const MenuItem = styled(Row)`
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   font-size: 0.85rem;
   & > * {
     margin-right: 6px;
@@ -138,7 +139,17 @@ const Heading = styled(Row)`
 `
 
 const Gray = styled.span`
-  color: #888d9b;
+  color: ${({ theme }) => theme.colorTitleSearch};
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
+`
+
+const Bottom = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.bottomPopupSearch};
+  width: calc(100% - 40px);
+  margin: 0 20px;
 `
 
 const Blue = styled.div`
@@ -151,6 +162,13 @@ const Blue = styled.div`
   :hover {
     cursor: pointer;
   }
+`
+
+const StyleText = styled.div`
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  color: ${({ theme }) => theme.colorHeader};
 `
 
 export const Search = ({ small = false }) => {
@@ -461,10 +479,11 @@ export const Search = ({ small = false }) => {
         <Heading>
           <Gray>Pairs</Gray>
         </Heading>
-        <div>
+        <Bottom />
+        <div style={{ marginTop: '15px' }}>
           {filteredPairList && Object.keys(filteredPairList).length === 0 && (
             <MenuItem>
-              <TYPE.body>No results</TYPE.body>
+              <TYPE.body><StyleText>No results</StyleText></TYPE.body>
             </MenuItem>
           )}
           {filteredPairList &&
@@ -476,7 +495,7 @@ export const Search = ({ small = false }) => {
                   <MenuItem>
                     <DoubleTokenLogo a0={pair?.token0?.id} a1={pair?.token1?.id} margin={true} />
                     <TYPE.body style={{ marginLeft: '10px' }}>
-                      {pair.token0.symbol + '-' + pair.token1.symbol} Pair
+                      <StyleText>{pair.token0.symbol + '-' + pair.token1.symbol} Pair</StyleText>
                     </TYPE.body>
                   </MenuItem>
                 </BasicLink>
@@ -493,14 +512,16 @@ export const Search = ({ small = false }) => {
               See more
             </Blue>
           </Heading>
+          <Bottom />
         </div>
         <Heading>
           <Gray>Tokens</Gray>
         </Heading>
-        <div>
+        <Bottom />
+        <div style={{ marginTop: '15px' }}>
           {Object.keys(filteredTokenList).length === 0 && (
             <MenuItem>
-              <TYPE.body>No results</TYPE.body>
+              <TYPE.body><StyleText>No results</StyleText></TYPE.body>
             </MenuItem>
           )}
           {filteredTokenList.slice(0, tokensShown).map((token) => {
@@ -511,8 +532,10 @@ export const Search = ({ small = false }) => {
                 <MenuItem>
                   <RowFixed>
                     <TokenLogo address={token.id} style={{ marginRight: '10px' }} />
-                    <FormattedName text={token.name} maxCharacters={20} style={{ marginRight: '6px' }} />
-                    (<FormattedName text={token.symbol} maxCharacters={6} />)
+                    <StyleText>
+                      <FormattedName text={token.name} maxCharacters={20} style={{ marginRight: '6px' }} />
+                      (<FormattedName text={token.symbol} maxCharacters={6} />)
+                    </StyleText>
                   </RowFixed>
                 </MenuItem>
               </BasicLink>

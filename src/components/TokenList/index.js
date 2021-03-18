@@ -147,11 +147,75 @@ const SORT_FIELD = {
   CHANGE: 'priceChangeUSD',
 }
 
+const PrevStyle = styled.img`
+  width: 6px;
+  height: 10px;
+`
+const NextStyle = styled.img`
+  width: 6px;
+  height: 10px;
+  transform: rotate(180deg);
+`
+
+const TextPaging = styled.span`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  color: ${({ theme }) => theme.textPagingTable};
+  padding-left: 6px;
+`
+const PagingMiddle = styled.div`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 16px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const TextPagingNext = styled(TextPaging)`
+  padding-left: 0px;
+  padding-right: 6px;
+`
+const SelectStyle = styled.select`
+  width: 65px;
+  height: 39px;
+  padding: 10px;
+  background: rgba(95, 94, 118, 0.1);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.textMenu};
+  margin-right: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  -webkit-appearance: none;
+  background-image: url(${({ theme }) => theme.selectArrowImg});
+  background-repeat: no-repeat;
+  background-position-x: 70%;
+  background-position-y: 16px;
+  cursor: pointer;
+  :focus {
+    outline: none;
+  }
+  option {
+    :hover {
+      background-color: yellow !important;
+    }
+  }
+`
+
+const listNumber = (maxPage) => {
+  let listNumberPaging = []
+  for (let i = 0; i < maxPage; i++) {
+    listNumberPaging.push(i)
+  }
+  return listNumberPaging
+}
+
 // @TODO rework into virtualized list
 function TopTokenList({ tokens, itemMax = 10 }) {
   // page state
   const [page, setPage] = useState(1)
   const [maxPage, setMaxPage] = useState(1)
+  const listNumberPaging = listNumber(maxPage)
 
   // sorting
   const [sortDirection, setSortDirection] = useState(true)
@@ -217,6 +281,10 @@ function TopTokenList({ tokens, itemMax = 10 }) {
         <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
       </svg>
     )
+  }
+
+  const handleChangeSelect = (e) => {
+    setPage(Number(e.target.value))
   }
 
   const ListItem = ({ item, index }) => {
@@ -345,18 +413,30 @@ function TopTokenList({ tokens, itemMax = 10 }) {
             return (
               <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
                 <ListItem key={index} index={(page - 1) * itemMax + index + 1} item={item} />
-                {/* <Divider /> */}
               </div>
             )
           })}
       </List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>
-          <Arrow faded={page === 1 ? true : false}>←</Arrow>
+          <Arrow faded={page === 1 ? true : false}>
+            <PrevStyle src="/images/prev.png" />
+            <TextPaging> Prev</TextPaging>
+          </Arrow>
         </div>
-        <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
+        <PagingMiddle>
+          <SelectStyle onChange={handleChangeSelect} value={page}>
+            {listNumberPaging.map((item) => (
+              <option>{item + 1}</option>
+            ))}
+          </SelectStyle>
+          {'  of ' + maxPage}
+        </PagingMiddle>
         <div onClick={() => setPage(page === maxPage ? page : page + 1)}>
-          <Arrow faded={page === maxPage ? true : false}>→</Arrow>
+          <Arrow faded={page === maxPage ? true : false}>
+            <TextPagingNext> Next</TextPagingNext>
+            <NextStyle src="/images/prev.png" />
+          </Arrow>
         </div>
       </PageButtons>
     </ListWrapper>

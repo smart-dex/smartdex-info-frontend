@@ -59,7 +59,7 @@ const theme = (darkMode, color) => ({
   //specialty colors
   modalBG: darkMode ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.6)',
   advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.4)',
-  onlyLight: darkMode ? '#22242a' : 'transparent',
+  onlyLight: darkMode ? '#151C31' : 'transparent',
   divider: darkMode ? 'rgba(43, 43, 43, 0.435)' : 'rgba(43, 43, 43, 0.035)',
 
   //primary colors
@@ -92,6 +92,10 @@ const theme = (darkMode, color) => ({
   colorTitleSearch: darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(95, 94, 118, 0.5)',
   backgroundPopupSearch: darkMode ? '#00071C' : '#FFFFFF',
   shadowPopupSearch: darkMode ? 'rgba(0, 0, 0, 0.05)' : 'rgba(120, 118, 148, 0.05)',
+  bottomPopupSearch: darkMode ? '#30364C' : '#EAE9F2',
+  borderPopupSearch: darkMode ? '#2F344B' : '#EAE9F2',
+  textPagingTable: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
+  selectArrowImg: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
 
   // other
   red1: '#FF6871',
@@ -104,6 +108,9 @@ const theme = (darkMode, color) => ({
   private: '#0085FF',
   colorPercentPlus: '#17C267',
   colorPercentMinus: '#FF6970',
+  textOptionActive: '#0b92fd',
+  textOptionNoActive: '#6c6594',
+  backFormExchange: '#E9F4FC',
 
   background: darkMode ? 'black' : `radial-gradient(50% 50% at 50% 50%, #4FD8DE 30 0%, #fff 0%)`,
 })
