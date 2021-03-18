@@ -22,7 +22,7 @@ const AppWrapper = styled.div`
 `
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 220px 1fr 64px;
+  grid-template-columns: 243px 1fr;
 
   @media screen and (max-width: 1400px) {
     grid-template-columns: 220px 1fr;

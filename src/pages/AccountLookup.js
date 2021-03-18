@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import 'feather-icons'
 import { withRouter } from 'react-router-dom'
-import { TYPE } from '../Theme'
 import { PageWrapper, FullWrapper } from '../components'
 import Panel from '../components/Panel'
 import LPList from '../components/LPList'
@@ -19,6 +18,27 @@ const AccountWrapper = styled.div`
   }
 `
 
+const TitleStyle = styled.div`
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -0.04em;
+  color: ${({ theme }) => theme.textMenu};
+`
+
+const TitleTable = styled(TitleStyle)`
+  font-size: 18px;
+  line-height: 22px;
+  padding-top: 20px;
+`
+
+const PanelStyle = styled(Panel)`
+  border: none;
+  box-shadow: none;
+  background: none;
+  padding: 0 0 25px 0;
+`
+
 function AccountLookup() {
   // scroll to top
   useEffect(() => {
@@ -33,16 +53,14 @@ function AccountLookup() {
     <PageWrapper>
       <FullWrapper>
         <RowBetween>
-          <TYPE.largeHeader>Wallet analytics</TYPE.largeHeader>
+          <TitleStyle>Wallet analytics</TitleStyle>
           {!below600 && <Search small={true} />}
         </RowBetween>
         <AccountWrapper>
           <AccountSearch />
         </AccountWrapper>
-        <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
-          Top Liquidity Positions
-        </TYPE.main>
-        <Panel>{topLps && topLps.length > 0 ? <LPList lps={topLps} maxItems={200} /> : <LocalLoader />}</Panel>
+        <TitleTable>Top Liquidity Positions</TitleTable>
+        <PanelStyle>{topLps && topLps.length > 0 ? <LPList lps={topLps} maxItems={8} /> : <LocalLoader />}</PanelStyle>
       </FullWrapper>
     </PageWrapper>
   )

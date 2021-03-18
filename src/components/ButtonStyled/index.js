@@ -2,12 +2,12 @@ import React from 'react'
 import { Button as RebassButton } from 'rebass/styled-components'
 import styled from 'styled-components'
 import { Plus, ChevronDown, ChevronUp } from 'react-feather'
-import { darken, transparentize } from 'polished'
+import { darken } from 'polished'
 import { RowBetween } from '../Row'
 import { StyledIcon } from '..'
 
 const Base = styled(RebassButton)`
-  padding: 8px 12px;
+  padding: 8px 20px;
   font-size: 0.825rem;
   font-weight: 600;
   border-radius: 12px;
@@ -60,21 +60,13 @@ const ContentWrapper = styled.div`
 `
 
 export const ButtonLight = styled(Base)`
-  background-color: ${({ color, theme }) => (color ? transparentize(0.9, color) : transparentize(0.9, theme.primary1))};
-  color: ${({ color, theme }) => (color ? darken(0.1, color) : theme.primary1)};
-
+  background-color: ${({ theme }) => theme.buttonColor};
+  color: ${({ theme }) => theme.white};
+  font-size: 16px;
+  padding: 15px 30px;
   min-width: fit-content;
-  border-radius: 12px;
+  border-radius: 10px;
   white-space: nowrap;
-
-  a {
-    color: ${({ color, theme }) => (color ? darken(0.1, color) : theme.primary1)};
-  }
-
-  :hover {
-    background-color: ${({ color, theme }) =>
-      color ? transparentize(0.8, color) : transparentize(0.8, theme.primary1)};
-  }
 `
 
 export function ButtonDropdown({ disabled = false, children, open, ...rest }) {
@@ -109,7 +101,7 @@ export const ButtonDark = styled(Base)`
 `
 
 export const ButtonFaded = styled(Base)`
-  background-color: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme }) => theme.bgAllPosition};
   color: (255, 255, 255, 0.5);
   white-space: nowrap;
 
@@ -141,11 +133,12 @@ export const OptionButton = styled.div`
   font-weight: 500;
   width: fit-content;
   white-space: nowrap;
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid ${({ theme }) => theme.bg4};
-  background-color: ${({ active, theme }) => active && theme.bg3};
-  color: ${({ theme }) => theme.text1};
+  margin-left: 16px !important;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.04em;
+  border-bottom: 2px solid ${({ theme, active }) => (active ? theme.textHover : 'transparent')};
+  color: ${({ theme, active }) => (active ? theme.textHover : theme.textMenu)};
 
   :hover {
     cursor: ${({ disabled }) => !disabled && 'pointer'};

@@ -19,12 +19,16 @@ const panelPseudo = css`
 
 const Panel = styled(RebassBox)`
   position: relative;
+  background-color: ${({ theme }) => theme.bgPanel};
+  padding: 25px 50px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid ${({ theme }) => theme.borderInput};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.boxShadow};
   :hover {
     cursor: ${({ hover }) => hover && 'pointer'};
     border: ${({ hover, theme }) => hover && '1px solid' + theme.bg5};

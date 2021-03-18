@@ -56,17 +56,21 @@ export const Hover = styled.div`
 `
 
 export const StyledIcon = styled.div`
-  color: ${({ theme }) => theme.colorHeader};
+  color: ${({ theme }) => theme.textMenu};
+  svg {
+    stroke: ${({ theme }) => theme.textMenu};
+  }
 `
 
 const EmptyCard = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  border-radius: 20px;
-  color: ${({ theme }) => theme.text1};
-  height: ${({ height }) => height && height};
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  padding-top: 32px;
+  padding-bottom: 8px;
+  color: ${({ theme }) => theme.textMenu};
 `
 
 export const SideBar = styled.span`

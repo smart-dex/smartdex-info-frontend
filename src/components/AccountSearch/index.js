@@ -33,10 +33,10 @@ const Input = styled.input`
   background: none;
   border: none;
   outline: none;
-  padding: 12px 16px;
-  border-radius: 12px;
+  padding: 15px 38px;
+  border-radius: 10px;
   color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.backgroundInput};
   font-size: 16px;
   margin-right: 1rem;
   border: 1px solid ${({ theme }) => theme.bg3};
@@ -56,7 +56,7 @@ const Input = styled.input`
 const AccountLink = styled.span`
   display: flex;
   cursor: pointer;
-  color: ${({ theme }) => theme.link};
+  color: ${({ theme }) => theme.textHover};
   font-size: 14px;
   font-weight: 500;
 `
@@ -83,6 +83,20 @@ const Title = styled.div`
   font-weight: 500;
   font-size: 14px;
   color: ${({ theme }) => theme.textMenu};
+`
+
+const SaveText = styled.div`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.textHover};
+`
+
+const NoSave = styled.div`
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: ${({ theme }) => theme.textNoSave};
 `
 
 function AccountSearch({ history, small }) {
@@ -116,11 +130,11 @@ function AccountSearch({ history, small }) {
         </>
       )}
 
-      <AutoColumn gap={'12px'}>
+      <AutoColumn gap={'12px'} style={{ marginTop: '16px' }}>
         {!small && (
           <Panel>
             <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
-              <TYPE.main area="account">Saved Accounts</TYPE.main>
+              <SaveText area="account">Saved Accounts</SaveText>
             </DashGrid>
             <Divider />
             {savedAccounts?.length > 0 ? (
@@ -148,7 +162,7 @@ function AccountSearch({ history, small }) {
                 )
               })
             ) : (
-              <Description style={{ marginTop: '1rem' }}>No saved accounts</Description>
+              <NoSave style={{ marginTop: '1rem' }}>No saved accounts</NoSave>
             )}
           </Panel>
         )}
