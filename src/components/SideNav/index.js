@@ -338,10 +338,10 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
           )}
         </DesktopWrapper>
       ) : (
-        <MobileWrapper>
-          <Title />
-        </MobileWrapper>
-      )}
+          <MobileWrapper>
+            <Title />
+          </MobileWrapper>
+        )}
     </Wrapper>
   )
 }

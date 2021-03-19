@@ -109,9 +109,7 @@ const TextAccount = styled.div`
   padding-left: 16px;
 `
 
-const PanelStyle = styled(Panel)`
-  padding: 19px 21px;
-`
+const PanelStyle = styled(Panel)``
 const TitleTableStyle = styled.div`
   font-weight: 500;
   font-size: 18px;
@@ -151,8 +149,8 @@ function AccountPage({ account }) {
   let totalSwappedUSD = useMemo(() => {
     return transactions?.swaps
       ? transactions?.swaps.reduce((total, swap) => {
-          return total + parseFloat(swap.amountUSD)
-        }, 0)
+        return total + parseFloat(swap.amountUSD)
+      }, 0)
       : 0
   }, [transactions])
 
@@ -185,12 +183,12 @@ function AccountPage({ account }) {
   const positionValue = useMemo(() => {
     return dynamicPositions
       ? dynamicPositions.reduce((total, position) => {
-          return (
-            total +
-            (parseFloat(position?.liquidityTokenBalance) / parseFloat(position?.pair?.totalSupply)) *
-              position?.pair?.reserveUSD
-          )
-        }, 0)
+        return (
+          total +
+          (parseFloat(position?.liquidityTokenBalance) / parseFloat(position?.pair?.totalSupply)) *
+          position?.pair?.reserveUSD
+        )
+      }, 0)
       : null
   }, [dynamicPositions])
 
@@ -332,8 +330,8 @@ function AccountPage({ account }) {
                       {positionValue
                         ? formattedNum(positionValue, true)
                         : positionValue === 0
-                        ? formattedNum(0, true)
-                        : '-'}
+                          ? formattedNum(0, true)
+                          : '-'}
                     </AccountTitle>
                   </RowFixed>
                 </AutoColumn>
@@ -357,8 +355,8 @@ function AccountPage({ account }) {
                 {activePosition ? (
                   <PairReturnsChart account={account} position={activePosition} />
                 ) : (
-                  <UserChart account={account} position={activePosition} />
-                )}
+                    <UserChart account={account} position={activePosition} />
+                  )}
               </PanelStyle>
             </PanelWrapper>
           )}

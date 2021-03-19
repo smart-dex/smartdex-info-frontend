@@ -38,16 +38,16 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: 12px 16px;
-  border-radius: 12px;
+  padding: 15px 38px;
   background: ${({ theme, small, open }) =>
-    small ? (open ? transparentize(0.4, theme.bg1) : 'none') : transparentize(0.4, theme.bg6)};
+    small ? (open ? transparentize(0.4, theme.bg1) : 'none') : theme.white};
   border-bottom-right-radius: ${({ open }) => (open ? '0px' : '12px')};
   border-bottom-left-radius: ${({ open }) => (open ? '0px' : '12px')};
   z-index: 9999;
   width: 100%;
   min-width: 300px;
   box-sizing: border-box;
+  border-radius: 50px;
   box-shadow: ${({ open, small }) =>
     !open && !small
       ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
@@ -55,9 +55,9 @@ const Wrapper = styled.div`
   @media screen and (max-width: 500px) {
     background: ${({ theme }) => transparentize(0.4, theme.bg1)};
     box-shadow: ${({ open }) =>
-      !open
-        ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
-        : 'none'};
+    !open
+      ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
+      : 'none'};
   }
 `
 const Input = styled.input`
@@ -116,16 +116,15 @@ const Menu = styled.div`
   overflow: auto;
   left: 0;
   padding-bottom: 20px;
-  background: ${({ theme }) => theme.bg6};
-  border-bottom-right-radius: 12px;
-  border-bottom-left-radius: 12px;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.04);
+  background: ${({ theme }) => theme.backgroundPopupSearch};
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px ${({ theme }) => theme.shadowPopupSearch};
+  border: 1px solid ${({ theme }) => theme.borderPopupSearch};
   display: ${({ hide }) => hide && 'none'};
 `
 
 const MenuItem = styled(Row)`
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   font-size: 0.85rem;
   & > * {
     margin-right: 6px;
@@ -142,14 +141,36 @@ const Heading = styled(Row)`
 `
 
 const Gray = styled.span`
-  color: #888d9b;
+  color: ${({ theme }) => theme.colorTitleSearch};
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
 `
 
-const Blue = styled.span`
-  color: #2172e5;
+const Bottom = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.bottomPopupSearch};
+  width: calc(100% - 40px);
+  margin: 0 20px;
+`
+
+const Blue = styled.div`
+  color: ${({ theme }) => theme.private};
+  font-weight: 500;
+  font-size: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
   :hover {
     cursor: pointer;
   }
+`
+
+const StyleText = styled.div`
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  color: ${({ theme }) => theme.colorHeader};
 `
 
 export const Search = ({ small = false }) => {
@@ -275,106 +296,106 @@ export const Search = ({ small = false }) => {
   const filteredTokenList = useMemo(() => {
     return uniqueTokens
       ? uniqueTokens
-          .sort((a, b) => {
-            if (OVERVIEW_TOKEN_BLACKLIST.includes(a.id)) {
-              return 1
-            }
-            if (OVERVIEW_TOKEN_BLACKLIST.includes(b.id)) {
-              return -1
-            }
-            const tokenA = allTokenData[a.id]
-            const tokenB = allTokenData[b.id]
-            if (tokenA?.oneDayVolumeUSD && tokenB?.oneDayVolumeUSD) {
-              return tokenA.oneDayVolumeUSD > tokenB.oneDayVolumeUSD ? -1 : 1
-            }
-            if (tokenA?.oneDayVolumeUSD && !tokenB?.oneDayVolumeUSD) {
-              return -1
-            }
-            if (!tokenA?.oneDayVolumeUSD && tokenB?.oneDayVolumeUSD) {
-              return tokenA?.totalLiquidity > tokenB?.totalLiquidity ? -1 : 1
-            }
+        .sort((a, b) => {
+          if (OVERVIEW_TOKEN_BLACKLIST.includes(a.id)) {
             return 1
-          })
-          .filter((token) => {
-            if (OVERVIEW_TOKEN_BLACKLIST.includes(token.id)) {
-              return false
+          }
+          if (OVERVIEW_TOKEN_BLACKLIST.includes(b.id)) {
+            return -1
+          }
+          const tokenA = allTokenData[a.id]
+          const tokenB = allTokenData[b.id]
+          if (tokenA?.oneDayVolumeUSD && tokenB?.oneDayVolumeUSD) {
+            return tokenA.oneDayVolumeUSD > tokenB.oneDayVolumeUSD ? -1 : 1
+          }
+          if (tokenA?.oneDayVolumeUSD && !tokenB?.oneDayVolumeUSD) {
+            return -1
+          }
+          if (!tokenA?.oneDayVolumeUSD && tokenB?.oneDayVolumeUSD) {
+            return tokenA?.totalLiquidity > tokenB?.totalLiquidity ? -1 : 1
+          }
+          return 1
+        })
+        .filter((token) => {
+          if (OVERVIEW_TOKEN_BLACKLIST.includes(token.id)) {
+            return false
+          }
+          const regexMatches = Object.keys(token).map((tokenEntryKey) => {
+            const isAddress = value.slice(0, 2) === '0x'
+            if (tokenEntryKey === 'id' && isAddress) {
+              return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
             }
-            const regexMatches = Object.keys(token).map((tokenEntryKey) => {
-              const isAddress = value.slice(0, 2) === '0x'
-              if (tokenEntryKey === 'id' && isAddress) {
-                return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
-              }
-              if (tokenEntryKey === 'symbol' && !isAddress) {
-                return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
-              }
-              if (tokenEntryKey === 'name' && !isAddress) {
-                return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
-              }
-              return false
-            })
-            return regexMatches.some((m) => m)
+            if (tokenEntryKey === 'symbol' && !isAddress) {
+              return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
+            }
+            if (tokenEntryKey === 'name' && !isAddress) {
+              return token[tokenEntryKey].match(new RegExp(escapeRegExp(value), 'i'))
+            }
+            return false
           })
+          return regexMatches.some((m) => m)
+        })
       : []
   }, [allTokenData, uniqueTokens, value])
 
   const filteredPairList = useMemo(() => {
     return uniquePairs
       ? uniquePairs
-          .sort((a, b) => {
-            const pairA = allPairData[a.id]
-            const pairB = allPairData[b.id]
-            if (pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
-              return parseFloat(pairA.trackedReserveETH) > parseFloat(pairB.trackedReserveETH) ? -1 : 1
+        .sort((a, b) => {
+          const pairA = allPairData[a.id]
+          const pairB = allPairData[b.id]
+          if (pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
+            return parseFloat(pairA.trackedReserveETH) > parseFloat(pairB.trackedReserveETH) ? -1 : 1
+          }
+          if (pairA?.trackedReserveETH && !pairB?.trackedReserveETH) {
+            return -1
+          }
+          if (!pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
+            return 1
+          }
+          return 0
+        })
+        .filter((pair) => {
+          if (PAIR_BLACKLIST.includes(pair.id)) {
+            return false
+          }
+          if (value && value.includes(' ')) {
+            const pairA = value.split(' ')[0]?.toUpperCase()
+            const pairB = value.split(' ')[1]?.toUpperCase()
+            return (
+              (pair.token0.symbol.includes(pairA) || pair.token0.symbol.includes(pairB)) &&
+              (pair.token1.symbol.includes(pairA) || pair.token1.symbol.includes(pairB))
+            )
+          }
+          if (value && value.includes('-')) {
+            const pairA = value.split('-')[0]?.toUpperCase()
+            const pairB = value.split('-')[1]?.toUpperCase()
+            return (
+              (pair.token0.symbol.includes(pairA) || pair.token0.symbol.includes(pairB)) &&
+              (pair.token1.symbol.includes(pairA) || pair.token1.symbol.includes(pairB))
+            )
+          }
+          const regexMatches = Object.keys(pair).map((field) => {
+            const isAddress = value.slice(0, 2) === '0x'
+            if (field === 'id' && isAddress) {
+              return pair[field].match(new RegExp(escapeRegExp(value), 'i'))
             }
-            if (pairA?.trackedReserveETH && !pairB?.trackedReserveETH) {
-              return -1
-            }
-            if (!pairA?.trackedReserveETH && pairB?.trackedReserveETH) {
-              return 1
-            }
-            return 0
-          })
-          .filter((pair) => {
-            if (PAIR_BLACKLIST.includes(pair.id)) {
-              return false
-            }
-            if (value && value.includes(' ')) {
-              const pairA = value.split(' ')[0]?.toUpperCase()
-              const pairB = value.split(' ')[1]?.toUpperCase()
+            if (field === 'token0') {
               return (
-                (pair.token0.symbol.includes(pairA) || pair.token0.symbol.includes(pairB)) &&
-                (pair.token1.symbol.includes(pairA) || pair.token1.symbol.includes(pairB))
+                pair[field].symbol.match(new RegExp(escapeRegExp(value), 'i')) ||
+                pair[field].name.match(new RegExp(escapeRegExp(value), 'i'))
               )
             }
-            if (value && value.includes('-')) {
-              const pairA = value.split('-')[0]?.toUpperCase()
-              const pairB = value.split('-')[1]?.toUpperCase()
+            if (field === 'token1') {
               return (
-                (pair.token0.symbol.includes(pairA) || pair.token0.symbol.includes(pairB)) &&
-                (pair.token1.symbol.includes(pairA) || pair.token1.symbol.includes(pairB))
+                pair[field].symbol.match(new RegExp(escapeRegExp(value), 'i')) ||
+                pair[field].name.match(new RegExp(escapeRegExp(value), 'i'))
               )
             }
-            const regexMatches = Object.keys(pair).map((field) => {
-              const isAddress = value.slice(0, 2) === '0x'
-              if (field === 'id' && isAddress) {
-                return pair[field].match(new RegExp(escapeRegExp(value), 'i'))
-              }
-              if (field === 'token0') {
-                return (
-                  pair[field].symbol.match(new RegExp(escapeRegExp(value), 'i')) ||
-                  pair[field].name.match(new RegExp(escapeRegExp(value), 'i'))
-                )
-              }
-              if (field === 'token1') {
-                return (
-                  pair[field].symbol.match(new RegExp(escapeRegExp(value), 'i')) ||
-                  pair[field].name.match(new RegExp(escapeRegExp(value), 'i'))
-                )
-              }
-              return false
-            })
-            return regexMatches.some((m) => m)
+            return false
           })
+          return regexMatches.some((m) => m)
+        })
       : []
   }, [allPairData, uniquePairs, value])
 
@@ -437,12 +458,12 @@ export const Search = ({ small = false }) => {
             small
               ? 'Search...'
               : below410
-              ? 'Search...'
-              : below470
-              ? 'Search PancakeSwap...'
-              : below700
-              ? 'Search pairs and tokens...'
-              : 'Search PancakeSwap pairs and tokens...'
+                ? 'Search...'
+                : below470
+                  ? 'Search PancakeSwap...'
+                  : below700
+                    ? 'Search pairs and tokens...'
+                    : 'Search PancakeSwap pairs and tokens...'
           }
           value={value}
           onChange={(e) => {
@@ -472,10 +493,11 @@ export const Search = ({ small = false }) => {
         <Heading>
           <Gray>Pairs</Gray>
         </Heading>
-        <div>
+        <Bottom />
+        <div style={{ marginTop: '15px' }}>
           {filteredPairList && Object.keys(filteredPairList).length === 0 && (
             <MenuItem>
-              <TYPE.body>No results</TYPE.body>
+              <TYPE.body><StyleText>No results</StyleText></TYPE.body>
             </MenuItem>
           )}
           {filteredPairList &&
@@ -487,7 +509,7 @@ export const Search = ({ small = false }) => {
                   <MenuItem>
                     <DoubleTokenLogo a0={pair?.token0?.id} a1={pair?.token1?.id} margin={true} />
                     <TYPE.body style={{ marginLeft: '10px' }}>
-                      {pair.token0.symbol + '-' + pair.token1.symbol} Pair
+                      <StyleText>{pair.token0.symbol + '-' + pair.token1.symbol} Pair</StyleText>
                     </TYPE.body>
                   </MenuItem>
                 </BasicLink>
@@ -501,17 +523,19 @@ export const Search = ({ small = false }) => {
                 setPairsShown(pairsShown + 5)
               }}
             >
-              See more...
+              See more
             </Blue>
           </Heading>
+          <Bottom />
         </div>
         <Heading>
           <Gray>Tokens</Gray>
         </Heading>
-        <div>
+        <Bottom />
+        <div style={{ marginTop: '15px' }}>
           {Object.keys(filteredTokenList).length === 0 && (
             <MenuItem>
-              <TYPE.body>No results</TYPE.body>
+              <TYPE.body><StyleText>No results</StyleText></TYPE.body>
             </MenuItem>
           )}
           {filteredTokenList.slice(0, tokensShown).map((token) => {
@@ -522,8 +546,10 @@ export const Search = ({ small = false }) => {
                 <MenuItem>
                   <RowFixed>
                     <TokenLogo address={token.id} style={{ marginRight: '10px' }} />
-                    <FormattedName text={token.name} maxCharacters={20} style={{ marginRight: '6px' }} />
-                    (<FormattedName text={token.symbol} maxCharacters={6} />)
+                    <StyleText>
+                      <FormattedName text={token.name} maxCharacters={20} style={{ marginRight: '6px' }} />
+                      (<FormattedName text={token.symbol} maxCharacters={6} />)
+                    </StyleText>
                   </RowFixed>
                 </MenuItem>
               </BasicLink>
@@ -538,7 +564,7 @@ export const Search = ({ small = false }) => {
                 setTokensShown(tokensShown + 5)
               }}
             >
-              See more...
+              See more
             </Blue>
           </Heading>
         </div>

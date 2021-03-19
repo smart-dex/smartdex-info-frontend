@@ -5,9 +5,7 @@ import utc from 'dayjs/plugin/utc'
 import { formattedNum } from '../../utils'
 import styled from 'styled-components'
 import { usePrevious } from 'react-use'
-import { Play } from 'react-feather'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
-import { IconWrapper } from '..'
 
 dayjs.extend(utc)
 
@@ -63,7 +61,8 @@ const TradingViewChart = ({
   const topScale = type === CHART_TYPES.AREA ? 0.32 : 0.2
 
   const [darkMode] = useDarkModeManager()
-  const textColor = darkMode ? 'white' : 'black'
+  const textColor = darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(95, 94, 118, 0.7)'
+  const colorPrice = darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76'
   const previousTheme = usePrevious(darkMode)
 
   // reset the chart if them switches
@@ -129,23 +128,23 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-              color: '#4FD8DE',
-              priceFormat: {
-                type: 'volume',
-              },
-              scaleMargins: {
-                top: 0.32,
-                bottom: 0,
-              },
-              lineColor: '#4FD8DE',
-              lineWidth: 3,
-            })
+            color: '#2b275d',
+            priceFormat: {
+              type: 'volume',
+            },
+            scaleMargins: {
+              top: 0.32,
+              bottom: 0,
+            },
+            lineColor: '#4FD8DE',
+            lineWidth: 3,
+          })
           : chart.addAreaSeries({
-              topColor: '#4FD8DE',
-              bottomColor: 'rgba(79, 216, 222, 0)',
-              lineColor: '#4FD8DE',
-              lineWidth: 3,
-            })
+            topColor: darkMode ? '#132440' : '#dbe9f9',
+            bottomColor: darkMode ? '#141c32' : '#fbfcfe',
+            lineColor: darkMode ? '#388cd4' : '#1d93ff',
+            lineWidth: 3,
+          })
 
       series.setData(formattedData)
       var toolTip = document.createElement('div')
@@ -161,17 +160,16 @@ const TradingViewChart = ({
       // format numbers
       let percentChange = baseChange?.toFixed(2)
       let formattedPercentChange = (percentChange > 0 ? '+' : '') + percentChange + '%'
-      let color = percentChange >= 0 ? 'green' : 'red'
+      let color = percentChange >= 0 ? '#17C267' : '#FF6970'
 
       // get the title of the chart
       function setLastBarText() {
         toolTip.innerHTML =
-          `<div style="font-size: 16px; margin: 4px 0px; color: ${textColor};">${title} ${
-            type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
+          `<div style="font-size: 16px; margin: 0 0 5px 30px; color: ${textColor};">${title} ${type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
           }</div>` +
-          `<div style="font-size: 22px; margin: 4px 0px; color:${textColor}" >` +
+          `<div style="font-size: 24px; margin: 5px 0px 5px 30px; color:${colorPrice}; font-weight: bold;" >` +
           formattedNum(base ?? 0, true) +
-          `<span style="margin-left: 10px; font-size: 16px; color: ${color};">${formattedPercentChange}</span>` +
+          `<span style="margin-left: 10px; font-size: 16px; color: ${color}; font-weight: 500;">${formattedPercentChange}</span>` +
           '</div>'
       }
       setLastBarText()
@@ -190,21 +188,21 @@ const TradingViewChart = ({
         } else {
           let dateStr = useWeekly
             ? dayjs(param.time.year + '-' + param.time.month + '-' + param.time.day)
-                .startOf('week')
-                .format('MMMM D, YYYY') +
-              '-' +
-              dayjs(param.time.year + '-' + param.time.month + '-' + param.time.day)
-                .endOf('week')
-                .format('MMMM D, YYYY')
+              .startOf('week')
+              .format('MMMM D, YYYY') +
+            '-' +
+            dayjs(param.time.year + '-' + param.time.month + '-' + param.time.day)
+              .endOf('week')
+              .format('MMMM D, YYYY')
             : dayjs(param.time.year + '-' + param.time.month + '-' + param.time.day).format('MMMM D, YYYY')
           var price = param.seriesPrices.get(series)
 
           toolTip.innerHTML =
-            `<div style="font-size: 16px; margin: 4px 0px; color: ${textColor};">${title}</div>` +
-            `<div style="font-size: 22px; margin: 4px 0px; color: ${textColor}">` +
+            `<div style="font-size: 16px; margin: 0 0 5px 30px; color: ${textColor};">${title}</div>` +
+            `<div style="font-size: 24px; margin: 5px 0px 5px 30px; color: ${colorPrice}; font-weight: bold;">` +
             formattedNum(price, true) +
             '</div>' +
-            '<div>' +
+            '<div style="margin-left: 30px">' +
             dateStr +
             '</div>'
         }
@@ -239,14 +237,14 @@ const TradingViewChart = ({
 
   return (
     <Wrapper>
-      <div ref={ref} id={'test-id' + type} />
-      <IconWrapper>
+      <div ref={ref} id={'test-id' + type} style={{ marginTop: '30px' }} />
+      {/* <IconWrapper>
         <Play
           onClick={() => {
             chartCreated && chartCreated.timeScale().fitContent()
           }}
         />
-      </IconWrapper>
+      </IconWrapper> */}
     </Wrapper>
   )
 }

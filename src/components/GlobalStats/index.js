@@ -13,8 +13,10 @@ const Header = styled.div`
   top: 0;
 `
 
-const Medium = styled.span`
-  font-weight: 500;
+const Item = styled.div`
+  font-size: 16px;
+  font-weight: normal;
+  color: ${({ theme }) => theme.white};
 `
 
 export default function GlobalStats() {
@@ -46,23 +48,23 @@ export default function GlobalStats() {
               }}
               style={{ position: 'relative' }}
             >
-              BNB Price: <Medium>{formattedEthPrice}</Medium>
+              <Item>BNB Price: {formattedEthPrice}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Item>
             </TYPE.main>
           )}
 
           {!below1180 && (
             <TYPE.main mr={'1rem'}>
-              Transactions (24H): <Medium>{localNumber(oneDayTxns)}</Medium>
+              <Item>Transactions (24H): {localNumber(oneDayTxns)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Item>
             </TYPE.main>
           )}
           {!below1024 && (
             <TYPE.main mr={'1rem'}>
-              Pairs: <Medium>{localNumber(pairCount)}</Medium>
+              <Item>Pairs: {localNumber(pairCount)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Item>
             </TYPE.main>
           )}
           {!below1295 && (
             <TYPE.main mr={'1rem'}>
-              Fees (24H): <Medium>{oneDayFees}</Medium>&nbsp;
+              <Item>Fees (24H): {oneDayFees}&nbsp;</Item>
             </TYPE.main>
           )}
         </RowFixed>

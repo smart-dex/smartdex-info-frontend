@@ -59,6 +59,7 @@ const theme = (darkMode, color) => ({
   borderSearch: darkMode ? 'rgba(255, 255, 255, 0.38)' : '#EAE9F2',
   backgroundPaging: darkMode ? 'rgba(0, 133, 255, 0.1)' : '#E9F4FC',
   bgAllPosition: darkMode ? '#23293D' : '#F0F6FB',
+  backgroundError: darkMode ? '#3C384A' : '#FFF9F9',
 
   // special case text types
   white: '#FFFFFF',
@@ -94,6 +95,26 @@ const theme = (darkMode, color) => ({
 
   shadow1: darkMode ? '#000' : '#2F80ED',
 
+  // color table
+  activeTransaction: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
+  noActiveTransaction: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(95, 94, 118, 0.5)',
+  colorHeader: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
+  backgroundHeader: darkMode ? '#0F162C' : '#F0F6FB',
+  backgroundItem: darkMode ? '#0F162C' : '#F8FBFE',
+  backgroundChart: darkMode ? '#0F162C' : '#FFFFFF',
+  borderChart: darkMode ? '#0F162C' : '#E2E2E8',
+  optionActive: darkMode ? '#0d2141' : '#E2E2E8',
+  optionNoActive: darkMode ? '#151c31' : '#FFFFFF',
+  colorTitleSearch: darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(95, 94, 118, 0.5)',
+  backgroundPopupSearch: darkMode ? '#00071C' : '#FFFFFF',
+  shadowPopupSearch: darkMode ? 'rgba(0, 0, 0, 0.05)' : 'rgba(120, 118, 148, 0.05)',
+  bottomPopupSearch: darkMode ? '#30364C' : '#EAE9F2',
+  borderPopupSearch: darkMode ? '#2F344B' : '#EAE9F2',
+  textPagingTable: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
+  selectArrowImg: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
+  backgroundAdd: darkMode ? 'none' : '#FFFFFF',
+  backgroundSelect: darkMode ? '#24293f' : 'rgba(95, 94, 118, 0.2)',
+
   // other
   red1: '#FF6871',
   green1: '#27AE60',
@@ -101,6 +122,14 @@ const theme = (darkMode, color) => ({
   yellow2: '#F3841E',
   link: '#12aab5',
   blue: '2f80ed',
+  placeholder: 'rgba(95, 94, 118, 0.5)',
+  private: '#0085FF',
+  colorPercentPlus: '#17C267',
+  colorPercentMinus: '#FF6970',
+  textOptionActive: '#0b92fd',
+  textOptionNoActive: '#6c6594',
+  backFormExchange: '#E9F4FC',
+  colorError: '#FF6970',
 
   background: darkMode ? 'black' : `radial-gradient(50% 50% at 50% 50%, #4FD8DE 30 0%, #fff 0%)`,
 })
@@ -185,10 +214,10 @@ export const ThemedBackground = styled.div`
 `
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://rsms.me/inter/inter.css');
-  html { font-family: 'Inter', sans-serif; }
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+  html { font-family: 'Montserrat', 'Kanit', sans-serif; }
   @supports (font-variation-settings: normal) {
-    html { font-family: 'Inter var', sans-serif; }
+    html { font-family: 'Montserrat', 'Kanit', sans-serif; }
   }
 
   html,

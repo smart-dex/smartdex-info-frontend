@@ -18,8 +18,7 @@ import { useMedia } from 'react-use'
 import Panel from '../components/Panel'
 import { useAllTokenData } from '../contexts/TokenData'
 import { formattedNum, formattedPercent } from '../utils'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
+import { TYPE } from '../Theme'
 import { CustomLink } from '../components/Link'
 
 import { PageWrapper, ContentWrapper } from '../components'
@@ -36,12 +35,31 @@ const ListOptions = styled(AutoRow)`
 `
 
 const GridRow = styled.div`
+  margin-top: 50px;
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr;
   column-gap: 6px;
   align-items: start;
   justify-content: space-between;
+  .liquidity {
+    background: ${({ theme }) => theme.backgroundChart};
+    height: 100%;
+    min-height: 350px;
+    border-radius: 35px;
+    width: calc(100% - 20px);
+    border: 1px solid ${({ theme }) => theme.borderChart};
+  }
+  .volume {
+    background: ${({ theme }) => theme.backgroundChart};
+    border-radius: 35px;
+    width: calc(100% - 20px);
+    margin-left: 20px;
+    border: 1px solid ${({ theme }) => theme.borderChart};
+  }
+  table {
+    padding-left: 30px;
+  }
 `
 
 function GlobalPage() {
@@ -63,16 +81,59 @@ function GlobalPage() {
     })
   }, [])
 
+  const HeaderOverview = styled.div`
+    background: linear-gradient(91.67deg, #0085FF 5.33%, #7E86FF 104.39%);
+    display: grid;
+    grid - auto - rows: auto;
+    grid - row - gap: ${({ gap }) => (gap === 'sm' && '8px') || (gap === 'md' && '12px') || (gap === 'lg' && '24px') || gap};
+    justify - items: ${({ justify }) => justify && justify};
+    padding-top: 30px;
+  `
+
+  const StyleSearch = styled.div`
+    input {
+      border-radius: 50px;
+      font-size: 16px;
+      ::placeholder {
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: ${({ theme }) => theme.placeholder};
+      }
+    }
+  `
+
+  const StyleTitle = styled.div`
+    color: ${({ theme }) => theme.white};
+    font-size: 24px;
+    font-weight: 500;
+  `
+
+  const StyleLinkAll = styled.div`
+    color: ${({ theme }) => theme.private};
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+  `
+
+  const StyleNameTable = styled.div`
+    color: ${({ theme }) => theme.private};
+    font-weight: bold;
+    font-size: 18px;
+  `
+
   return (
-    <PageWrapper>
-      <ThemedBackground backgroundColor={transparentize(0.8, '#4FD8DE')} />
+    <PageWrapper style={{ paddingTop: '0px' }}>
+      {/* <ThemedBackground backgroundColor={transparentize(0.8, '#4FD8DE')} /> */}
+      <HeaderOverview gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
+        <ContentWrapper>
+          <StyleTitle>{below800 ? 'Analytics' : 'PancakeSwap Analytics'}</StyleTitle>
+          <StyleSearch><Search /></StyleSearch>
+          <GlobalStats />
+        </ContentWrapper>
+      </HeaderOverview>
       <ContentWrapper>
         <div>
-          <AutoColumn gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-            <TYPE.largeHeader>{below800 ? 'Analytics' : 'PancakeSwap Analytics'}</TYPE.largeHeader>
-            <Search />
-            <GlobalStats />
-          </AutoColumn>
           {below800 && ( // mobile card
             <Box mb={20}>
               <Panel>
@@ -109,10 +170,10 @@ function GlobalPage() {
           )}
           {!below800 && (
             <GridRow>
-              <Panel style={{ height: '100%', minHeight: '300px' }}>
+              <Panel className="liquidity">
                 <GlobalChart display="liquidity" />
               </Panel>
-              <Panel style={{ height: '100%' }}>
+              <Panel className="volume" style={{ height: '100%' }}>
                 <GlobalChart display="volume" />
               </Panel>
             </GridRow>
@@ -126,17 +187,17 @@ function GlobalPage() {
           )}
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>
-              <TYPE.main fontSize={'1.125rem'}>Top Tokens</TYPE.main>
-              <CustomLink to={'/tokens'}>See All</CustomLink>
+              <TYPE.main fontSize={'1.125rem'}><StyleNameTable>Top Tokens</StyleNameTable></TYPE.main>
+              <CustomLink to={'/tokens'}><StyleLinkAll>See All</StyleLinkAll></CustomLink>
             </RowBetween>
           </ListOptions>
-          <Panel style={{ marginTop: '6px', padding: '1.125rem 0 ' }}>
+          <Panel style={{ marginTop: '15px', padding: '0' }}>
             <TopTokenList tokens={allTokens} />
           </Panel>
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>
-              <TYPE.main fontSize={'1rem'}>Top Pairs</TYPE.main>
-              <CustomLink to={'/pairs'}>See All</CustomLink>
+              <TYPE.main fontSize={'1rem'}><StyleNameTable>Top Pairs</StyleNameTable></TYPE.main>
+              <CustomLink to={'/pairs'}><StyleLinkAll>See All</StyleLinkAll></CustomLink>
             </RowBetween>
           </ListOptions>
           <Panel style={{ marginTop: '6px', padding: '1.125rem 0 ' }}>
@@ -145,7 +206,7 @@ function GlobalPage() {
 
           <span>
             <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '2rem' }}>
-              Transactions
+              <StyleNameTable>Transactions</StyleNameTable>
             </TYPE.main>
           </span>
           <Panel style={{ margin: '1rem 0' }}>
