@@ -9,16 +9,14 @@ import TokenLogo from '../components/TokenLogo'
 import PairList from '../components/PairList'
 import Loader from '../components/LocalLoader'
 import { AutoRow, RowBetween, RowFixed } from '../components/Row'
-import Column, { AutoColumn } from '../components/Column'
-import { ButtonLight, ButtonDark } from '../components/ButtonStyled'
+import Column from '../components/Column'
 import TxnList from '../components/TxnList'
 import TokenChart from '../components/TokenChart'
 import { BasicLink } from '../components/Link'
 import Search from '../components/Search'
 import { formattedNum, formattedPercent, getPoolLink, getSwapLink, localNumber } from '../utils'
 import { useTokenData, useTokenTransactions, useTokenPairs } from '../contexts/TokenData'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
+import { TYPE } from '../Theme'
 import { useColor } from '../hooks'
 import CopyHelper from '../components/Copy'
 import { useMedia } from 'react-use'
@@ -127,6 +125,143 @@ const ValueTitle = styled.div`
     font-weight: 500;
     font-size: 12px;
     margin-left: 1rem;
+  }
+`
+
+const ButtonAdd = styled.button`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: ${({ theme }) => theme.private};
+  
+  height: 56px;
+  background: ${({ theme }) => theme.backgroundAdd};
+  border: 1px solid ${({ theme }) => theme.private};
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0 15px;
+  svg {
+    width: 20px;
+    height: 20px;
+    path {
+      stroke: ${({ theme }) => theme.private};
+    }
+  }
+  &:hover {
+    background: ${({ theme }) => theme.private};
+    color: ${({ theme }) => theme.white};
+    svg {
+      path {
+        stroke: ${({ theme }) => theme.white};
+      }
+    }
+  }
+`
+
+const ButtonTrade = styled.button`
+  font-weight: 600;
+  font-size: 16px;
+  color: ${({ theme }) => theme.white};
+
+  margin-left: 14px;
+  width: 100px;
+  height: 56px;
+  background: ${({ theme }) => theme.private};
+  box-shadow: 0px 4px 10px rgba(83, 185, 234, 0.24);
+  border: 1px solid ${({ theme }) => theme.private};
+  border-radius: 10px;
+  &:hover {
+    background: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.private};
+  }
+`
+
+const StyleInfo = styled.div`
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+
+  .range {
+    margin-left: 13px;
+  }
+  @media screen and (max-width: 1080px) {
+    display: block;
+    .range {
+      margin-left: 0;
+      margin-top: 13px;
+    }
+  }
+`
+
+const Item = styled.div`
+  width: calc(33% - 10px);
+  height: 157px;
+  border: 1px solid ${({ theme }) => theme.borderPopupSearch};
+  box-shadow: 5px 5px 20px rgba(120, 118, 148, 0.08);
+  border-radius: 20px;
+  padding: 25px 0 0 21px;
+  .title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 25px;
+    color: ${({ theme }) => theme.colorHeader};
+  }
+  .value {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 17px;
+    line-height: 22px;
+    color: ${({ theme }) => theme.colorHeader};
+    .value-token {
+      color: ${({ theme }) => theme.colorHeader};
+      font-weight: bold;
+      font-size: 18px;
+      div {
+        color: ${({ theme }) => theme.colorHeader};
+        font-weight: bold;
+        font-size: 18px;
+      }
+    }
+  }
+  .percent {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 25px;
+    margin-top: 18px;
+  }
+  @media screen and (max-width: 1080px) {
+    width: auto;
+    height: auto;
+    padding: 15px;
+  }
+`
+
+const TitlePair = styled.div`
+  font-weight: 500;
+  font-size: 18px;
+  color: ${({ theme }) => theme.colorHeader};
+`
+
+const ItemBottom = styled.div`
+  border-radius: 20px;
+  background: ${({ theme }) => theme.bgPanel};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.boxShadow};
+  .border-form {
+    border: 1px solid ${({ theme }) => theme.borderInput};
+  }
+`
+
+const StyleTextBottom = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: ${({ theme }) => theme.colorHeader};
+  .style-text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 25px;
+    color: ${({ theme }) => theme.colorHeader};
   }
 `
 
@@ -292,79 +427,51 @@ function TokenPage({ address, history }) {
                         <></>
                       )}
                   <Link href={getPoolLink(address)} target="_blank">
-                    <ButtonLight color={backgroundColor}>+ Add Liquidity</ButtonLight>
+                    <ButtonAdd>+ Add Liquidity</ButtonAdd>
                   </Link>
                   <Link href={getSwapLink(address)} target="_blank">
-                    <ButtonDark ml={'.5rem'} mr={below1080 && '.5rem'} color={backgroundColor}>
+                    <ButtonTrade>
                       Trade
-                    </ButtonDark>
+                    </ButtonTrade>
                   </Link>
                 </RowFixed>
               </span>
             </RowBetween>
 
             <>
-              <PanelWrapper style={{ marginTop: below1080 ? '0' : '1rem' }}>
+              <StyleInfo>
                 {below1080 && price && (
-                  <Panel>
-                    <AutoColumn gap="20px">
-                      <RowBetween>
-                        <TYPE.main>Price</TYPE.main>
-                        <div />
-                      </RowBetween>
-                      <RowBetween align="flex-end">
-                        {' '}
-                        <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={500}>
-                          {price}
-                        </TYPE.main>
-                        <TYPE.main>{priceChange}</TYPE.main>
-                      </RowBetween>
-                    </AutoColumn>
-                  </Panel>
+                  <Item className="range">
+                    <div className="title">Price</div>
+                    <div className="value">{price}</div>
+                    <TYPE.main>
+                      <div className="percent">{priceChange}</div>
+                    </TYPE.main>
+                  </Item>
                 )}
-                <Panel>
-                  <AutoColumn gap="20px">
-                    <RowBetween>
-                      <TYPE.main>Total Liquidity</TYPE.main>
-                      <div />
-                    </RowBetween>
-                    <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={500}>
-                        {liquidity}
-                      </TYPE.main>
-                      <TYPE.main>{liquidityChange}</TYPE.main>
-                    </RowBetween>
-                  </AutoColumn>
-                </Panel>
-                <Panel>
-                  <AutoColumn gap="20px">
-                    <RowBetween>
-                      <TYPE.main>Volume (24hrs) {usingUtVolume && '(Untracked)'}</TYPE.main>
-                      <div />
-                    </RowBetween>
-                    <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={500}>
-                        {volume}
-                      </TYPE.main>
-                      <TYPE.main>{volumeChange}</TYPE.main>
-                    </RowBetween>
-                  </AutoColumn>
-                </Panel>
-
-                <Panel>
-                  <AutoColumn gap="20px">
-                    <RowBetween>
-                      <TYPE.main>Transactions (24hrs)</TYPE.main>
-                      <div />
-                    </RowBetween>
-                    <RowBetween align="flex-end">
-                      <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={500}>
-                        {oneDayTxns ? localNumber(oneDayTxns) : oneDayTxns === 0 ? 0 : '-'}
-                      </TYPE.main>
-                      <TYPE.main>{txnChangeFormatted}</TYPE.main>
-                    </RowBetween>
-                  </AutoColumn>
-                </Panel>
+                <Item className={below1080 && price ? "range" : ""}>
+                  <div className="title">Total Liquidity</div>
+                  <div className="value">{liquidity}</div>
+                  <TYPE.main>
+                    <div className="percent">{liquidityChange}</div>
+                  </TYPE.main>
+                </Item>
+                <Item className="range">
+                  <div className="title">Volume (24hrs) {usingUtVolume && '(Untracked)'}</div>
+                  <div className="value">{volume}</div>
+                  <TYPE.main>
+                    <div className="percent">{volumeChange}</div>
+                  </TYPE.main>
+                </Item>
+                <Item className="range">
+                  <div className="title">Transactions (24hrs)</div>
+                  <div className="value">{oneDayTxns ? localNumber(oneDayTxns) : oneDayTxns === 0 ? 0 : '-'}</div>
+                  <TYPE.main>
+                    <div className="percent">{txnChangeFormatted}</div>
+                  </TYPE.main>
+                </Item>
+              </StyleInfo>
+              <PanelWrapper style={{ marginTop: below1080 ? '0' : '1rem' }}>
                 <Panel
                   style={{
                     gridColumn: below1080 ? '1' : '2/4',
@@ -378,13 +485,12 @@ function TokenPage({ address, history }) {
 
             <span>
               <TYPE.main fontSize={'1.125rem'} style={{ marginTop: '3rem' }}>
-                Top Pairs
+                <TitlePair>Top Pairs</TitlePair>
               </TYPE.main>
             </span>
             <Panel
               rounded
               style={{
-                marginTop: '1.5rem',
                 padding: '1.125rem 0 ',
               }}
             >
@@ -395,51 +501,56 @@ function TokenPage({ address, history }) {
                 )}
             </Panel>
             <RowBetween mt={40} mb={'1rem'}>
-              <TYPE.main fontSize={'1.125rem'}>Transactions</TYPE.main> <div />
+              <TitlePair>Transactions</TitlePair> <div />
             </RowBetween>
             <Panel rounded>
               {transactions ? <TxnList color={backgroundColor} transactions={transactions} /> : <Loader />}
             </Panel>
             <>
               <RowBetween style={{ marginTop: '3rem' }}>
-                <TYPE.main fontSize={'1.125rem'}>Token Information</TYPE.main>{' '}
+                <TitlePair>Token Information</TitlePair>{' '}
               </RowBetween>
-              <Panel
-                rounded
-                style={{
-                  marginTop: '1.5rem',
-                }}
-                p={20}
-              >
-                <TokenDetailsLayout>
-                  <Column>
-                    <TYPE.main>Symbol</TYPE.main>
-                    <Text style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                      <FormattedName text={symbol} maxCharacters={12} />
-                    </Text>
-                  </Column>
-                  <Column>
-                    <TYPE.main>Name</TYPE.main>
-                    <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                      <FormattedName text={name} maxCharacters={16} />
-                    </TYPE.main>
-                  </Column>
-                  <Column>
-                    <TYPE.main>Address</TYPE.main>
-                    <AutoRow align="flex-end">
-                      <TYPE.main style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
-                        {address.slice(0, 8) + '...' + address.slice(36, 42)}
-                      </TYPE.main>
-                      <CopyHelper toCopy={address} />
-                    </AutoRow>
-                  </Column>
-                  <ButtonLight color={backgroundColor}>
-                    <Link color={backgroundColor} external href={'https://bscscan.com/address/' + address}>
-                      View on BscScan ↗
+              <ItemBottom className="item-bottom">
+                <Panel
+                  rounded
+                  style={{
+                    marginTop: '1.5rem',
+                  }}
+                  p={20}
+                  className="border-form"
+                >
+                  <TokenDetailsLayout>
+                    <Column>
+                      <StyleTextBottom>Symbol</StyleTextBottom>
+                      <StyleTextBottom style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                        <FormattedName className="style-text" text={symbol} maxCharacters={12} />
+                      </StyleTextBottom>
+                    </Column>
+                    <Column>
+                      <StyleTextBottom>Name</StyleTextBottom>
+                      <StyleTextBottom style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                        <FormattedName className="style-text" text={name} maxCharacters={16} />
+                      </StyleTextBottom>
+                    </Column>
+                    <Column>
+                      <StyleTextBottom>Address</StyleTextBottom>
+                      <AutoRow align="flex-end">
+                        <StyleTextBottom style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
+                          {address.slice(0, 8) + '...' + address.slice(36, 42)}
+                        </StyleTextBottom>
+                        <CopyHelper toCopy={address} />
+                      </AutoRow>
+                    </Column>
+                    <Link external href={'https://bscscan.com/address/' + address}>
+                      <ButtonAdd>View on BscScan
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.6677 5.62206L18.5633 8.27359L15.9118 18.1692M4.62205 16.3226L18.5633 8.27359L4.62205 16.3226Z" stroke-width="2" />
+                        </svg>
+                      </ButtonAdd>
                     </Link>
-                  </ButtonLight>
-                </TokenDetailsLayout>
-              </Panel>
+                  </TokenDetailsLayout>
+                </Panel>
+              </ItemBottom>
             </>
           </DashboardWrapper>
         </WarningGrouping>

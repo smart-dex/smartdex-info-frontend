@@ -99,6 +99,16 @@ const NoSave = styled.div`
   color: ${({ theme }) => theme.textNoSave};
 `
 
+const BackgroundForm = styled.div`
+  .backgroundSaved {
+    background-color: ${({ theme }) => theme.bgPanel};
+    border-radius: 20px;
+    border: 1px solid ${({ theme }) => theme.borderInput};
+    box-shadow: 5px 5px 20px ${({ theme }) => theme.boxShadow};
+    padding: 25px 50px;
+  }
+`
+
 function AccountSearch({ history, small }) {
   const [accountValue, setAccountValue] = useState()
   const [savedAccounts, addAccount, removeAccount] = useSavedAccounts()
@@ -132,39 +142,41 @@ function AccountSearch({ history, small }) {
 
       <AutoColumn gap={'12px'} style={{ marginTop: '16px' }}>
         {!small && (
-          <Panel>
-            <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
-              <SaveText area="account">Saved Accounts</SaveText>
-            </DashGrid>
-            <Divider />
-            {savedAccounts?.length > 0 ? (
-              savedAccounts.map((account) => {
-                return (
-                  <DashGrid key={account} center={true} style={{ height: 'fit-content', padding: '1rem 0 0 0' }}>
-                    <Flex
-                      area="account"
-                      justifyContent="space-between"
-                      onClick={() => history.push('/account/' + account)}
-                    >
-                      <AccountLink>{account?.slice(0, 42)}</AccountLink>
-                      <Hover
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          removeAccount(account)
-                        }}
+          <BackgroundForm>
+            <Panel className="backgroundSaved">
+              <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
+                <SaveText area="account">Saved Accounts</SaveText>
+              </DashGrid>
+              <Divider />
+              {savedAccounts?.length > 0 ? (
+                savedAccounts.map((account) => {
+                  return (
+                    <DashGrid key={account} center={true} style={{ height: 'fit-content', padding: '1rem 0 0 0' }}>
+                      <Flex
+                        area="account"
+                        justifyContent="space-between"
+                        onClick={() => history.push('/account/' + account)}
                       >
-                        <StyledIcon>
-                          <X size={16} />
-                        </StyledIcon>
-                      </Hover>
-                    </Flex>
-                  </DashGrid>
-                )
-              })
-            ) : (
-              <NoSave style={{ marginTop: '1rem' }}>No saved accounts</NoSave>
-            )}
-          </Panel>
+                        <AccountLink>{account?.slice(0, 42)}</AccountLink>
+                        <Hover
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeAccount(account)
+                          }}
+                        >
+                          <StyledIcon>
+                            <X size={16} />
+                          </StyledIcon>
+                        </Hover>
+                      </Flex>
+                    </DashGrid>
+                  )
+                })
+              ) : (
+                  <NoSave style={{ marginTop: '1rem' }}>No saved accounts</NoSave>
+                )}
+            </Panel>
+          </BackgroundForm>
         )}
 
         {small && (
@@ -178,8 +190,8 @@ function AccountSearch({ history, small }) {
                       {small ? (
                         <TYPE.header>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TYPE.header>
                       ) : (
-                        <AccountLink>{account?.slice(0, 42)}</AccountLink>
-                      )}
+                          <AccountLink>{account?.slice(0, 42)}</AccountLink>
+                        )}
                     </ButtonFaded>
                     <Hover onClick={() => removeAccount(account)}>
                       <StyledIcon>
@@ -190,8 +202,8 @@ function AccountSearch({ history, small }) {
                 )
               })
             ) : (
-              <Description>No pinned wallets</Description>
-            )}
+                <Description>No pinned wallets</Description>
+              )}
           </>
         )}
       </AutoColumn>

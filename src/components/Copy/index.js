@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useCopyClipboard } from '../../hooks'
-import { CheckCircle, Copy } from 'react-feather'
+import { CheckCircle } from 'react-feather'
 import { StyledIcon } from '..'
 
 const CopyIcon = styled.div`

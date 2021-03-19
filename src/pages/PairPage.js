@@ -6,7 +6,6 @@ import Panel from '../components/Panel'
 import { PageWrapper, ContentWrapperLarge, StyledIcon } from '../components/index'
 import { AutoRow, RowBetween, RowFixed } from '../components/Row'
 import Column, { AutoColumn } from '../components/Column'
-import { ButtonLight, ButtonDark } from '../components/ButtonStyled'
 import PairChart from '../components/PairChart'
 import Link from '../components/Link'
 import TxnList from '../components/TxnList'
@@ -16,8 +15,7 @@ import Search from '../components/Search'
 import { formattedNum, formattedPercent, getPoolLink, getSwapLink } from '../utils'
 import { useColor } from '../hooks'
 import { usePairData, usePairTransactions } from '../contexts/PairData'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
+import { TYPE } from '../Theme'
 import CopyHelper from '../components/Copy'
 import { useMedia } from 'react-use'
 import DoubleTokenLogo from '../components/DoubleLogo'
@@ -27,7 +25,7 @@ import { useEthPrice } from '../contexts/GlobalData'
 import Warning from '../components/Warning'
 import { usePathDismissed, useSavedPairs } from '../contexts/LocalStorage'
 
-import { Bookmark, PlusCircle } from 'react-feather'
+import { Bookmark } from 'react-feather'
 import FormattedName from '../components/FormattedName'
 import { useListedTokens } from '../contexts/Application'
 
@@ -140,14 +138,26 @@ const ButtonAdd = styled.button`
   color: ${({ theme }) => theme.private};
   
   height: 56px;
-  background: ${({ theme }) => theme.white};
+  background: ${({ theme }) => theme.backgroundAdd};
   border: 1px solid ${({ theme }) => theme.private};
   border-radius: 10px;
   cursor: pointer;
   padding: 0 15px;
+  svg {
+    width: 20px;
+    height: 20px;
+    path {
+      stroke: ${({ theme }) => theme.private};
+    }
+  }
   &:hover {
     background: ${({ theme }) => theme.private};
     color: ${({ theme }) => theme.white};
+    svg {
+      path {
+        stroke: ${({ theme }) => theme.white};
+      }
+    }
   }
 `
 
@@ -370,7 +380,6 @@ function PairPage({ pairAddress, history }) {
 
   return (
     <PageWrapper>
-      {/* <ThemedBackground backgroundColor={transparentize(0.6, backgroundColor)} /> */}
       <span />
       <Warning
         type={'pair'}
@@ -467,10 +476,11 @@ function PairPage({ pairAddress, history }) {
                 width: 'fit-content',
                 marginTop: below900 ? '1rem' : '0',
                 marginBottom: below900 ? '0' : '2rem',
+                marginLeft: '-16px',
                 flexWrap: 'wrap',
               }}
             >
-              <FixedPanel onClick={() => history.push(`/token/${token0?.id}`)}>
+              <FixedPanel style={{ border: 'none', boxShadow: 'none' }} onClick={() => history.push(`/token/${token0?.id}`)}>
                 <StyleFormExchange>
                   <TokenLogo address={token0?.id} size={'18px'} />
                   <StyleExchange>
@@ -481,7 +491,7 @@ function PairPage({ pairAddress, history }) {
                   </StyleExchange>
                 </StyleFormExchange>
               </FixedPanel>
-              <FixedPanel onClick={() => history.push(`/token/${token1?.id}`)}>
+              <FixedPanel style={{ border: 'none', boxShadow: 'none' }} onClick={() => history.push(`/token/${token1?.id}`)}>
                 <StyleFormExchange>
                   <TokenLogo address={token1?.id} size={'18px'} />
                   <StyleExchange>
@@ -579,6 +589,9 @@ function PairPage({ pairAddress, history }) {
                 rounded
                 style={{
                   marginTop: '1.5rem',
+                  border: 'none',
+                  boxShadow: 'none',
+                  marginLeft: '-20px'
                 }}
                 p={20}
               >
@@ -631,7 +644,11 @@ function PairPage({ pairAddress, history }) {
                     </AutoRow>
                   </Column>
                   <Link color={backgroundColor} external href={'https://bscscan.com/address/' + pairAddress}>
-                    <ButtonAdd>View on BscScan ↗</ButtonAdd>
+                    <ButtonAdd>View on BscScan
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.6677 5.62206L18.5633 8.27359L15.9118 18.1692M4.62205 16.3226L18.5633 8.27359L4.62205 16.3226Z" stroke-width="2" />
+                      </svg>
+                    </ButtonAdd>
                   </Link>
                 </TokenDetailsLayout>
               </Panel>

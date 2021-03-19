@@ -18,10 +18,8 @@ import { useMedia } from 'react-use'
 import Panel from '../components/Panel'
 import { useAllTokenData } from '../contexts/TokenData'
 import { formattedNum, formattedPercent } from '../utils'
-import { TYPE, ThemedBackground } from '../Theme'
-import { transparentize } from 'polished'
+import { TYPE } from '../Theme'
 import { CustomLink } from '../components/Link'
-import { useDarkModeManager } from '../contexts/LocalStorage'
 
 import { PageWrapper, ContentWrapper } from '../components'
 
@@ -64,24 +62,12 @@ const GridRow = styled.div`
   }
 `
 
-const StyleHeader = styled.div`
-  align-items: start;
-  grid-template-columns: 1fr;
-  grid-gap: 24px;
-  max-width: 1440px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 2rem;
-  box-sizing: border-box;
-`
-
 function GlobalPage() {
   // get data for lists and totals
   const allPairs = useAllPairData()
   const allTokens = useAllTokenData()
   const transactions = useGlobalTransactions()
   const { totalLiquidityUSD, oneDayVolumeUSD, volumeChangeUSD, liquidityChangeUSD } = useGlobalData()
-  const [darkMode] = useDarkModeManager()
 
   // breakpoints
   const below800 = useMedia('(max-width: 800px)')

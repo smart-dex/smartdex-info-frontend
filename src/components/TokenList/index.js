@@ -14,7 +14,6 @@ import { useMedia } from 'react-use'
 import { withRouter } from 'react-router-dom'
 import { OVERVIEW_TOKEN_BLACKLIST } from '../../constants'
 import FormattedName from '../FormattedName'
-import { TYPE } from '../../Theme'
 
 dayjs.extend(utc)
 
@@ -23,17 +22,7 @@ const PageButtons = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 2em;
-  margin-bottom: 2em;
-`
-
-const Arrow = styled.div`
-  color: ${({ theme }) => theme.primary1};
-  opacity: ${(props) => (props.faded ? 0.3 : 1)};
-  padding: 0 20px;
-  user-select: none;
-  :hover {
-    cursor: pointer;
-  }
+  margin-bottom: 0.5em;
 `
 
 const List = styled(Box)`
@@ -147,22 +136,42 @@ const SORT_FIELD = {
   CHANGE: 'priceChangeUSD',
 }
 
-const PrevStyle = styled.img`
-  width: 6px;
-  height: 10px;
+const Arrow = styled.div`
+  user-select: none;
+  width: 45px;
+  height: 16px;
+  background: ${({ disableButton }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : 'rgba(95, 94, 118, 0.1)')};
+  border-radius: 5px;
+  padding: 12px 15px;
+  :hover {
+    cursor: ${({ disableButton }) => (disableButton ? 'not-allowed' : 'pointer')};
+    background: ${({ disableButton, theme }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : theme.backgroundPaging)};
+    svg {
+      fill: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+    span {
+      color: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+  }
+  svg {
+    fill: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
+  span {
+    color: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
 `
-const NextStyle = styled.img`
-  width: 6px;
-  height: 10px;
-  transform: rotate(180deg);
+
+const ArrowNext = styled(Arrow)`
+  svg {
+    transform: rotate(180deg);
+  }
 `
 
 const TextPaging = styled.span`
   font-weight: 600;
   font-size: 13px;
   line-height: 100%;
-  color: ${({ theme }) => theme.textPagingTable};
-  padding-left: 6px;
+  padding-left: 4px;
 `
 const PagingMiddle = styled.div`
   font-weight: 600;
@@ -175,11 +184,12 @@ const TextPagingNext = styled(TextPaging)`
   padding-left: 0px;
   padding-right: 6px;
 `
+
 const SelectStyle = styled.select`
   width: 65px;
   height: 39px;
   padding: 10px;
-  background: rgba(95, 94, 118, 0.1);
+  background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
   color: ${({ theme }) => theme.textMenu};
@@ -187,18 +197,19 @@ const SelectStyle = styled.select`
   font-weight: 600;
   font-size: 13px;
   -webkit-appearance: none;
-  background-image: url(${({ theme }) => theme.selectArrowImg});
+  background-image: url(${({ theme }) => theme.selectArrow});
   background-repeat: no-repeat;
   background-position-x: 70%;
   background-position-y: 16px;
   cursor: pointer;
-  :focus {
-    outline: none;
-  }
   option {
+    background: ${({ theme }) => theme.backgroundSelect};
     :hover {
       background-color: yellow !important;
     }
+  }
+  :focus {
+    outline: none;
   }
 `
 
@@ -419,24 +430,35 @@ function TopTokenList({ tokens, itemMax = 10 }) {
       </List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>
-          <Arrow faded={page === 1 ? true : false}>
-            <PrevStyle src="/images/prev.png" />
-            <TextPaging> Prev</TextPaging>
+          <Arrow disableButton={page === 1 ? true : false}>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+
+            <TextPaging disableButton={page === 1 ? true : false}> Prev</TextPaging>
           </Arrow>
         </div>
         <PagingMiddle>
           <SelectStyle onChange={handleChangeSelect} value={page}>
-            {listNumberPaging.map((item) => (
-              <option>{item + 1}</option>
-            ))}
+            {listNumberPaging && listNumberPaging.map((item) => <option>{item + 1}</option>)}
           </SelectStyle>
           {'  of ' + maxPage}
         </PagingMiddle>
         <div onClick={() => setPage(page === maxPage ? page : page + 1)}>
-          <Arrow faded={page === maxPage ? true : false}>
-            <TextPagingNext> Next</TextPagingNext>
-            <NextStyle src="/images/prev.png" />
-          </Arrow>
+          <ArrowNext disableButton={page === maxPage ? true : false}>
+            <TextPagingNext disableButton={page === maxPage ? true : false}> Next</TextPagingNext>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+          </ArrowNext>
         </div>
       </PageButtons>
     </ListWrapper>

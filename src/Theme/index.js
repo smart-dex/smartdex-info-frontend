@@ -59,6 +59,7 @@ const theme = (darkMode, color) => ({
   borderSearch: darkMode ? 'rgba(255, 255, 255, 0.38)' : '#EAE9F2',
   backgroundPaging: darkMode ? 'rgba(0, 133, 255, 0.1)' : '#E9F4FC',
   bgAllPosition: darkMode ? '#23293D' : '#F0F6FB',
+  backgroundError: darkMode ? '#3C384A' : '#FFF9F9',
 
   // special case text types
   white: '#FFFFFF',
@@ -111,6 +112,8 @@ const theme = (darkMode, color) => ({
   borderPopupSearch: darkMode ? '#2F344B' : '#EAE9F2',
   textPagingTable: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
   selectArrowImg: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
+  backgroundAdd: darkMode ? 'none' : '#FFFFFF',
+  backgroundSelect: darkMode ? '#24293f' : 'rgba(95, 94, 118, 0.2)',
 
   // other
   red1: '#FF6871',
@@ -126,6 +129,7 @@ const theme = (darkMode, color) => ({
   textOptionActive: '#0b92fd',
   textOptionNoActive: '#6c6594',
   backFormExchange: '#E9F4FC',
+  colorError: '#FF6970',
 
   background: darkMode ? 'black' : `radial-gradient(50% 50% at 50% 50%, #4FD8DE 30 0%, #fff 0%)`,
 })

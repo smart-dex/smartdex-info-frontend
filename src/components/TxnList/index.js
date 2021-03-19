@@ -27,16 +27,6 @@ const PageButtons = styled.div`
   margin-bottom: 0.5em;
 `
 
-const Arrow = styled.div`
-  color: #2f80ed;
-  opacity: ${(props) => (props.faded ? 0.3 : 1)};
-  padding: 0 20px;
-  user-select: none;
-  :hover {
-    cursor: pointer;
-  }
-`
-
 const List = styled(Box)`
   -webkit-overflow-scrolling: touch;
   .background-item {
@@ -167,6 +157,83 @@ const ListWrapper = styled.div`
   }
 `
 
+const Arrow = styled.div`
+  user-select: none;
+  width: 45px;
+  height: 16px;
+  background: ${({ disableButton }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : 'rgba(95, 94, 118, 0.1)')};
+  border-radius: 5px;
+  padding: 12px 15px;
+  :hover {
+    cursor: ${({ disableButton }) => (disableButton ? 'not-allowed' : 'pointer')};
+    background: ${({ disableButton, theme }) => (disableButton ? 'rgba(95, 94, 118, 0.05)' : theme.backgroundPaging)};
+    svg {
+      fill: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+    span {
+      color: ${({ disableButton, theme }) => (disableButton ? theme.textPagingDisable : theme.textHover)};
+    }
+  }
+  svg {
+    fill: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
+  span {
+    color: ${({ theme, disableButton }) => (disableButton ? theme.textPagingDisable : theme.textPaging)};
+  }
+`
+
+const ArrowNext = styled(Arrow)`
+  svg {
+    transform: rotate(180deg);
+  }
+`
+
+const TextPaging = styled.span`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 100%;
+  padding-left: 4px;
+`
+const PagingMiddle = styled.div`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 16px;
+  color: ${({ theme }) => theme.textMenu};
+`
+const TextPagingNext = styled(TextPaging)`
+  padding-left: 0px;
+  padding-right: 6px;
+`
+
+const SelectStyle = styled.select`
+  width: 65px;
+  height: 39px;
+  padding: 10px;
+  background: ${({ theme }) => theme.backgroundSelect};
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.textMenu};
+  margin-right: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  -webkit-appearance: none;
+  background-image: url(${({ theme }) => theme.selectArrow});
+  background-repeat: no-repeat;
+  background-position-x: 70%;
+  background-position-y: 16px;
+  cursor: pointer;
+  option {
+    background: ${({ theme }) => theme.backgroundSelect};
+    :hover {
+      background-color: yellow !important;
+    }
+  }
+  :focus {
+    outline: none;
+  }
+`
+
 const SORT_FIELD = {
   VALUE: 'amountUSD',
   AMOUNT0: 'token0Amount',
@@ -198,11 +265,20 @@ function getTransactionType(event, symbol0, symbol1) {
   }
 }
 
+const listNumber = (maxPage) => {
+  let listNumberPaging = []
+  for (let i = 0; i < maxPage; i++) {
+    listNumberPaging.push(i)
+  }
+  return listNumberPaging
+}
+
 // @TODO rework into virtualized list
 function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
   // page state
   const [page, setPage] = useState(1)
   const [maxPage, setMaxPage] = useState(1)
+  const listNumberPaging = listNumber(maxPage)
 
   // sorting
   const [sortDirection, setSortDirection] = useState(true)
@@ -330,6 +406,10 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         <path d="M4.65751 6.15367C4.69573 6.20919 4.74688 6.25458 4.80654 6.28594C4.86621 6.3173 4.9326 6.33368 5 6.33368C5.06741 6.33368 5.1338 6.3173 5.19347 6.28594C5.25313 6.25458 5.30428 6.20919 5.3425 6.15367L9.09251 0.737002C9.13591 0.674526 9.16137 0.601349 9.1661 0.525421C9.17084 0.449494 9.15468 0.37372 9.11937 0.306333C9.08407 0.238946 9.03097 0.182522 8.96585 0.143193C8.90073 0.103864 8.82608 0.0831326 8.75001 0.0832525H1.25C1.17411 0.083566 1.09973 0.104564 1.03487 0.143987C0.970014 0.18341 0.91713 0.239768 0.881908 0.307C0.846685 0.374231 0.830456 0.449792 0.834966 0.525557C0.839476 0.601322 0.864555 0.674424 0.907504 0.737002L4.65751 6.15367Z" />
       </svg>
     )
+  }
+
+  const handleChangeSelect = (e) => {
+    setPage(Number(e.target.value))
   }
 
   const ListItem = ({ item }) => {
@@ -503,20 +583,36 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
             )}
       </List>
       <PageButtons>
-        <div
-          onClick={(e) => {
-            setPage(page === 1 ? page : page - 1)
-          }}
-        >
-          <Arrow faded={page === 1 ? true : false}>←</Arrow>
+        <div onClick={() => setPage(page === 1 ? page : page - 1)}>
+          <Arrow disableButton={page === 1 ? true : false}>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+
+            <TextPaging disableButton={page === 1 ? true : false}> Prev</TextPaging>
+          </Arrow>
         </div>
-        <TYPE.body>{'Page ' + page + ' of ' + maxPage}</TYPE.body>
-        <div
-          onClick={(e) => {
-            setPage(page === maxPage ? page : page + 1)
-          }}
-        >
-          <Arrow faded={page === maxPage ? true : false}>→</Arrow>
+        <PagingMiddle>
+          <SelectStyle onChange={handleChangeSelect} value={page}>
+            {listNumberPaging && listNumberPaging.map((item) => <option>{item + 1}</option>)}
+          </SelectStyle>
+          {'  of ' + maxPage}
+        </PagingMiddle>
+        <div onClick={() => setPage(page === maxPage ? page : page + 1)}>
+          <ArrowNext disableButton={page === maxPage ? true : false}>
+            <TextPagingNext disableButton={page === maxPage ? true : false}> Next</TextPagingNext>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M0 5C0 5.2652 0.10536 5.5196 0.292892 5.7071L4.29294 9.70714C4.68344 10.0976 5.31664 10.0976 5.70715 9.70714C6.09765 9.31663 6.09765 8.68343 5.70715 8.29292L2.41422 5L5.70715 1.70708C6.09765 1.31655 6.09765 0.68338 5.70715 0.292847C5.31664 -0.0976766 4.68344 -0.0976766 4.29294 0.292847L0.292892 4.29289C0.10536 4.48039 0 4.73479 0 5Z"
+              />
+            </svg>
+          </ArrowNext>
         </div>
       </PageButtons>
     </ListWrapper>

@@ -132,7 +132,7 @@ const SelectStyle = styled.select`
   width: 65px;
   height: 39px;
   padding: 10px;
-  background: #5f5e761a;
+  background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
   color: ${({ theme }) => theme.textMenu};
@@ -145,13 +145,14 @@ const SelectStyle = styled.select`
   background-position-x: 70%;
   background-position-y: 16px;
   cursor: pointer;
-  :focus {
-    outline: none;
-  }
   option {
+    background: ${({ theme }) => theme.backgroundSelect};
     :hover {
       background-color: yellow !important;
     }
+  }
+  :focus {
+    outline: none;
   }
 `
 
