@@ -96,7 +96,7 @@ export const toWeeklyDate = (date) => {
 }
 
 export function getTimestampsForChanges() {
-  const utcCurrentTime = dayjs.unix(1613637000)
+  const utcCurrentTime = dayjs()
   const t1 = utcCurrentTime.subtract(1, 'day').startOf('minute').unix()
   const t2 = utcCurrentTime.subtract(2, 'day').startOf('minute').unix()
   const tWeek = utcCurrentTime.subtract(1, 'week').startOf('minute').unix()
@@ -207,7 +207,7 @@ export async function getLiquidityTokenBalanceOvertime(account, timestamps) {
  */
 export async function getShareValueOverTime(pairAddress, timestamps) {
   if (!timestamps) {
-    const utcCurrentTime = dayjs.unix(1613637000)
+    const utcCurrentTime = dayjs()
     const utcSevenDaysBack = utcCurrentTime.subtract(8, 'day').unix()
     timestamps = getTimestampRange(utcSevenDaysBack, 86400, 7)
   }
@@ -299,7 +299,7 @@ export const urls = {
 }
 
 export const formatTime = (unix) => {
-  const now = dayjs.unix(1613637000)
+  const now = dayjs()
   const timestamp = dayjs.unix(unix)
 
   const inSeconds = now.diff(timestamp, 'second')
