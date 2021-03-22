@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://192.168.1.206:8000/subgraphs/name/pancakeswap',
+    uri: 'http://192.168.1.206:8000/subgraphs/name/smartDEX',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
