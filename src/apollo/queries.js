@@ -65,12 +65,13 @@ export const GET_BLOCKS = (timestamps) => {
   let queryString = 'query blocks {'
   queryString += timestamps.map((timestamp) => {
     return `t${timestamp}:blocks(first: 1, orderBy: timestamp, orderDirection: desc, where: { timestamp_gt: ${timestamp}, timestamp_lt: ${
-      timestamp + 600
+      timestamp + 86400
     } }) {
       number
     }`
   })
   queryString += '}'
+  console.log("queryString", queryString)
   return gql(queryString)
 }
 
