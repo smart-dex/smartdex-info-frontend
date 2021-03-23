@@ -14,4 +14,4 @@ build-image:
 	docker push registry-server:5000/pancake-info:latest
 
 deploy:
-	make build-image
+	rsync -a /var/www/smartdex/smartdex-finance  sotatek@192.168.1.206:/var/www/test
