@@ -10,7 +10,6 @@ import { AutoColumn } from '../Column'
 import { TYPE } from '../../Theme'
 import { Hover, StyledIcon } from '..'
 import Panel from '../Panel'
-import { Divider } from '..'
 import { Flex } from 'rebass'
 
 import { X } from 'react-feather'
@@ -147,7 +146,6 @@ function AccountSearch({ history, small }) {
               <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
                 <SaveText area="account">Saved Accounts</SaveText>
               </DashGrid>
-              <Divider />
               {savedAccounts?.length > 0 ? (
                 savedAccounts.map((account) => {
                   return (

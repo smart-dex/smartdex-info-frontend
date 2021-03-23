@@ -82,7 +82,7 @@ function GlobalPage() {
   }, [])
 
   const HeaderOverview = styled.div`
-    background: linear-gradient(91.67deg, #0085FF 5.33%, #7E86FF 104.39%);
+    background: ${({ theme }) => theme.backgroundTitleOver};
     display: grid;
     grid - auto - rows: auto;
     grid - row - gap: ${({ gap }) => (gap === 'sm' && '8px') || (gap === 'md' && '12px') || (gap === 'lg' && '24px') || gap};
@@ -104,7 +104,7 @@ function GlobalPage() {
   `
 
   const StyleTitle = styled.div`
-    color: ${({ theme }) => theme.white};
+    color: ${({ theme }) => theme.titleHeader};
     font-size: 24px;
     font-weight: 500;
   `
@@ -122,9 +122,28 @@ function GlobalPage() {
     font-size: 18px;
   `
 
+  const StyledBoxMobile = styled.div`
+    border: 1px solid ${({ theme }) => theme.borderItemInfo};
+    padding: 1.25rem;
+    margin: 20px 0;
+    background: ${({ theme }) => theme.backgroundItemInfo};
+    border-radius: 20px;
+  `
+
+  const StyleText = styled.div`
+    font-weight: 500;
+    font-size: 14px;
+    color: ${({ theme }) => theme.description};
+  `
+
+  const StyleValue = styled.div`
+    font-weight: bold;
+    font-size: 18px;
+    color: ${({ theme }) => theme.description};
+  `
+
   return (
     <PageWrapper style={{ paddingTop: '0px' }}>
-      {/* <ThemedBackground backgroundColor={transparentize(0.8, '#4FD8DE')} /> */}
       <HeaderOverview gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
         <ContentWrapper>
           <StyleTitle>{below800 ? 'Analytics' : 'PancakeSwap Analytics'}</StyleTitle>
@@ -135,38 +154,40 @@ function GlobalPage() {
       <ContentWrapper>
         <div>
           {below800 && ( // mobile card
-            <Box mb={20}>
+            <StyledBoxMobile>
               <Panel>
                 <Box>
                   <AutoColumn gap="36px">
                     <AutoColumn gap="20px">
                       <RowBetween>
-                        <TYPE.main>Volume (24hrs)</TYPE.main>
-                        <div />
+                        <StyleText>Volume (24hrs)</StyleText>
+                        <br />
+                        <br />
                       </RowBetween>
                       <RowBetween align="flex-end">
-                        <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={600}>
+                        <StyleValue>
                           {formattedNum(oneDayVolumeUSD, true)}
-                        </TYPE.main>
+                        </StyleValue>
                         <TYPE.main fontSize={12}>{formattedPercent(volumeChangeUSD)}</TYPE.main>
                       </RowBetween>
                     </AutoColumn>
                     <AutoColumn gap="20px">
                       <RowBetween>
-                        <TYPE.main>Total Liquidity</TYPE.main>
-                        <div />
+                        <StyleText>Total Liquidity</StyleText>
+                        <br />
+                        <br />
                       </RowBetween>
                       <RowBetween align="flex-end">
-                        <TYPE.main fontSize={'1.5rem'} lineHeight={1} fontWeight={600}>
+                        <StyleValue>
                           {formattedNum(totalLiquidityUSD, true)}
-                        </TYPE.main>
+                        </StyleValue>
                         <TYPE.main fontSize={12}>{formattedPercent(liquidityChangeUSD)}</TYPE.main>
                       </RowBetween>
                     </AutoColumn>
                   </AutoColumn>
                 </Box>
               </Panel>
-            </Box>
+            </StyledBoxMobile>
           )}
           {!below800 && (
             <GridRow>
@@ -179,11 +200,11 @@ function GlobalPage() {
             </GridRow>
           )}
           {below800 && (
-            <AutoColumn style={{ marginTop: '6px' }} gap="24px">
+            <StyledBoxMobile style={{ marginTop: '6px' }} gap="24px">
               <Panel style={{ height: '100%', minHeight: '300px' }}>
                 <GlobalChart display="liquidity" />
               </Panel>
-            </AutoColumn>
+            </StyledBoxMobile>
           )}
           <ListOptions gap="10px" style={{ marginTop: '2rem', marginBottom: '.5rem' }}>
             <RowBetween>

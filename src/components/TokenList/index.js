@@ -2,13 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-
 import { Box, Flex, Text } from 'rebass'
 import TokenLogo from '../TokenLogo'
 import { CustomLink } from '../Link'
 import Row from '../Row'
-import { Divider } from '..'
-
 import { formattedNum, formattedPercent } from '../../utils'
 import { useMedia } from 'react-use'
 import { withRouter } from 'react-router-dom'
@@ -417,7 +414,6 @@ function TopTokenList({ tokens, itemMax = 10 }) {
           </Flex>
         )}
       </DashGrid>
-      <Divider />
       <List p={0}>
         {filteredList &&
           filteredList.map((item, index) => {

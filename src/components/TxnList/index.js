@@ -11,7 +11,7 @@ import { RowFixed, RowBetween } from '../Row'
 import LocalLoader from '../LocalLoader'
 import { Box, Flex, Text } from 'rebass'
 import Link from '../Link'
-import { Divider, EmptyCard } from '..'
+import { EmptyCard } from '..'
 import DropdownSelect from '../DropdownSelect'
 import FormattedName from '../FormattedName'
 import { TYPE } from '../../Theme'
@@ -565,7 +565,6 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           </Flex>
         </>
       </DashGrid>
-      <Divider />
       <List p={0}>
         {!filteredList ? (
           <LocalLoader />
@@ -576,7 +575,6 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
                 return (
                   <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
                     <ListItem key={index} index={index + 1} item={item} />
-                    <Divider />
                   </div>
                 )
               })

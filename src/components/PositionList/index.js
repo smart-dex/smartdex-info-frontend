@@ -5,7 +5,6 @@ import utc from 'dayjs/plugin/utc'
 import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
 import Link, { CustomLink } from '../Link'
-import { Divider } from '../../components'
 import DoubleTokenLogo from '../DoubleLogo'
 import { withRouter } from 'react-router-dom'
 import { formattedNum, getPoolLink } from '../../utils'
@@ -384,7 +383,6 @@ function PositionList({ positions }) {
         return (
           <div key={index}>
             <ListItem key={index} index={(page - 1) * 10 + index + 1} position={position} />
-            <Divider />
           </div>
         )
       })
@@ -446,7 +444,6 @@ function PositionList({ positions }) {
           </Flex>
         )}
       </DashGrid>
-      <Divider />
       <List p={0}>{!positionsSorted ? <NoRecent>No recent positions found.</NoRecent> : positionsSorted}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

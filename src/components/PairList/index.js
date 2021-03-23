@@ -7,7 +7,6 @@ import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
 
 import { CustomLink } from '../Link'
-import { Divider } from '../../components'
 import { withRouter } from 'react-router-dom'
 import { formattedNum, formattedPercent } from '../../utils'
 import DoubleTokenLogo from '../DoubleLogo'
@@ -329,7 +328,6 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
           pairAddress && (
             <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
               <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} pairAddress={pairAddress} />
-              <Divider />
             </div>
           )
         )
@@ -411,7 +409,6 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
           </Flex>
         )}
       </DashGrid>
-      <Divider />
       <List p={0}>{!pairList ? <LocalLoader /> : pairList}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

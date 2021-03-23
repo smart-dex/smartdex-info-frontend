@@ -6,7 +6,6 @@ import utc from 'dayjs/plugin/utc'
 import { Box, Flex, Text } from 'rebass'
 import styled from 'styled-components'
 import Link, { CustomLink } from '../Link'
-import { Divider } from '..'
 import DoubleTokenLogo from '../DoubleLogo'
 import { withRouter } from 'react-router-dom'
 import { formattedNum, getUniswapAppLink } from '../../utils'
@@ -216,7 +215,6 @@ function MiningPositionList({ miningPositions }) {
         return (
           <div key={index}>
             <ListItem key={index} index={(page - 1) * ITEMS_PER_PAGE + index + 1} miningPosition={miningPosition} />
-            <Divider />
           </div>
         )
       })
@@ -244,7 +242,6 @@ function MiningPositionList({ miningPositions }) {
           </ClickableText>
         </Flex>
       </DashGrid>
-      <Divider />
       <List p={0}>{!miningPositionsSorted ? <LocalLoader /> : miningPositionsSorted}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

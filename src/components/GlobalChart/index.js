@@ -81,20 +81,21 @@ const GlobalChart = ({ display }) => {
     margin-left: 10px;
     display: flex;
     .active {
-      width: 20px;
-      height: 20px;
+      width: 40px;
+      height: 40px;
       text-align: center;
       background: ${({ theme }) => theme.optionActive};
       border-radius: 5px;
       border: none;
       div {
         color: ${({ theme }) => theme.textOptionActive};
-        font-weight: 600;
+        font-weight: 500;
+        padding: 11px;
       }
     }
     .no-active {
-      width: 19px;
-      height: 19px;
+      width: 39px;
+      height: 39px;
       text-align: center;
       background: ${({ theme }) => theme.optionNoActive};
       border-radius: 5px;
@@ -102,6 +103,7 @@ const GlobalChart = ({ display }) => {
       div {
         color: ${({ theme }) => theme.textOptionNoActive};
         font-weight: 500;
+        padding: 11px;
       }
     }
   `
@@ -157,7 +159,6 @@ const GlobalChart = ({ display }) => {
               <TYPE.body>D</TYPE.body>
             </OptionButton>
             <OptionButton
-              style={{ marginLeft: '4px' }}
               active={volumeWindow === VOLUME_WINDOW.WEEKLY}
               onClick={() => setVolumeWindow(VOLUME_WINDOW.WEEKLY)}
               className={volumeWindow === VOLUME_WINDOW.WEEKLY ? 'active' : 'no-active'}
