@@ -7,7 +7,6 @@ import { Box, Flex } from 'rebass'
 import styled from 'styled-components'
 
 import { CustomLink } from '../Link'
-import { Divider } from '..'
 import { withRouter } from 'react-router-dom'
 import { formattedNum } from '../../utils'
 import DoubleTokenLogo from '../DoubleLogo'
@@ -228,7 +227,6 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
       return (
         <RowTable key={index}>
           <ListItem key={index} index={(page - 1) * 10 + index + 1} lp={lp} />
-          <Divider />
         </RowTable>
       )
     })
@@ -264,7 +262,6 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
           <TableHeader area="value">Value</TableHeader>
         </Flex>
       </DashGridHeader>
-      <Divider />
       <List p={0}>{!lpList ? <LocalLoader /> : lpList}</List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>

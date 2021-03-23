@@ -21,14 +21,16 @@ import { TYPE } from '../../Theme'
 import { updateNameData } from '../../utils/data'
 
 const Container = styled.div`
-  height: 48px;
+  height: 50px;
   z-index: 30;
   position: relative;
-  border: 1px solid ${({ theme }) => theme.borderSearch};
   box-sizing: border-box;
   border-radius: 50px;
   @media screen and (max-width: 600px) {
     width: 100%;
+  }
+  .form-input {
+    border: 1px solid ${({ theme, small }) => small ? theme.borderSearch : 'none'};
   }
 `
 
@@ -38,9 +40,9 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: 15px 38px;
+  padding: ${({ small }) => small ? '15px 38px 15px 18px' : '15px 38px'};
   background: ${({ theme, small, open }) =>
-    small ? (open ? transparentize(0.4, theme.bg1) : 'none') : theme.white};
+    small ? (open ? transparentize(0.4, theme.bg1) : 'none') : theme.backgroundSearch};
   border-bottom-right-radius: ${({ open }) => (open ? '0px' : '12px')};
   border-bottom-left-radius: ${({ open }) => (open ? '0px' : '12px')};
   z-index: 9999;
@@ -50,13 +52,13 @@ const Wrapper = styled.div`
   border-radius: 50px;
   box-shadow: ${({ open, small }) =>
     !open && !small
-      ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
+      ? '10px 10px 30px rgba(120, 118, 148, 0.1);'
       : 'none'};
   @media screen and (max-width: 500px) {
     background: ${({ theme }) => transparentize(0.4, theme.bg1)};
     box-shadow: ${({ open }) =>
     !open
-      ? '0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04) '
+      ? '10px 10px 30px rgba(120, 118, 148, 0.1);'
       : 'none'};
   }
 `
@@ -69,11 +71,11 @@ const Input = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.textInputSearch};
   font-size: ${({ large }) => (large ? '20px' : '14px')};
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.textInputSearch};
     font-size: 16px;
   }
 
@@ -91,7 +93,7 @@ const SearchIconLarge = styled(SearchIcon)`
   position: absolute;
   right: 10px;
   pointer-events: none;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.colorIconSearch};
 `
 
 const CloseIcon = styled.div`
@@ -100,6 +102,7 @@ const CloseIcon = styled.div`
   margin-right: 0.5rem;
   position: absolute;
   right: 10px;
+  top: 12px;
   color: ${({ theme }) => theme.text3};
   :hover {
     cursor: pointer;
@@ -107,6 +110,7 @@ const CloseIcon = styled.div`
 `
 
 const Menu = styled.div`
+  margin-top: 6px;
   display: flex;
   flex-direction: column;
   z-index: 9999;
@@ -449,7 +453,7 @@ export const Search = ({ small = false }) => {
 
   return (
     <Container small={small}>
-      <Wrapper open={showMenu} shadow={true} small={small}>
+      <Wrapper className="form-input" open={showMenu} shadow={true} small={small}>
         <Input
           large={!small}
           type={'text'}
@@ -478,16 +482,16 @@ export const Search = ({ small = false }) => {
         {!showMenu ? (
           <SearchIconLarge />
         ) : (
-          <CloseIcon onClick={() => toggleMenu(false)}>
-            {' '}
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 2C17.53 2 22 6.47 22 12C22 17.53 17.53 22 12 22C6.47 22 2 17.53 2 12C2 6.47 6.47 2 12 2ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
-                fill="#A2A1B8"
-              />
-            </svg>
-          </CloseIcon>
-        )}
+            <CloseIcon onClick={() => toggleMenu(false)}>
+              {' '}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C17.53 2 22 6.47 22 12C22 17.53 17.53 22 12 22C6.47 22 2 17.53 2 12C2 6.47 6.47 2 12 2ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z"
+                  fill="#A2A1B8"
+                />
+              </svg>
+            </CloseIcon>
+          )}
       </Wrapper>
       <Menu hide={!showMenu} ref={menuRef}>
         <Heading>

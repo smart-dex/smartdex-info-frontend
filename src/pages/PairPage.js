@@ -34,15 +34,22 @@ const DashboardWrapper = styled.div`
 `
 
 const PanelWrapper = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
+  background: ${({ theme }) => theme.backgroundItemInfo};
+  border-radius: 20px;
+  padding: 30px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: max-content;
   gap: 6px;
   display: inline-grid;
-  width: 100%;
+  width: calc(100% - 60px);
   align-items: start;
   @media screen and (max-width: 1024px) {
     grid-template-columns: 1fr;
     align-items: stretch;
+    padding: 20px;
+    width: calc(100% - 40px);
     > * {
       grid-column: 1 / 4;
     }
@@ -82,17 +89,6 @@ const TokenDetailsLayout = styled.div`
       align-items: start;
       justify-items: start;
     }
-  }
-`
-
-const FixedPanel = styled(Panel)`
-  width: fit-content;
-  padding: 8px 12px;
-  border-radius: 10px;
-
-  :hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.bg2};
   }
 `
 
@@ -203,6 +199,7 @@ const StyleFormExchange = styled.div`
   background: ${({ theme }) => theme.backFormExchange};
   padding: 8px;
   border-radius: 5px;
+  cursor: pointer;
 `
 
 const TitlePair = styled.div`
@@ -231,10 +228,11 @@ const StyleInfo = styled.div`
 const Item = styled.div`
   width: calc(25% - 10px);
   height: 157px;
-  border: 1px solid ${({ theme }) => theme.borderPopupSearch};
-  box-shadow: 5px 5px 20px rgba(120, 118, 148, 0.08);
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
   border-radius: 20px;
   padding: 25px 0 0 21px;
+  background: ${({ theme }) => theme.backgroundItemInfo};
   .title {
     font-weight: 500;
     font-size: 14px;
@@ -439,9 +437,6 @@ function PairPage({ pairAddress, history }) {
                 <RowFixed
                   ml={below900 ? '0' : '2.5rem'}
                   mt={below1080 && '1rem'}
-                  style={{
-                    flexDirection: below1080 ? 'row-reverse' : 'initial',
-                  }}
                 >
                   {!!!savedPairs[pairAddress] && !below1080 ? (
                     <Hover onClick={() => addPair(pairAddress, token0.id, token1.id, token0.symbol, token1.symbol)}>
@@ -476,32 +471,27 @@ function PairPage({ pairAddress, history }) {
                 width: 'fit-content',
                 marginTop: below900 ? '1rem' : '0',
                 marginBottom: below900 ? '0' : '2rem',
-                marginLeft: '-16px',
                 flexWrap: 'wrap',
               }}
             >
-              <FixedPanel style={{ border: 'none', boxShadow: 'none' }} onClick={() => history.push(`/token/${token0?.id}`)}>
-                <StyleFormExchange>
-                  <TokenLogo address={token0?.id} size={'18px'} />
-                  <StyleExchange>
-                    {token0 && token1
-                      ? `1 ${formattedSymbol0} = ${token0Rate} ${formattedSymbol1} ${parseFloat(token0?.derivedETH) ? '(' + token0USD + ')' : ''
-                      }`
-                      : '-'}
-                  </StyleExchange>
-                </StyleFormExchange>
-              </FixedPanel>
-              <FixedPanel style={{ border: 'none', boxShadow: 'none' }} onClick={() => history.push(`/token/${token1?.id}`)}>
-                <StyleFormExchange>
-                  <TokenLogo address={token1?.id} size={'18px'} />
-                  <StyleExchange>
-                    {token0 && token1
-                      ? `1 ${formattedSymbol1} = ${token1Rate} ${formattedSymbol0}  ${parseFloat(token1?.derivedETH) ? '(' + token1USD + ')' : ''
-                      }`
-                      : '-'}
-                  </StyleExchange>
-                </StyleFormExchange>
-              </FixedPanel>
+              <StyleFormExchange onClick={() => history.push(`/token/${token0?.id}`)}>
+                <TokenLogo address={token0?.id} size={'18px'} />
+                <StyleExchange>
+                  {token0 && token1
+                    ? `1 ${formattedSymbol0} = ${token0Rate} ${formattedSymbol1} ${parseFloat(token0?.derivedETH) ? '(' + token0USD + ')' : ''
+                    }`
+                    : '-'}
+                </StyleExchange>
+              </StyleFormExchange>
+              <StyleFormExchange onClick={() => history.push(`/token/${token1?.id}`)}>
+                <TokenLogo address={token1?.id} size={'18px'} />
+                <StyleExchange>
+                  {token0 && token1
+                    ? `1 ${formattedSymbol1} = ${token1Rate} ${formattedSymbol0}  ${parseFloat(token1?.derivedETH) ? '(' + token1USD + ')' : ''
+                    }`
+                    : '-'}
+                </StyleExchange>
+              </StyleFormExchange>
             </AutoRow>
             <>
               {!below1080 && <TitlePair>Pair Stats</TitlePair>}
@@ -560,8 +550,8 @@ function PairPage({ pairAddress, history }) {
               <PanelWrapper style={{ marginTop: '1.5rem' }}>
                 <Panel
                   style={{
-                    gridColumn: below1080 ? '1' : '2/4',
-                    gridRow: below1080 ? '' : '1/5',
+                    gridColumn: below1080 ? '1' : '1/4',
+                    gridRow: below1080 ? '' : '1/4',
                   }}
                 >
                   <PairChart

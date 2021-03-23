@@ -16,7 +16,7 @@ const Header = styled.div`
 const Item = styled.div`
   font-size: 16px;
   font-weight: normal;
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.titleHeader};
 `
 
 export default function GlobalStats() {

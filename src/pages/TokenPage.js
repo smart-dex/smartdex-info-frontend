@@ -34,14 +34,21 @@ const DashboardWrapper = styled.div`
 `
 
 const PanelWrapper = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
+  background: ${({ theme }) => theme.backgroundItemInfo};
+  border-radius: 20px;
+  padding: 30px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: max-content;
   gap: 6px;
   display: inline-grid;
-  width: 100%;
   align-items: start;
+  width: calc(100% - 60px);
   @media screen and (max-width: 1024px) {
     grid-template-columns: 1fr;
+    padding: 20px;
+    width: calc(100% - 40px);
     align-items: stretch;
     > * {
       grid-column: 1 / 4;
@@ -196,10 +203,11 @@ const StyleInfo = styled.div`
 const Item = styled.div`
   width: calc(33% - 10px);
   height: 157px;
-  border: 1px solid ${({ theme }) => theme.borderPopupSearch};
-  box-shadow: 5px 5px 20px rgba(120, 118, 148, 0.08);
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
   border-radius: 20px;
   padding: 25px 0 0 21px;
+  background: ${({ theme }) => theme.backgroundItemInfo};
   .title {
     font-weight: 500;
     font-size: 14px;
@@ -471,10 +479,10 @@ function TokenPage({ address, history }) {
                   </TYPE.main>
                 </Item>
               </StyleInfo>
-              <PanelWrapper style={{ marginTop: below1080 ? '0' : '1rem' }}>
+              <PanelWrapper style={{ marginTop: '1.5rem' }}>
                 <Panel
                   style={{
-                    gridColumn: below1080 ? '1' : '2/4',
+                    gridColumn: below1080 ? '1' : '1/4',
                     gridRow: below1080 ? '' : '1/4',
                   }}
                 >
