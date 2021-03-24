@@ -5,7 +5,9 @@ import utc from 'dayjs/plugin/utc'
 import { formattedNum } from '../../utils'
 import styled from 'styled-components'
 import { usePrevious } from 'react-use'
+import { Play } from 'react-feather'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
+import { IconWrapper } from '..'
 
 dayjs.extend(utc)
 
@@ -128,7 +130,7 @@ const TradingViewChart = ({
       var series =
         type === CHART_TYPES.BAR
           ? chart.addHistogramSeries({
-            color: '#2b275d',
+            color: '#0085FF',
             priceFormat: {
               type: 'volume',
             },
@@ -142,7 +144,7 @@ const TradingViewChart = ({
           : chart.addAreaSeries({
             topColor: darkMode ? '#132440' : '#dbe9f9',
             bottomColor: darkMode ? '#141c32' : '#fbfcfe',
-            lineColor: darkMode ? '#388cd4' : '#1d93ff',
+            lineColor: darkMode ? '#0085FF' : '#0085FF',
             lineWidth: 3,
           })
 
@@ -238,13 +240,13 @@ const TradingViewChart = ({
   return (
     <Wrapper>
       <div ref={ref} id={'test-id' + type} style={{ marginTop: '30px' }} />
-      {/* <IconWrapper>
+      <IconWrapper style={{ marginRight: '20px' }}>
         <Play
           onClick={() => {
             chartCreated && chartCreated.timeScale().fitContent()
           }}
         />
-      </IconWrapper> */}
+      </IconWrapper>
     </Wrapper>
   )
 }

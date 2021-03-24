@@ -106,6 +106,9 @@ const GlobalChart = ({ display }) => {
         padding: 11px;
       }
     }
+    div:nth-child(2) {
+      margin-left: 8px !important;
+    }
   `
 
   return chartDataFiltered ? (

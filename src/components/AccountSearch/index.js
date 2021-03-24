@@ -91,6 +91,10 @@ const SaveText = styled.div`
   color: ${({ theme }) => theme.textHover};
 `
 
+const BorderBottom = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.lineSearchAccount};
+`
+
 const NoSave = styled.div`
   font-weight: 600;
   font-size: 16px;
@@ -143,9 +147,11 @@ function AccountSearch({ history, small }) {
         {!small && (
           <BackgroundForm>
             <Panel className="backgroundSaved">
-              <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
-                <SaveText area="account">Saved Accounts</SaveText>
-              </DashGrid>
+              <BorderBottom>
+                <DashGrid center={true} style={{ height: 'fit-content', padding: '0 0 1rem 0' }}>
+                  <SaveText area="account">Saved Accounts</SaveText>
+                </DashGrid>
+              </BorderBottom>
               {savedAccounts?.length > 0 ? (
                 savedAccounts.map((account) => {
                   return (
