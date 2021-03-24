@@ -79,10 +79,10 @@ export function ButtonDropdown({ disabled = false, children, open, ...rest }) {
             <ChevronUp size={24} />
           </StyledIcon>
         ) : (
-          <StyledIcon>
-            <ChevronDown size={24} />
-          </StyledIcon>
-        )}
+            <StyledIcon>
+              <ChevronDown size={24} />
+            </StyledIcon>
+          )}
       </RowBetween>
     </ButtonFaded>
   )
@@ -101,7 +101,7 @@ export const ButtonDark = styled(Base)`
 `
 
 export const ButtonFaded = styled(Base)`
-  background-color: ${({ theme }) => theme.bgAllPosition};
+  background-color: ${({ theme }) => theme.bgHeaderTable};
   color: (255, 255, 255, 0.5);
   white-space: nowrap;
 
@@ -137,7 +137,7 @@ export const OptionButton = styled.div`
   font-size: 14px;
   line-height: 18px;
   letter-spacing: -0.04em;
-  border-bottom: 2px solid ${({ theme, active }) => (active ? theme.textHover : 'transparent')};
+  border-bottom: 3px solid ${({ theme, active }) => (active ? theme.textHover : 'transparent')};
   color: ${({ theme, active }) => (active ? theme.textHover : theme.textMenu)};
 
   :hover {

@@ -26,6 +26,11 @@ const AccountTitle = styled.span`
   color: ${({ theme }) => theme.textMenu};
 `
 
+const BottomHeader = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.lineSearchAccount};
+  margin-bottom: 30px;
+`
+
 const UserChart = ({ account }) => {
   const chartData = useUserLiquidityChart(account)
 
@@ -50,32 +55,34 @@ const UserChart = ({ account }) => {
           <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#4FD8DE'} />
         </RowBetween>
       ) : (
-        <RowBetween mb={40}>
-          <AutoRow gap="10px">
-            <AccountTitle>Liquidity Value</AccountTitle>
-          </AutoRow>
-          <AutoRow justify="flex-end" gap="4px">
-            <OptionButton
-              active={timeWindow === timeframeOptions.MONTH}
-              onClick={() => setTimeWindow(timeframeOptions.MONTH)}
-            >
-              1M
+          <BottomHeader>
+            <RowBetween style={{ marginBottom: '7px' }}>
+              <AutoRow gap="10px">
+                <AccountTitle>Liquidity Value</AccountTitle>
+              </AutoRow>
+              <AutoRow justify="flex-end" gap="4px">
+                <OptionButton
+                  active={timeWindow === timeframeOptions.MONTH}
+                  onClick={() => setTimeWindow(timeframeOptions.MONTH)}
+                >
+                  1M
             </OptionButton>
-            <OptionButton
-              active={timeWindow === timeframeOptions.WEEK}
-              onClick={() => setTimeWindow(timeframeOptions.WEEK)}
-            >
-              1W
+                <OptionButton
+                  active={timeWindow === timeframeOptions.WEEK}
+                  onClick={() => setTimeWindow(timeframeOptions.WEEK)}
+                >
+                  1W
             </OptionButton>
-            <OptionButton
-              active={timeWindow === timeframeOptions.ALL_TIME}
-              onClick={() => setTimeWindow(timeframeOptions.ALL_TIME)}
-            >
-              All
+                <OptionButton
+                  active={timeWindow === timeframeOptions.ALL_TIME}
+                  onClick={() => setTimeWindow(timeframeOptions.ALL_TIME)}
+                >
+                  All
             </OptionButton>
-          </AutoRow>
-        </RowBetween>
-      )}
+              </AutoRow>
+            </RowBetween>
+          </BottomHeader>
+        )}
       {chartData ? (
         <ResponsiveContainer aspect={aspect} style={{ height: 'inherit' }}>
           <AreaChart margin={{ top: 0, right: 10, bottom: 6, left: 0 }} barCategoryGap={1} data={chartData}>
@@ -136,8 +143,8 @@ const UserChart = ({ account }) => {
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-        <div style={{ height: '135px' }}></div>
-      )}
+          <div style={{ height: '135px' }}></div>
+        )}
     </ChartWrapper>
   )
 }

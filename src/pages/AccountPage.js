@@ -136,6 +136,41 @@ const LearnMore = styled.div`
   padding-top: 8px;
 `
 
+const StyleMiningPool = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  background: ${({ theme }) => theme.backgroundItemInfo};
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
+  padding: 19px 21px 27px 21px;
+`
+
+const StyleWalletStats = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  background: ${({ theme }) => theme.backgroundItemInfo};
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
+  padding: 20px 21px;
+`
+
+const StyleChart = styled.div`
+  border: 1px solid ${({ theme }) => theme.borderItemInfo};
+  background: ${({ theme }) => theme.backgroundItemInfo};
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
+  padding: 20px 21px;
+`
+
+const IconArrow = styled.span`
+  margin: 0px 10px;
+  svg {
+    width: 8px;
+    height: 12px;
+    path {
+      stroke: ${({ theme }) => theme.colorHeader};
+    }
+  }
+`
+
 function AccountPage({ account }) {
   // get data for this account
   const transactions = useUserTransactions(account)
@@ -213,7 +248,12 @@ function AccountPage({ account }) {
       <ContentWrapper>
         <RowBetween>
           <TYPE.body>
-            <AccountTitle to="/accounts">{'Accounts '}</AccountTitle>→{' '}
+            <AccountTitle to="/accounts">{'Accounts '}</AccountTitle>
+            <IconArrow>
+              <svg viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L7 7L0.999999 13" stroke-width="2" />
+              </svg>
+            </IconArrow>
             <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
               {' '}
               {account?.slice(0, 42)}{' '}
@@ -319,46 +359,50 @@ function AccountPage({ account }) {
           )}
           {!hideLPContent && (
             <PanelStyle style={{ height: '100%', marginBottom: '1rem' }}>
-              <AutoRow gap="20px">
-                <AutoColumn gap="10px">
-                  <RowBetween>
-                    <AccountTitle>Liquidity (Including Fees)</AccountTitle>
-                    <div />
-                  </RowBetween>
-                  <RowFixed align="flex-end">
-                    <AccountTitle>
-                      {positionValue
-                        ? formattedNum(positionValue, true)
-                        : positionValue === 0
-                          ? formattedNum(0, true)
-                          : '-'}
-                    </AccountTitle>
-                  </RowFixed>
-                </AutoColumn>
-                <AutoColumn gap="10px" style={{ paddingLeft: '9px' }}>
-                  <RowBetween>
-                    <AccountTitle>Fees Earned (Cumulative)</AccountTitle>
-                    <div />
-                  </RowBetween>
-                  <RowFixed align="flex-end">
-                    <AccountTitle color={aggregateFees && 'green'}>
-                      {aggregateFees ? formattedNum(aggregateFees, true, true) : '-'}
-                    </AccountTitle>
-                  </RowFixed>
-                </AutoColumn>
-              </AutoRow>
+              <StyleWalletStats>
+                <AutoRow gap="20px">
+                  <AutoColumn gap="10px">
+                    <RowBetween>
+                      <AccountTitle>Liquidity (Including Fees)</AccountTitle>
+                      <div />
+                    </RowBetween>
+                    <RowFixed align="flex-end">
+                      <AccountTitle>
+                        {positionValue
+                          ? formattedNum(positionValue, true)
+                          : positionValue === 0
+                            ? formattedNum(0, true)
+                            : '-'}
+                      </AccountTitle>
+                    </RowFixed>
+                  </AutoColumn>
+                  <AutoColumn gap="10px" style={{ paddingLeft: '9px' }}>
+                    <RowBetween>
+                      <AccountTitle>Fees Earned (Cumulative)</AccountTitle>
+                      <div />
+                    </RowBetween>
+                    <RowFixed align="flex-end">
+                      <AccountTitle color={aggregateFees && 'green'}>
+                        {aggregateFees ? formattedNum(aggregateFees, true, true) : '-'}
+                      </AccountTitle>
+                    </RowFixed>
+                  </AutoColumn>
+                </AutoRow>
+              </StyleWalletStats>
             </PanelStyle>
           )}
           {!hideLPContent && (
-            <PanelWrapper>
-              <PanelStyle style={{ gridColumn: '1' }}>
-                {activePosition ? (
-                  <PairReturnsChart account={account} position={activePosition} />
-                ) : (
-                    <UserChart account={account} position={activePosition} />
-                  )}
-              </PanelStyle>
-            </PanelWrapper>
+            <StyleChart>
+              <PanelWrapper>
+                <PanelStyle style={{ gridColumn: '1' }}>
+                  {activePosition ? (
+                    <PairReturnsChart account={account} position={activePosition} />
+                  ) : (
+                      <UserChart account={account} position={activePosition} />
+                    )}
+                </PanelStyle>
+              </PanelWrapper>
+            </StyleChart>
           )}
           <TitleTableStyle style={{ marginTop: '35px' }}>Positions</TitleTableStyle>{' '}
           <PanelStyle
@@ -377,10 +421,12 @@ function AccountPage({ account }) {
             {miningPositions && <MiningPositionList miningPositions={miningPositions} />}
             {!miningPositions && (
               <AutoColumn gap="8px" justify="flex-start">
-                <NoStake>No Staked Liquidity.</NoStake>
-                <AutoRow gap="8px" justify="flex-start">
-                  <LearnMore>Learn More</LearnMore>{' '}
-                </AutoRow>{' '}
+                <StyleMiningPool>
+                  <NoStake>No Staked Liquidity.</NoStake>
+                  <AutoRow gap="8px" justify="flex-start">
+                    <LearnMore>Learn More</LearnMore>{' '}
+                  </AutoRow>{' '}
+                </StyleMiningPool>
               </AutoColumn>
             )}
           </PanelStyle>
@@ -398,24 +444,26 @@ function AccountPage({ account }) {
               marginTop: '15px',
             }}
           >
-            <AutoRow gap="20px">
-              <AutoColumn gap="8px">
-                <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</NonValue>
-                <AccountTitle>Total Value Swapped</AccountTitle>
-              </AutoColumn>
-              <AutoColumn gap="8px">
-                <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.002, true) : '-'}</NonValue>
-                <AccountTitle>Total Fees Paid</AccountTitle>
-              </AutoColumn>
-              <AutoColumn gap="8px">
-                <NonValue>{transactionCount ? transactionCount : '-'}</NonValue>
-                <AccountTitle>Total Transactions</AccountTitle>
-              </AutoColumn>
-            </AutoRow>
+            <StyleWalletStats>
+              <AutoRow gap="20px">
+                <AutoColumn gap="8px">
+                  <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</NonValue>
+                  <AccountTitle>Total Value Swapped</AccountTitle>
+                </AutoColumn>
+                <AutoColumn gap="8px">
+                  <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD * 0.002, true) : '-'}</NonValue>
+                  <AccountTitle>Total Fees Paid</AccountTitle>
+                </AutoColumn>
+                <AutoColumn gap="8px">
+                  <NonValue>{transactionCount ? transactionCount : '-'}</NonValue>
+                  <AccountTitle>Total Transactions</AccountTitle>
+                </AutoColumn>
+              </AutoRow>
+            </StyleWalletStats>
           </PanelStyle>
         </DashboardWrapper>
       </ContentWrapper>
-    </PageWrapper>
+    </PageWrapper >
   )
 }
 
