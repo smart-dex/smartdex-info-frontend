@@ -464,10 +464,10 @@ export const Search = ({ small = false }) => {
               : below410
                 ? 'Search...'
                 : below470
-                  ? 'Search PancakeSwap...'
+                  ? 'Search SmartDEX...'
                   : below700
                     ? 'Search pairs and tokens...'
-                    : 'Search PancakeSwap pairs and tokens...'
+                    : 'Search SmartDEX pairs and tokens...'
           }
           value={value}
           onChange={(e) => {

@@ -403,7 +403,7 @@ function TokenPage({ address, history }) {
                   <TokenLogo address={address} size="30px" style={{ alignSelf: 'center' }} />
                   <TYPE.main fontSize={below1080 ? '1.5rem' : '2rem'} fontWeight={500} style={{ margin: '0 1rem' }}>
                     <RowFixed gap="6px">
-                      <NamePair className="aaaaaaaaaaaaaa">
+                      <NamePair>
                         <FormattedName text={name ? name + ' ' : ''} maxCharacters={16} style={{ marginRight: '6px' }} />{' '}
                         {formattedSymbol ? `(${formattedSymbol})` : ''}
                       </NamePair>

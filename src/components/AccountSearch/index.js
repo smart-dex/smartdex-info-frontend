@@ -74,14 +74,14 @@ const DashGrid = styled.div`
 const Description = styled.div`
   font-weight: 500;
   font-size: 11px;
-  color: ${({ theme }) => theme.description};
-  opacity: 0.5;
+  color: ${({ theme }) => theme.colorMenu};
+  opacity: 0.7;
   padding-top: 8px;
 `
 const Title = styled.div`
   font-weight: 500;
-  font-size: 14px;
-  color: ${({ theme }) => theme.textMenu};
+  font-size: 13px;
+  color: ${({ theme }) => theme.colorMenu};
 `
 
 const SaveText = styled.div`
@@ -109,6 +109,13 @@ const BackgroundForm = styled.div`
     border: 1px solid ${({ theme }) => theme.borderInput};
     box-shadow: 5px 5px 20px ${({ theme }) => theme.boxShadow};
     padding: 25px 50px;
+  }
+`
+
+const StyleClose = styled.div`
+  margin-right: 10px;
+  svg {
+    stroke: ${({ theme }) => theme.colorMenu};
   }
 `
 
@@ -168,9 +175,11 @@ function AccountSearch({ history, small }) {
                             removeAccount(account)
                           }}
                         >
-                          <StyledIcon>
-                            <X size={16} />
-                          </StyledIcon>
+                          <StyleClose>
+                            <StyledIcon>
+                              <X size={16} />
+                            </StyledIcon>
+                          </StyleClose>
                         </Hover>
                       </Flex>
                     </DashGrid>
@@ -198,9 +207,11 @@ function AccountSearch({ history, small }) {
                         )}
                     </ButtonFaded>
                     <Hover onClick={() => removeAccount(account)}>
-                      <StyledIcon>
-                        <X size={16} />
-                      </StyledIcon>
+                      <StyleClose>
+                        <StyledIcon>
+                          <X size={16} />
+                        </StyledIcon>
+                      </StyleClose>
                     </Hover>
                   </RowBetween>
                 )
