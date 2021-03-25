@@ -146,7 +146,7 @@ function GlobalPage() {
     <PageWrapper style={{ paddingTop: '0px' }}>
       <HeaderOverview gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
         <ContentWrapper>
-          <StyleTitle>{below800 ? 'Analytics' : 'PancakeSwap Analytics'}</StyleTitle>
+          <StyleTitle>{below800 ? 'Analytics' : 'SmartDEX Analytics'}</StyleTitle>
           <StyleSearch><Search /></StyleSearch>
           <GlobalStats />
         </ContentWrapper>

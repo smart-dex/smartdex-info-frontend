@@ -35,25 +35,25 @@ const Option = styled.div`
   font-weight: 500;
   font-size: 14px;
   padding: 12px 25px;
-  background: ${({ activeText, theme }) => (activeText ? theme.hoverMenu : 'none')};
-  color: ${({ theme, activeText }) => (activeText ? theme.textHover : theme.textMenu)};
+  background: ${({ activeText, theme }) => (activeText ? theme.backgroundHover : 'none')};
+  color: ${({ theme, activeText }) => (activeText ? theme.colorMenuActive : theme.colorMenu)};
   display: flex;
   svg path {
-    fill: ${({ theme }) => theme.iconMenu};
+    fill: ${({ theme }) => theme.colorMenu};
   }
   .pair-icon path {
-    stroke: ${({ theme, activeText }) => (activeText ? theme.textHover : theme.iconMenu)};
+    stroke: ${({ theme, activeText }) => (activeText ? theme.colorMenuActive : theme.colorMenu)};
     fill: none !important;
   }
   :hover {
-    background: ${({ theme }) => theme.hoverMenu};
+    background: ${({ theme }) => theme.backgroundHover};
   }
 `
 const OptionSave = styled.div`
   font-weight: 500;
   font-size: 14px;
   padding: 12px 25px;
-  color: ${({ theme, activeText }) => (activeText ? theme.textHover : theme.textMenu)};
+  color: ${({ theme }) => (theme.colorMenu)};
 `
 const DesktopWrapper = styled.div`
   display: flex;
@@ -76,12 +76,13 @@ const HeaderText = styled.div`
   letter-spacing: -0.03em;
   display: inline-box;
   display: -webkit-inline-box;
-
-  :hover {
-    color: ${({ theme }) => theme.textHover};
-  }
   a {
-    color: ${({ theme, activeText }) => (activeText ? theme.textHover : theme.textMenu)};
+    color: ${({ theme }) => theme.colorMenu};
+    font-weight: normal;
+    &:hover {
+      color: ${({ theme }) => theme.white};
+      font-weight: 500;
+    }
   }
 `
 
@@ -92,10 +93,15 @@ const Polling = styled.div`
   bottom: 0;
   padding: 1rem;
   color: white;
-  opacity: 0.4;
+  opacity: 1;
   transition: opacity 0.25s ease;
-  :hover {
-    opacity: 1;
+  &:hover {
+    .polling-dot {
+      background: ${({ theme }) => theme.greenDotHover};
+    }
+    .update-time {
+      color: ${({ theme }) => theme.white};
+    }
   }
 `
 const PollingDot = styled.div`
@@ -106,13 +112,14 @@ const PollingDot = styled.div`
   margin-right: 0.5rem;
   margin-top: 3px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.green1};
+  background-color: ${({ theme }) => theme.greenDot};
+  opacity: 1;
 `
 
 const BasicLinkStyle = styled(BasicLink)`
   .active {
     svg path {
-      fill: ${({ theme }) => theme.textHover};
+      fill: ${({ theme }) => theme.colorMenuActive};
     }
   }
 `
@@ -126,7 +133,7 @@ const SaveStyle = styled.a`
 const StyledIcon = styled.div`
   color: ${({ theme }) => theme.text2};
   path {
-    stroke: ${({ theme }) => theme.iconMenu};
+    stroke: ${({ theme }) => theme.colorMenu};
   }
 `
 const LineStyle = styled.div`
@@ -142,11 +149,12 @@ const UpdateTime = styled.div`
 `
 
 const DropIcon = styled.div`
-  background-image: url('/images/dropIcon.png');
   width: 12px;
-  height: 8px;
+  height: 20px;
   transform: ${({ open }) => (open ? 'rotate(360deg)' : 'rotate(180deg)')};
-  margin-top: 4px;
+  svg path {
+    fill: ${({ theme }) => theme.colorDropIcon};
+  }
 `
 const AutoColumnBottom = styled(AutoColumn)`
   margin: 48px 25px;
@@ -194,7 +202,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
                   <Option
                     className={
                       history.location.pathname.split('/')[1] === 'tokens' ||
-                      history.location.pathname.split('/')[1] === 'token'
+                        history.location.pathname.split('/')[1] === 'token'
                         ? 'active'
                         : 'no-active'
                     }
@@ -221,7 +229,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
                   <Option
                     className={
                       history.location.pathname.split('/')[1] === 'pairs' ||
-                      history.location.pathname.split('/')[1] === 'pair'
+                        history.location.pathname.split('/')[1] === 'pair'
                         ? 'active'
                         : 'no-active'
                     }
@@ -261,7 +269,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
                   <Option
                     className={
                       history.location.pathname.split('/')[1] === 'accounts' ||
-                      history.location.pathname.split('/')[1] === 'account'
+                        history.location.pathname.split('/')[1] === 'account'
                         ? 'active'
                         : 'no-active'
                     }
@@ -299,9 +307,13 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
                         />
                       </svg>
                     </StyledIcon>
-                    <OptionSave style={{ paddingLeft: '12px', paddingTop: '0px' }}>Saved</OptionSave>
+                    <OptionSave style={{ paddingLeft: '12px', paddingTop: '2px' }}>Saved</OptionSave>
                   </div>
-                  <DropIcon open={savedOpen} />
+                  <DropIcon open={savedOpen}>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.75299 0.859999L11.549 6.342C12.115 6.987 11.655 8 10.796 8L1.20399 8C1.01174 8.00016 0.823527 7.94491 0.661877 7.84086C0.500226 7.73681 0.371996 7.58836 0.29254 7.41331C0.213083 7.23825 0.185771 7.044 0.213873 6.85382C0.241975 6.66364 0.3243 6.48559 0.450989 6.341L5.24699 0.861C5.34085 0.75359 5.4566 0.667504 5.58648 0.60852C5.71636 0.549536 5.85735 0.51902 5.99999 0.51902C6.14263 0.51902 6.28362 0.549536 6.4135 0.60852C6.54337 0.667504 6.65913 0.75359 6.75299 0.861V0.859999Z" />
+                    </svg>
+                  </DropIcon>
                 </SaveStyle>
                 <PinnedData open={savedOpen} setSavedOpen={setSavedOpen} />
               </AutoColumn>
@@ -310,7 +322,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
           <AutoColumnBottom gap="0.5rem">
             <HeaderText>
               <Link href="https://pancakeswap.finance/" target="_blank">
-                PancakeSwap
+                SmartDEX
               </Link>
             </HeaderText>
             <HeaderText>
@@ -328,9 +340,9 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
 
           {!below1180 && (
             <Polling style={{ marginLeft: '.5rem' }}>
-              <PollingDot />
-              <a href="/" style={{ color: 'red' }}>
-                <UpdateTime>
+              <PollingDot className="polling-dot" />
+              <a href="/">
+                <UpdateTime className="update-time">
                   Updated {!!seconds ? seconds + 's' : '-'} ago <br />
                 </UpdateTime>
               </a>

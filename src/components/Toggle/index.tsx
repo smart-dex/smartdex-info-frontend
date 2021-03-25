@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const IconWrapper = styled.div<{ isActive?: boolean }>`
-  opacity: ${({ isActive }) => (isActive ? 0.8 : 0.4)};
-  color: ${({ isActive }) => (isActive ? '#fff' : 'black')};
+const IconWrapper = styled.div`
+  .dark-color {
+    color: ${({ theme }) => theme.toggerColorActive};
+  }
+  .light-color {
+    color: ${({ theme }) => theme.toggerColorNotActive};
+  }
 `
 
 const StyledToggle = styled.div`
@@ -27,11 +31,8 @@ const SwitchStyle = styled.label`
     width: 0;
     height: 0;
   }
-  input:focus + .slider {
-    box-shadow: 0 0 1px #6fcf97;
-  }
-  .dark + .slider {
-    background-color: #e0f3ea;
+  .slider {
+    background-color: ${({ theme }) => theme.backgroundTogger};
   }
   .dark + .slider:before {
     -webkit-transform: translateX(26px);
@@ -87,14 +88,14 @@ export default function Toggle({ isActive, toggle }: ToggleProps) {
   return (
     <StyledToggle>
       <span>
-        <IconWrapper isActive={isActive}>Dark</IconWrapper>
+        <IconWrapper><span className="dark-color">Dark</span></IconWrapper>
       </span>
       <SwitchStyle>
         <input type="checkbox" className={classChange} onClick={handleClick} />
         <SliderStyle className="slider round"></SliderStyle>
       </SwitchStyle>
       <span>
-        <IconWrapper isActive={isActive}>Light</IconWrapper>
+        <IconWrapper><span className="light-color">Light</span></IconWrapper>
       </span>
     </StyledToggle>
   )

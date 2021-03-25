@@ -34,16 +34,14 @@ const theme = (darkMode, color) => ({
   text4: darkMode ? '#565A69' : '#C3C5CB',
   text5: darkMode ? '#2C2F36' : '#EDEEF2',
 
-  backgroundMenu: !darkMode
-    ? 'linear-gradient(180deg, rgba(240, 248, 255, 0.38) 0%, rgba(232, 241, 251, 0.31) 57.44%, rgba(252, 252, 255, 0.57) 100%)'
-    : '#050C21',
+  backgroundMenu: !darkMode ? '#0085FF' : '#050C21',
   textMenu: !darkMode ? '#5F5E76' : 'rgba(255, 255, 255, 0.87)',
   hoverMenu: !darkMode ? '#E9F4FC' : '#303749',
   description: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
-  updateText: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(95, 94, 118, 0.5)',
+  updateText: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(255, 255, 255, 0.6)',
   border: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
   titleHeader: darkMode ? '#FFFFFF' : '#5F5E76',
-  lineMenu: darkMode ? 'rgba(91, 94, 119, 0.5)' : '#E2E2E8',
+  lineMenu: darkMode ? 'rgba(91, 94, 119, 0.5)' : 'rgba(255, 255, 255, 0.3)',
   iconMenu: darkMode ? ' rgba(255, 255, 255, 0.87)' : '#5F5E76',
   backgroundInput: darkMode ? '#080F24' : '#F0F6FB',
   textNoSave: darkMode ? 'rgba(255, 255, 255, 0.87)' : 'rgba(95, 94, 118, 0.5)',
@@ -126,10 +124,15 @@ const theme = (darkMode, color) => ({
   backgroundTitleOver: darkMode ? '#22293C' : '#F0F6FB',
   textOptionActive: darkMode ? '#0b92fd' : '#5F5E76',
   textOptionNoActive: darkMode ? '#6c6594' : '#5F5E76',
+  backgroundHover: darkMode ? '#303749' : 'rgba(233, 244, 252, 0.3)',
+  colorMenuActive: darkMode ? '#0085FF' : 'rgba(255, 255, 255, 0.87)',
+  colorDropIcon: darkMode ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.6)',
+  greenDot: darkMode ? 'rgba(23, 194, 103, 0.5)' : '#17C267',
+  toggerColorNotActive: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(255, 255, 255, 0.87)',
+  backgroundTogger: darkMode ? 'rgb(111,207,151,0.2)' : 'rgb(255,255,255,0.2)',
 
   // other
   red1: '#FF6871',
-  green1: '#27AE60',
   yellow1: '#FFE270',
   yellow2: '#F3841E',
   link: '#12aab5',
@@ -139,6 +142,9 @@ const theme = (darkMode, color) => ({
   colorPercentPlus: '#17C267',
   colorPercentMinus: '#FF6970',
   colorError: '#FF6970',
+  colorMenu: 'rgba(255, 255, 255, 0.87)',
+  greenDotHover: '#17C267',
+  toggerColorActive: 'rgba(255, 255, 255, 0.87)',
 
   background: darkMode ? 'black' : `radial-gradient(50% 50% at 50% 50%, #4FD8DE 30 0%, #fff 0%)`,
 })

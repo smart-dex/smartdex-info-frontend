@@ -101,12 +101,14 @@ export const ButtonDark = styled(Base)`
 `
 
 export const ButtonFaded = styled(Base)`
-  background-color: ${({ theme }) => theme.bgHeaderTable};
-  color: (255, 255, 255, 0.5);
   white-space: nowrap;
-
+  border: none;
+  background: none;
   :hover {
     opacity: 0.5;
+  }
+  div {
+    color: ${({ theme }) => theme.colorMenu};
   }
 `
 

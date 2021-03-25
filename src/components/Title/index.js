@@ -19,8 +19,8 @@ const UniIcon = styled(Link)``
 
 const TitleStyle = styled.div`
   font-weight: 800;
-  font-size: 26px;
-  color: ${({ theme }) => theme.titleHeader};
+  font-size: 28px;
+  color: ${({ theme }) => theme.colorMenu};
   padding: 22px;
 `
 
@@ -32,7 +32,7 @@ export default function Title() {
       <Flex alignItems="center">
         <RowFixed>
           <UniIcon id="link" onClick={() => history.push('/')}>
-            <TitleStyle>PancakeSwap</TitleStyle>
+            <TitleStyle>SmartDEX</TitleStyle>
           </UniIcon>
         </RowFixed>
       </Flex>
