@@ -55,7 +55,6 @@ const Wrapper = styled.div`
       ? '10px 10px 30px rgba(120, 118, 148, 0.1);'
       : 'none'};
   @media screen and (max-width: 500px) {
-    background: ${({ theme }) => transparentize(0.4, theme.bg1)};
     box-shadow: ${({ open }) =>
     !open
       ? '10px 10px 30px rgba(120, 118, 148, 0.1);'
