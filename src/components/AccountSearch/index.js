@@ -11,6 +11,7 @@ import { TYPE } from '../../Theme'
 import { Hover, StyledIcon } from '..'
 import Panel from '../Panel'
 import { Flex } from 'rebass'
+import { useMedia } from 'react-use'
 
 import { X } from 'react-feather'
 
@@ -122,6 +123,7 @@ const StyleClose = styled.div`
 function AccountSearch({ history, small }) {
   const [accountValue, setAccountValue] = useState()
   const [savedAccounts, addAccount, removeAccount] = useSavedAccounts()
+  const below600 = useMedia('(max-width: 600px)')
 
   function handleAccountSearch() {
     if (isAddress(accountValue)) {
@@ -168,7 +170,7 @@ function AccountSearch({ history, small }) {
                         justifyContent="space-between"
                         onClick={() => history.push('/account/' + account)}
                       >
-                        <AccountLink>{account?.slice(0, 42)}</AccountLink>
+                        {below600 ? <AccountLink>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</AccountLink> : <AccountLink>{account?.slice(0, 42)}</AccountLink>}
                         <Hover
                           onClick={(e) => {
                             e.stopPropagation()
