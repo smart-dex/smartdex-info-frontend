@@ -58,8 +58,7 @@ const ButtonUnderstand = styled.button`
   border: 1px solid ${({ theme }) => theme.colorError};
   border-radius: 10px;
   &:hover {
-    background: ${({ theme }) => theme.white};
-    color: ${({ theme }) => theme.colorError};
+    opacity: 0.7;
   }
 `
 

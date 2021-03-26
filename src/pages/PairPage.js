@@ -170,8 +170,7 @@ const ButtonTrade = styled.button`
   border: 1px solid ${({ theme }) => theme.private};
   border-radius: 10px;
   &:hover {
-    background: ${({ theme }) => theme.white};
-    color: ${({ theme }) => theme.private};
+    opacity: 0.7;
   }
 `
 

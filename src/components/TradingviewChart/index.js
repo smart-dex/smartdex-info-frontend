@@ -6,6 +6,7 @@ import { formattedNum } from '../../utils'
 import styled from 'styled-components'
 import { usePrevious } from 'react-use'
 import { Play } from 'react-feather'
+import { useMedia } from 'react-use'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
 import { IconWrapper } from '..'
 
@@ -39,6 +40,7 @@ const TradingViewChart = ({
   // pointer to the chart object
   const [chartCreated, setChartCreated] = useState(false)
   const dataPrev = usePrevious(data)
+  const below800 = useMedia('(max-width: 800px)')
 
   useEffect(() => {
     if (data !== dataPrev && chartCreated && type === CHART_TYPES.BAR) {
@@ -162,14 +164,14 @@ const TradingViewChart = ({
       // format numbers
       let percentChange = baseChange?.toFixed(2)
       let formattedPercentChange = (percentChange > 0 ? '+' : '') + percentChange + '%'
-      let color = percentChange >= 0 ? '#17C267' : '#FF6970'
+      let color = percentChange === 0 ? (darkMode ? 'rgba(255,255,255,0.87)' : '#5F5E76') : (percentChange > 0 ? '#17C267' : '#FF6970')
 
       // get the title of the chart
       function setLastBarText() {
         toolTip.innerHTML =
-          `<div style="font-size: 16px; margin: 0 0 5px 30px; color: ${textColor};">${title} ${type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
+          `<div style="font-size: 16px; margin: ${below800 ? '-15px 0 5px 7px' : '0 0 5px 30px'}; color: ${textColor};">${title} ${type === CHART_TYPES.BAR && !useWeekly ? '(24hr)' : ''
           }</div>` +
-          `<div style="font-size: 24px; margin: 5px 0px 5px 30px; color:${colorPrice}; font-weight: bold;" >` +
+          `<div style="font-size: 24px; margin: ${below800 ? '5px 0 5px 7px' : '5px 0px 5px 30px'}; color:${colorPrice}; font-weight: bold;" >` +
           formattedNum(base ?? 0, true) +
           `<span style="margin-left: 10px; font-size: 16px; color: ${color}; font-weight: 500;">${formattedPercentChange}</span>` +
           '</div>'
