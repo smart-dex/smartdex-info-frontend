@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   z-index: 20;
   position: relative;
   background-color: ${({ theme }) => theme.panelColor};
-  border: 1px solid ${({ open, color }) => (open ? color : 'rgba(0, 0, 0, 0.15);')} 
+  border: 1px solid ${({ open, color }) => (open ? color : 'rgba(0, 0, 0, 0.15)')};
   width: 100px;
   padding: 4px 10px;
   padding-right: 6px;
@@ -49,6 +49,10 @@ const ArrowStyled = styled(Arrow)`
   margin-left: 6px;
 `
 
+const StyleOption = styled.div`
+  padding: 5px 0;
+`
+
 const DropdownSelect = ({ options, active, setActive, color }) => {
   const [showDropdown, toggleDropdown] = useState(false)
 
@@ -74,7 +78,7 @@ const DropdownSelect = ({ options, active, setActive, color }) => {
                     }}
                     key={index}
                   >
-                    <TYPE.body fontSize={14}>{option}</TYPE.body>
+                    <TYPE.body fontSize={14}><StyleOption>{option}</StyleOption></TYPE.body>
                   </Row>
                 )
               )

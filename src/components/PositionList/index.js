@@ -145,7 +145,7 @@ const SelectStyle = styled.select`
   background: #5f5e761a;
   border: 1px solid transparent;
   border-radius: 5px;
-  color: ${({ theme }) => theme.textMenu};
+  color: ${({ theme }) => theme.textSelectPaging};
   margin-right: 4px;
   font-weight: 600;
   font-size: 13px;

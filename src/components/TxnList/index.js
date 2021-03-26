@@ -153,7 +153,7 @@ const ListWrapper = styled.div`
   .header {
     background: ${({ theme }) => theme.backgroundHeader};
     height: fit-content;
-    padding: 1rem 1.5rem 1rem 0;
+    padding: 1rem 1.5rem 1rem 1rem;
   }
 `
 
@@ -213,7 +213,7 @@ const SelectStyle = styled.select`
   background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
-  color: ${({ theme }) => theme.textMenu};
+  color: ${({ theme }) => theme.textSelectPaging};
   margin-right: 4px;
   font-weight: 600;
   font-size: 13px;
@@ -224,7 +224,7 @@ const SelectStyle = styled.select`
   background-position-y: 16px;
   cursor: pointer;
   option {
-    background: ${({ theme }) => theme.backgroundSelect};
+    background: ${({ theme }) => theme.backgroundOption};
     :hover {
       background-color: yellow !important;
     }
@@ -454,11 +454,11 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
       <DashGrid className="header" center={true}>
         {below780 ? (
           <RowBetween area="txn">
-            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={color} />
+            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={'#4FD8DE'} />
           </RowBetween>
         ) : (
             <RowFixed area="txn" gap="10px" pl={4}>
-              <HeaderLeftTransaction style={{ paddingLeft: '1.5rem' }}>
+              <HeaderLeftTransaction style={{ paddingLeft: '0.5rem' }}>
                 <SortText
                   onClick={() => {
                     setTxFilter(TXN_TYPE.ALL)
