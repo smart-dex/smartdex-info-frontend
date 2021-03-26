@@ -13,7 +13,7 @@ build-image:
 	docker tag pancake-info registry-server:5000/pancake-info:latest
 	docker push registry-server:5000/pancake-info:latest
 
-deploy:
+deploy-development:
 	npm run build
 	rsync -a build  sotatek@192.168.1.206:/var/www/test/smartdex-info
 
