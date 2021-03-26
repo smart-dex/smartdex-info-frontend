@@ -264,8 +264,11 @@ function TopTokenList({ tokens, itemMax = 10 }) {
       formattedTokens &&
       formattedTokens
         .sort((a, b) => {
-          if (sortedColumn === SORT_FIELD.SYMBOL || sortedColumn === SORT_FIELD.NAME) {
+          if (sortedColumn === SORT_FIELD.NAME) {
             return a[sortedColumn] > b[sortedColumn] ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1
+          }
+          if (sortedColumn === SORT_FIELD.SYMBOL) {
+            return (a[sortedColumn]).toUpperCase() > (b[sortedColumn]).toUpperCase() ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1
           }
           return parseFloat(a[sortedColumn]) > parseFloat(b[sortedColumn])
             ? (sortDirection ? -1 : 1) * 1
@@ -335,15 +338,31 @@ function TopTokenList({ tokens, itemMax = 10 }) {
     <ListWrapper>
       <DashGrid className="header" center={true}>
         <Flex alignItems="center" justifyContent="flexStart">
-          <ClickableText
-            area="name"
-            onClick={(e) => {
-              setSortedColumn(SORT_FIELD.NAME)
-              setSortDirection(sortedColumn !== SORT_FIELD.NAME ? true : !sortDirection)
-            }}
-          >
-            <StyleHeader style={{ marginLeft: !below680 ? '1.1rem' : '0px' }}>{below680 ? 'Symbol' : 'Name'} {sortedColumn === SORT_FIELD.NAME ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
-          </ClickableText>
+          {!below680 ? (
+            <>
+              <ClickableText
+                area="name"
+                onClick={(e) => {
+                  setSortedColumn(SORT_FIELD.NAME)
+                  setSortDirection(sortedColumn !== SORT_FIELD.NAME ? true : !sortDirection)
+                }}
+              >
+                <StyleHeader style={{ marginLeft: '1.1rem' }}>Name{sortedColumn === SORT_FIELD.NAME ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+              </ClickableText>
+            </>
+          ) : (
+              <>
+                <ClickableText
+                  area="symbol"
+                  onClick={(e) => {
+                    setSortedColumn(SORT_FIELD.SYMBOL)
+                    setSortDirection(sortedColumn !== SORT_FIELD.SYMBOL ? true : !sortDirection)
+                  }}
+                >
+                  <StyleHeader style={{ marginLeft: '0px' }}>Symbol{sortedColumn === SORT_FIELD.SYMBOL ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+                </ClickableText>
+              </>
+            )}
         </Flex>
         {!below680 && (
           <Flex alignItems="center">
