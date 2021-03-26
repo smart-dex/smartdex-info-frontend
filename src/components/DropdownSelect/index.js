@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.panelColor};
   border: 1px solid ${({ open, color }) => (open ? color : 'rgba(0, 0, 0, 0.15)')};
-  width: 100px;
+  width: 108px;
   padding: 4px 10px;
   padding-right: 6px;
   border-radius: 8px;
@@ -38,6 +38,7 @@ const Dropdown = styled.div`
   font-weight: 500;
   font-size: 1rem;
   color: black;
+  left: -1px;
   :hover {
     cursor: pointer;
   }
