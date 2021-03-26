@@ -164,7 +164,7 @@ const TradingViewChart = ({
       // format numbers
       let percentChange = baseChange?.toFixed(2)
       let formattedPercentChange = (percentChange > 0 ? '+' : '') + percentChange + '%'
-      let color = percentChange === 0 ? (darkMode ? 'rgba(255,255,255,0.87)' : '#5F5E76') : (percentChange > 0 ? '#17C267' : '#FF6970')
+      let color = percentChange > 0 ? '#17C267' : (percentChange < 0 ? '#FF6970' : (darkMode ? 'rgba(255,255,255,0.87)' : '#5F5E76'))
 
       // get the title of the chart
       function setLastBarText() {
