@@ -65,7 +65,7 @@ const PanelWrapper = styled.div`
 const TokenDetailsLayout = styled.div`
   display: inline-grid;
   width: 100%;
-  grid-template-columns: auto auto auto 1fr;
+  grid-template-columns: auto 0.2fr auto 0.2fr auto 1fr;
   column-gap: 30px;
   align-items: start;
 
@@ -534,12 +534,14 @@ function TokenPage({ address, history }) {
                         <FormattedName className="style-text" text={symbol} maxCharacters={12} />
                       </StyleTextBottom>
                     </Column>
+                    <Column />
                     <Column>
                       <StyleTextBottom>Name</StyleTextBottom>
                       <StyleTextBottom style={{ marginTop: '.5rem' }} fontSize={24} fontWeight="500">
                         <FormattedName className="style-text" text={name} maxCharacters={16} />
                       </StyleTextBottom>
                     </Column>
+                    <Column />
                     <Column>
                       <StyleTextBottom>Address</StyleTextBottom>
                       <AutoRow align="flex-end">

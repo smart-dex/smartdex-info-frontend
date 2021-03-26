@@ -189,7 +189,7 @@ const SelectStyle = styled.select`
   background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
-  color: ${({ theme }) => theme.textMenu};
+  color: ${({ theme }) => theme.textSelectPaging};
   margin-right: 4px;
   font-weight: 600;
   font-size: 13px;
@@ -200,7 +200,7 @@ const SelectStyle = styled.select`
   background-position-y: 16px;
   cursor: pointer;
   option {
-    background: ${({ theme }) => theme.backgroundSelect};
+    background: ${({ theme }) => theme.backgroundOption};
     :hover {
       background-color: yellow !important;
     }
@@ -342,7 +342,7 @@ function TopTokenList({ tokens, itemMax = 10 }) {
               setSortDirection(sortedColumn !== SORT_FIELD.NAME ? true : !sortDirection)
             }}
           >
-            <StyleHeader>{below680 ? 'Symbol' : 'Name'} {sortedColumn === SORT_FIELD.NAME ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+            <StyleHeader style={{ marginLeft: !below680 ? '1.1rem' : '0px' }}>{below680 ? 'Symbol' : 'Name'} {sortedColumn === SORT_FIELD.NAME ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
           </ClickableText>
         </Flex>
         {!below680 && (

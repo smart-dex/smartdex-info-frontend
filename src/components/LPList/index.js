@@ -134,7 +134,7 @@ const SelectStyle = styled.select`
   background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
-  color: ${({ theme }) => theme.textMenu};
+  color: ${({ theme }) => theme.textSelectPaging};
   margin-right: 4px;
   font-weight: 600;
   font-size: 13px;
@@ -145,7 +145,7 @@ const SelectStyle = styled.select`
   background-position-y: 16px;
   cursor: pointer;
   option {
-    background: ${({ theme }) => theme.backgroundSelect};
+    background: ${({ theme }) => theme.backgroundOption};
     :hover {
       background-color: yellow !important;
     }

@@ -115,7 +115,8 @@ const theme = (darkMode, color) => ({
   textPagingTable: darkMode ? 'rgba(255, 255, 255, 0.6)' : ' #8F8FA0',
   selectArrowImg: darkMode ? 'images/selectArrowDark.png' : 'images/selectArrow.png',
   backgroundAdd: darkMode ? 'none' : '#FFFFFF',
-  backgroundSelect: darkMode ? '#24293f' : 'rgba(95, 94, 118, 0.2)',
+  backgroundSelect: darkMode ? 'rgba(95, 94, 118, 0.1)' : 'rgba(95, 94, 118, 0.1)',
+  backgroundOption: darkMode ? '#24293f' : 'rgba(95, 94, 118, 0.1)',
   backFormExchange: darkMode ? '#080F24' : '#E9F4FC',
   backgroundItemInfo: darkMode ? '#23293D' : '#FFFFFF',
   shadowItemInfo: darkMode ? 'rgba(0, 0, 0, 0.08)' : 'rgba(120, 118, 148, 0.08)',
@@ -130,6 +131,7 @@ const theme = (darkMode, color) => ({
   greenDot: darkMode ? 'rgba(23, 194, 103, 0.5)' : '#17C267',
   toggerColorNotActive: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(255, 255, 255, 0.87)',
   backgroundTogger: darkMode ? 'rgb(111,207,151,0.2)' : 'rgb(255,255,255,0.2)',
+  textSelectPaging: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#8F8FA0',
 
   // other
   red1: '#FF6871',
