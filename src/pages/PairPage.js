@@ -56,7 +56,7 @@ const PanelWrapper = styled.div`
 
     > * {
       &:first-child {
-        width: 100%;
+        width: 99%;
       }
     }
   }
@@ -132,6 +132,7 @@ const ButtonAdd = styled.button`
   font-weight: 600;
   font-size: 16px;
   color: ${({ theme }) => theme.private};
+  outline: none;
   
   height: 56px;
   background: ${({ theme }) => theme.backgroundAdd};
@@ -161,6 +162,7 @@ const ButtonTrade = styled.button`
   font-weight: 600;
   font-size: 16px;
   color: ${({ theme }) => theme.white};
+  outline: none;
 
   margin-left: 14px;
   width: 100px;
