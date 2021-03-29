@@ -56,7 +56,7 @@ const PanelWrapper = styled.div`
 
     > * {
       &:first-child {
-        width: 100%;
+        width: 99%;
       }
     }
   }
