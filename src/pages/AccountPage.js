@@ -150,6 +150,14 @@ const StyleWalletStats = styled.div`
   border-radius: 20px;
   box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
   padding: 20px 21px;
+  @media screen and (max-width: 800px) {
+    .style-mb {
+      display: block;
+      > div {
+        margin: 10px 20px !Important;
+      }
+    }
+  }
 `
 
 const StyleChart = styled.div`
@@ -360,7 +368,7 @@ function AccountPage({ account }) {
           {!hideLPContent && (
             <PanelStyle style={{ height: '100%', marginBottom: '1rem' }}>
               <StyleWalletStats>
-                <AutoRow gap="20px">
+                <AutoRow gap="20px" className="style-mb">
                   <AutoColumn gap="10px">
                     <RowBetween>
                       <AccountTitle>Liquidity (Including Fees)</AccountTitle>
@@ -376,7 +384,7 @@ function AccountPage({ account }) {
                       </AccountTitle>
                     </RowFixed>
                   </AutoColumn>
-                  <AutoColumn gap="10px" style={{ paddingLeft: '9px' }}>
+                  <AutoColumn gap="10px">
                     <RowBetween>
                       <AccountTitle>Fees Earned (Cumulative)</AccountTitle>
                       <div />
@@ -445,7 +453,7 @@ function AccountPage({ account }) {
             }}
           >
             <StyleWalletStats>
-              <AutoRow gap="20px">
+              <AutoRow gap="20px" className="style-mb">
                 <AutoColumn gap="8px">
                   <NonValue>{totalSwappedUSD ? formattedNum(totalSwappedUSD, true) : '-'}</NonValue>
                   <AccountTitle>Total Value Swapped</AccountTitle>
