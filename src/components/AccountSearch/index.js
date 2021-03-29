@@ -116,7 +116,7 @@ const BackgroundForm = styled.div`
 const StyleClose = styled.div`
   margin-right: 10px;
   svg {
-    stroke: ${({ theme }) => theme.colorMenu};
+    stroke: ${({ theme }) => theme.textMenu};
   }
 `
 
