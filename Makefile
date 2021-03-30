@@ -20,3 +20,6 @@ deploy-development:
 deploy-staging:
 	npm run build
 	rsync -a build  ubuntu@35.73.146.166:/var/www/smart-dex/smartdex-info
+
+locale:
+	cd craw_language && npm start
