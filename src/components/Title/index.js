@@ -22,8 +22,8 @@ const TitleStyle = styled.div`
   font-size: 28px;
   color: ${({ theme }) => theme.colorMenu};
   padding: 22px;
-  @media screen and (max-width: 700px) {
-    padding: 22px 22px 22px 11px;
+  @media screen and (max-width: 800px) {
+    padding: 22px 22px 22px 0px;
   }
 `
 
