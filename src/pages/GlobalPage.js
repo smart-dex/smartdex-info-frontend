@@ -88,6 +88,11 @@ function GlobalPage() {
     grid - row - gap: ${({ gap }) => (gap === 'sm' && '8px') || (gap === 'md' && '12px') || (gap === 'lg' && '24px') || gap};
     justify - items: ${({ justify }) => justify && justify};
     padding-top: 30px;
+    @media screen and (max-width: 800px) {
+      .header-mb {
+        padding: 0 5px;
+      }
+    }
   `
 
   const StyleSearch = styled.div`
@@ -145,7 +150,7 @@ function GlobalPage() {
   return (
     <PageWrapper style={{ paddingTop: '0px' }}>
       <HeaderOverview gap="24px" style={{ paddingBottom: below800 ? '0' : '24px' }}>
-        <ContentWrapper>
+        <ContentWrapper className="header-mb">
           <StyleTitle>{below800 ? 'Analytics' : 'SmartDEX Analytics'}</StyleTitle>
           <StyleSearch><Search /></StyleSearch>
           <GlobalStats />

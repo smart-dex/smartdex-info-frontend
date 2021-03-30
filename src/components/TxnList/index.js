@@ -153,7 +153,7 @@ const ListWrapper = styled.div`
   .header {
     background: ${({ theme }) => theme.backgroundHeader};
     height: fit-content;
-    padding: 1rem 1.5rem 1rem 1rem;
+    padding: 1rem 1.5rem 1rem 1.5rem;
   }
 `
 
@@ -414,10 +414,10 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
 
   const ListItem = ({ item }) => {
     return (
-      <DashGrid style={{ height: '48px' }}>
+      <DashGrid style={{ height: '48px', marginLeft: '1.5rem' }}>
         <DataText area="txn" fontWeight="500">
           <Link external href={urls.showTransaction(item.hash)}>
-            <StyleDataLink style={{ paddingLeft: '1.5rem' }}>
+            <StyleDataLink>
               {getTransactionType(item.type, item.token1Symbol, item.token0Symbol)}
             </StyleDataLink>
           </Link>
@@ -458,7 +458,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
           </RowBetween>
         ) : (
             <RowFixed area="txn" gap="10px" pl={4}>
-              <HeaderLeftTransaction style={{ paddingLeft: '0.5rem' }}>
+              <HeaderLeftTransaction>
                 <SortText
                   onClick={() => {
                     setTxFilter(TXN_TYPE.ALL)
