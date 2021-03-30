@@ -163,14 +163,6 @@ const AutoColumnBottom = styled(AutoColumn)`
   border-bottom: 1px solid ${({ theme }) => theme.lineMenu};
 `
 
-const StyleTitle = styled.div`
-  @media screen and (max-width: 700px) {
-    div {
-      padding-left: 0px;
-    }
-  }
-`
-
 function SideNav({ history, savedOpen, setSavedOpen }) {
   const below1080 = useMedia('(max-width: 1080px)')
 
@@ -359,7 +351,7 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
         </DesktopWrapper>
       ) : (
           <MobileWrapper>
-            <StyleTitle><Title /></StyleTitle>
+            <Title />
           </MobileWrapper>
         )}
     </Wrapper>
