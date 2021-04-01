@@ -76,6 +76,7 @@ const HeaderText = styled.div`
   letter-spacing: -0.03em;
   display: inline-box;
   display: -webkit-inline-box;
+  cursor: pointer;
   a {
     color: ${({ theme }) => theme.colorMenu};
     font-weight: normal;
@@ -321,17 +322,17 @@ function SideNav({ history, savedOpen, setSavedOpen }) {
           </AutoColumn>
           <AutoColumnBottom gap="0.5rem">
             <HeaderText>
-              <Link href="https://pancakeswap.finance/" target="_blank">
+              <Link href={process.env.REACT_APP_URL_SMARTDEX} target="_blank">
                 SmartDEX
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://docs.pancakeswap.finance/" target="_blank">
+              <Link href={process.env.REACT_APP_DOCS_URL} target="_blank">
                 Docs
               </Link>
             </HeaderText>
             <HeaderText>
-              <Link href="https://twitter.com/PancakeSwap " target="_blank">
+              <Link href="#">
                 Twitter
               </Link>
             </HeaderText>
