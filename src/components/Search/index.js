@@ -367,10 +367,10 @@ export const Search = ({ small = false }) => {
             const pairB = value.split('-')[1]?.toUpperCase()
             if (pairA && pairB) {
               return (
-                (((pair.token0.symbol.toUpperCase().includes(pairA) || pair.token0.name.toUpperCase().includes(pairA))) &&
+                ((pair.token0.symbol.toUpperCase().includes(pairA) || pair.token0.name.toUpperCase().includes(pairA)) &&
                   (pair.token1.symbol.toUpperCase().includes(pairB) || pair.token1.name.toUpperCase().includes(pairB))) ||
-                (((pair.token0.symbol.toUpperCase().includes(pairB) || pair.token0.name.toUpperCase().includes(pairB)) &&
-                  (pair.token1.symbol.toUpperCase().includes(pairA) || pair.token1.name.toUpperCase().includes(pairA))))
+                ((pair.token0.symbol.toUpperCase().includes(pairB) || pair.token0.name.toUpperCase().includes(pairB)) &&
+                  (pair.token1.symbol.toUpperCase().includes(pairA) || pair.token1.name.toUpperCase().includes(pairA)))
               )
             } else {
               const pairX = pairA.trim() === '' ? pairB : pairA
