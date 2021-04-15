@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 
 export const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://192.168.1.206:8000/subgraphs/name/smartDEX',
+    uri: 'https://smartdex-subgraph.sotatek.works/subgraphs/name/subgraph2',
   }),
   cache: new InMemoryCache(),
   shouldBatch: true,
@@ -36,7 +36,7 @@ export const stakingClient = new ApolloClient({
 
 export const blockClient = new ApolloClient({
   link: new HttpLink({
-    uri: 'http://192.168.1.206:8000/subgraphs/name/ethereum-blocks',
+    uri: 'https://smartdex-subgraph.sotatek.works/subgraphs/name/bsc-testnet-blocks',
   }),
   cache: new InMemoryCache(),
 })
