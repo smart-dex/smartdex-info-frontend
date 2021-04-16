@@ -62,6 +62,7 @@ const theme = (darkMode, color) => ({
   textInputSearch: darkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(95, 94, 118, 0.5)',
   colorIconSearch: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#88879D',
   lineSearchAccount: darkMode ? 'rgba(91, 94, 119, 0.5)' : 'rgba(226, 226, 232, 0.3)',
+  backAllPosition: darkMode ? '#0F162C' : '#F0F6FB',
 
   // special case text types
   white: '#FFFFFF',
