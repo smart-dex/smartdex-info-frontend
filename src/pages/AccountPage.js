@@ -33,13 +33,12 @@ const DropdownWrapper = styled.div`
 
 const Flyout = styled.div`
   position: absolute;
-  top: 38px;
+  top: 63px;
   left: -1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.bgAllPosition};
+  background-color: ${({ theme }) => theme.backAllPosition};
   z-index: 999;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
   padding-top: 4px;
   border-top: none;
 `
@@ -105,7 +104,7 @@ const TextAccount = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  color: ${({ theme }) => theme.textMenu};
+  color: ${({ theme }) => theme.textMenu} !important;
   padding-left: 16px;
 `
 
@@ -176,6 +175,15 @@ const IconArrow = styled.span`
     path {
       stroke: ${({ theme }) => theme.colorHeader};
     }
+  }
+`
+
+const StylePosition = styled.div`
+  background: ${({ theme }) => theme.backAllPosition};
+  border-radius: 10px;
+  button {
+    padding: 15px 20px;
+    color: red !important;
   }
 `
 
@@ -283,29 +291,31 @@ function AccountPage({ account }) {
           {showWarning && <Warning>Fees cannot currently be calculated for pairs that include AMPL.</Warning>}
           {!hideLPContent && (
             <DropdownWrapper>
-              <ButtonDropdown width="100%" onClick={() => setShowDropdown(!showDropdown)} open={showDropdown}>
-                {!activePosition && (
-                  <RowFixed>
-                    <StyledIcon>
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M0 9.2H2.6076C3.06024 9.2 3.45644 8.89596 3.57355 8.45874L5.301 2.00961C5.57274 0.99511 7.02469 1.03186 7.24475 2.05882L10.1684 15.7026C10.377 16.6759 11.7245 16.7801 12.0802 15.8505L14.3791 9.84262C14.5272 9.45559 14.8987 9.2 15.3131 9.2H18"
-                          stroke-width="1.5"
-                        />
-                      </svg>
-                    </StyledIcon>
-                    <TextAccount ml={'10px'}>All Positions</TextAccount>
-                  </RowFixed>
-                )}
-                {activePosition && (
-                  <RowFixed>
-                    <DoubleTokenLogo a0={activePosition.pair.token0.id} a1={activePosition.pair.token1.id} size={16} />
-                    <TYPE.body ml={'16px'}>
-                      {activePosition.pair.token0.symbol}-{activePosition.pair.token1.symbol} Position
-                    </TYPE.body>
-                  </RowFixed>
-                )}
-              </ButtonDropdown>
+              <StylePosition>
+                <ButtonDropdown className="aaaaaaaaaaaaaaaaaa" width="100%" onClick={() => setShowDropdown(!showDropdown)} open={showDropdown}>
+                  {!activePosition && (
+                    <RowFixed>
+                      <StyledIcon>
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M0 9.2H2.6076C3.06024 9.2 3.45644 8.89596 3.57355 8.45874L5.301 2.00961C5.57274 0.99511 7.02469 1.03186 7.24475 2.05882L10.1684 15.7026C10.377 16.6759 11.7245 16.7801 12.0802 15.8505L14.3791 9.84262C14.5272 9.45559 14.8987 9.2 15.3131 9.2H18"
+                            stroke-width="1.5"
+                          />
+                        </svg>
+                      </StyledIcon>
+                      <TextAccount ml={'10px'}>All Positions</TextAccount>
+                    </RowFixed>
+                  )}
+                  {activePosition && (
+                    <RowFixed>
+                      <DoubleTokenLogo a0={activePosition.pair.token0.id} a1={activePosition.pair.token1.id} size={16} />
+                      <TYPE.body ml={'16px'}>
+                        {activePosition.pair.token0.symbol}-{activePosition.pair.token1.symbol} Position
+                      </TYPE.body>
+                    </RowFixed>
+                  )}
+                </ButtonDropdown>
+              </StylePosition>
               {showDropdown && (
                 <Flyout>
                   <AutoColumn gap="0px">
@@ -406,8 +416,8 @@ function AccountPage({ account }) {
                   {activePosition ? (
                     <PairReturnsChart account={account} position={activePosition} />
                   ) : (
-                      <UserChart account={account} position={activePosition} />
-                    )}
+                    <UserChart account={account} position={activePosition} />
+                  )}
                 </PanelStyle>
               </PanelWrapper>
             </StyleChart>
