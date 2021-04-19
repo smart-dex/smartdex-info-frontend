@@ -380,7 +380,7 @@ function TokenPage({ address, history }) {
               style={{ width: 'fit-content' }}
               color={'#0085FF'}
               external
-              href={'https://bscscan.com/address/' + address}
+              href={`${process.env.REACT_APP_BSC_SCAN}/address/` + address}
             >
               <Text style={{ marginLeft: '.15rem' }} fontSize={'14px'} fontWeight={400}>
                 ({address.slice(0, 8) + '...' + address.slice(36, 42)})
@@ -433,8 +433,8 @@ function TokenPage({ address, history }) {
                       <Bookmark style={{ marginRight: '0.5rem', opacity: 0.4 }} />
                     </StyledIcon>
                   ) : (
-                        <></>
-                      )}
+                    <></>
+                  )}
                   <Link href={getPoolLink(address)} target="_blank">
                     <ButtonAdd>+ Add Liquidity</ButtonAdd>
                   </Link>
@@ -506,8 +506,8 @@ function TokenPage({ address, history }) {
               {address && fetchedPairsList ? (
                 <PairList color={backgroundColor} address={address} pairs={fetchedPairsList} />
               ) : (
-                  <Loader />
-                )}
+                <Loader />
+              )}
             </Panel>
             <RowBetween mt={40} mb={'1rem'}>
               <TitlePair>Transactions</TitlePair> <div />
@@ -552,7 +552,7 @@ function TokenPage({ address, history }) {
                         <CopyHelper toCopy={address} />
                       </AutoRow>
                     </Column>
-                    <Link external href={'https://bscscan.com/address/' + address}>
+                    <Link external href={`${process.env.REACT_APP_BSC_SCAN}/address/` + address}>
                       <ButtonAdd>View on BscScan
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8.6677 5.62206L18.5633 8.27359L15.9118 18.1692M4.62205 16.3226L18.5633 8.27359L4.62205 16.3226Z" stroke-width="2" />

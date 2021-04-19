@@ -270,7 +270,7 @@ function AccountPage({ account }) {
                 <path d="M1 1L7 7L0.999999 13" stroke-width="2" />
               </svg>
             </IconArrow>
-            <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
+            <Link lineHeight={'145.23%'} href={`${process.env.REACT_APP_BSC_SCAN}/address/` + account} target="_blank">
               {' '}
               {account?.slice(0, 42)}{' '}
             </Link>
@@ -281,7 +281,7 @@ function AccountPage({ account }) {
           <RowBetween>
             <span>
               <TokenHeader>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TokenHeader>
-              <Link lineHeight={'145.23%'} href={'https://bscscan.com/address/' + account} target="_blank">
+              <Link lineHeight={'145.23%'} href={`${process.env.REACT_APP_BSC_SCAN}/address/` + account} target="_blank">
                 <ViewScan fontSize={14}>View on BscScan</ViewScan>
               </Link>
             </span>

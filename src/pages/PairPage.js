@@ -634,7 +634,7 @@ function PairPage({ pairAddress, history }) {
                       <CopyHelper toCopy={token1?.id} />
                     </AutoRow>
                   </Column>
-                  <Link color={backgroundColor} external href={'https://bscscan.com/address/' + pairAddress}>
+                  <Link color={backgroundColor} external href={`${process.env.REACT_APP_BSC_SCAN}/address/` + pairAddress}>
                     <ButtonAdd>View on BscScan
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.6677 5.62206L18.5633 8.27359L15.9118 18.1692M4.62205 16.3226L18.5633 8.27359L4.62205 16.3226Z" stroke-width="2" />

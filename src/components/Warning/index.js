@@ -77,13 +77,13 @@ export default function Warning({ type, show, setShow, address }) {
       </StyleText>
     </div>
   ) : (
-      <StyleText>
-        Anyone can create and name any BEP20 token on BSC, including creating fake versions of existing tokens and tokens
-        that claim to represent projects that do not have a token. Similar to BscScan, this site automatically tracks
-        analytics for all BEP20 tokens independent of token integrity. Please do your own research before interacting with
-        any BEP20 token.
-      </StyleText>
-    )
+    <StyleText>
+      Anyone can create and name any BEP20 token on BSC, including creating fake versions of existing tokens and tokens
+      that claim to represent projects that do not have a token. Similar to BscScan, this site automatically tracks
+      analytics for all BEP20 tokens independent of token integrity. Please do your own research before interacting with
+      any BEP20 token.
+    </StyleText>
+  )
 
   return (
     <WarningWrapper show={show}>
@@ -96,7 +96,7 @@ export default function Warning({ type, show, setShow, address }) {
           <div>
             <Hover style={{ marginTop: '10px' }}>
               <Link
-                href={'https://bscscan.com/address/' + address}
+                href={`${process.env.REACT_APP_BSC_SCAN}/address/` + address}
                 target="_blank"
               >
                 <StyleLink>View {type === 'token' ? 'token' : 'pair'} contract on BscScan</StyleLink>
@@ -107,20 +107,20 @@ export default function Warning({ type, show, setShow, address }) {
             </ButtonUnderstand>
           </div>
         ) : (
-            <div style={{ marginTop: '12px' }}>
-              <Hover>
-                <Link
-                  href={'https://bscscan.com/address/' + address}
-                  target="_blank"
-                >
-                  <StyleLink>View {type === 'token' ? 'token' : 'pair'} contract on BscScan</StyleLink>
-                </Link>
-              </Hover>
-              <ButtonUnderstand onClick={() => setShow(false)}>
-                I understand
+          <div style={{ marginTop: '12px' }}>
+            <Hover>
+              <Link
+                href={`${process.env.REACT_APP_BSC_SCAN}/address/` + address}
+                target="_blank"
+              >
+                <StyleLink>View {type === 'token' ? 'token' : 'pair'} contract on BscScan</StyleLink>
+              </Link>
+            </Hover>
+            <ButtonUnderstand onClick={() => setShow(false)}>
+              I understand
               </ButtonUnderstand>
-            </div>
-          )}
+          </div>
+        )}
       </AutoColumn>
     </WarningWrapper>
   )
