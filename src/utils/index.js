@@ -292,10 +292,10 @@ export const setThemeColor = (theme) => document.documentElement.style.setProper
 export const Big = (number) => new BigNumber(number)
 
 export const urls = {
-  showTransaction: (tx) => `https://bscscan.com/tx/${tx}/`,
-  showAddress: (address) => `https://bscscan.com/address/${address}/`,
-  showToken: (address) => `https://bscscan.com/token/${address}/`,
-  showBlock: (block) => `https://bscscan.com/block/${block}/`,
+  showTransaction: (tx) => `${process.env.REACT_APP_BSC_SCAN}/tx/${tx}/`,
+  showAddress: (address) => `${process.env.REACT_APP_BSC_SCAN}/address/${address}/`,
+  showToken: (address) => `${process.env.REACT_APP_BSC_SCAN}/token/${address}/`,
+  showBlock: (block) => `${process.env.REACT_APP_BSC_SCAN}/block/${block}/`,
 }
 
 export const formatTime = (unix) => {
