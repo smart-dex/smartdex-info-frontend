@@ -430,8 +430,8 @@ function PairPage({ pairAddress, history }) {
                           Pair
                         </NamePair>
                       ) : (
-                          ''
-                        )}
+                        ''
+                      )}
                     </TYPE.main>
                   </RowFixed>
                 </RowFixed>
@@ -452,8 +452,8 @@ function PairPage({ pairAddress, history }) {
                       <Bookmark style={{ marginRight: '0.5rem', opacity: 0.4 }} />
                     </StyledIcon>
                   ) : (
-                        <></>
-                      )}
+                    <></>
+                  )}
 
                   <Link external href={getPoolLink(token0?.id, token1?.id)}>
                     <ButtonAdd>+ Add Liquidity</ButtonAdd>
