@@ -70,7 +70,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  color: ${({ theme }) => theme.textInputSearch};
+  color: ${({ theme }) => theme.titleHeader};
   font-size: ${({ large }) => (large ? '20px' : '14px')};
 
   ::placeholder {
