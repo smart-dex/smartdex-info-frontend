@@ -55,41 +55,41 @@ const UserChart = ({ account }) => {
           <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#4FD8DE'} />
         </RowBetween>
       ) : (
-          <BottomHeader>
-            <RowBetween style={{ marginBottom: '7px' }}>
-              <AutoRow gap="10px">
-                <AccountTitle>Liquidity Value</AccountTitle>
-              </AutoRow>
-              <AutoRow justify="flex-end" gap="4px">
-                <OptionButton
-                  active={timeWindow === timeframeOptions.MONTH}
-                  onClick={() => setTimeWindow(timeframeOptions.MONTH)}
-                >
-                  1M
+        <BottomHeader>
+          <RowBetween style={{ marginBottom: '7px' }}>
+            <AutoRow gap="10px">
+              <AccountTitle>Liquidity Value</AccountTitle>
+            </AutoRow>
+            <AutoRow justify="flex-end" gap="4px">
+              <OptionButton
+                active={timeWindow === timeframeOptions.MONTH}
+                onClick={() => setTimeWindow(timeframeOptions.MONTH)}
+              >
+                1M
             </OptionButton>
-                <OptionButton
-                  active={timeWindow === timeframeOptions.WEEK}
-                  onClick={() => setTimeWindow(timeframeOptions.WEEK)}
-                >
-                  1W
+              <OptionButton
+                active={timeWindow === timeframeOptions.WEEK}
+                onClick={() => setTimeWindow(timeframeOptions.WEEK)}
+              >
+                1W
             </OptionButton>
-                <OptionButton
-                  active={timeWindow === timeframeOptions.ALL_TIME}
-                  onClick={() => setTimeWindow(timeframeOptions.ALL_TIME)}
-                >
-                  All
+              <OptionButton
+                active={timeWindow === timeframeOptions.ALL_TIME}
+                onClick={() => setTimeWindow(timeframeOptions.ALL_TIME)}
+              >
+                All
             </OptionButton>
-              </AutoRow>
-            </RowBetween>
-          </BottomHeader>
-        )}
+            </AutoRow>
+          </RowBetween>
+        </BottomHeader>
+      )}
       {chartData ? (
         <ResponsiveContainer aspect={aspect} style={{ height: 'inherit' }}>
           <AreaChart margin={{ top: 0, right: 10, bottom: 6, left: 0 }} barCategoryGap={1} data={chartData}>
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={'#4FD8DE'} stopOpacity={0.35} />
-                <stop offset="95%" stopColor={'#4FD8DE'} stopOpacity={0} />
+                <stop offset="5%" stopColor={'#0085FF'} stopOpacity={0.35} />
+                <stop offset="95%" stopColor={'#0085FF'} stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis
@@ -123,7 +123,7 @@ const UserChart = ({ account }) => {
               contentStyle={{
                 padding: '10px 14px',
                 borderRadius: 10,
-                borderColor: '#4FD8DE',
+                borderColor: '#0085FF',
                 color: 'black',
               }}
               wrapperStyle={{ top: -70, left: -10 }}
@@ -137,14 +137,14 @@ const UserChart = ({ account }) => {
               type="monotone"
               name={'Liquidity'}
               yAxisId={0}
-              stroke={darken(0.12, '#4FD8DE')}
+              stroke={darken(0, '#0085FF')}
               fill="url(#colorUv)"
             />
           </AreaChart>
         </ResponsiveContainer>
       ) : (
-          <div style={{ height: '135px' }}></div>
-        )}
+        <div style={{ height: '135px' }}></div>
+      )}
     </ChartWrapper>
   )
 }

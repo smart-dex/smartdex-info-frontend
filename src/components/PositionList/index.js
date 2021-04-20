@@ -255,7 +255,7 @@ function PositionList({ positions }) {
           </AutoColumn>
           <AutoColumn gap="8px" justify="flex-start" style={{ marginLeft: '20px', textAlign: '-webkit-left' }}>
             <CustomLink to={'/pair/' + position.pair.id}>
-              <TYPE.main style={{ whiteSpace: 'nowrap' }} to={'/pair/'}>
+              <TYPE.main style={{ whiteSpace: 'nowrap', marginBottom: '5px' }} to={'/pair/'}>
                 <FormattedName
                   text={position.pair.token0.symbol + '-' + position.pair.token1.symbol}
                   maxCharacters={below740 ? 10 : 18}
@@ -269,11 +269,11 @@ function PositionList({ positions }) {
                 href={getPoolLink(position.pair.token0.id, position.pair.token1.id)}
                 style={{ marginRight: '.5rem' }}
               >
-                <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px' }}>Add</ButtonLight>
+                <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px', fontSize: '14px' }}>Add</ButtonLight>
               </Link>
               {poolOwnership > 0 && (
                 <Link external href={getPoolLink(position.pair.token0.id, position.pair.token1.id, true)}>
-                  <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px' }}>Remove</ButtonLight>
+                  <ButtonLight style={{ padding: '4px 6px', borderRadius: '4px', fontSize: '14px' }}>Remove</ButtonLight>
                 </Link>
               )}
             </RowFixed>
