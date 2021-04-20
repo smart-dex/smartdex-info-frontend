@@ -118,6 +118,11 @@ const StyleClose = styled.div`
   svg {
     stroke: ${({ theme }) => theme.textMenu};
   }
+  .icon-mall {
+    svg {
+      stroke: ${({ theme }) => theme.colorMenu};
+    }
+  }
 `
 
 function AccountSearch({ history, small }) {
@@ -188,8 +193,8 @@ function AccountSearch({ history, small }) {
                   )
                 })
               ) : (
-                  <NoSave style={{ marginTop: '1rem' }}>No saved accounts</NoSave>
-                )}
+                <NoSave style={{ marginTop: '1rem' }}>No saved accounts</NoSave>
+              )}
             </Panel>
           </BackgroundForm>
         )}
@@ -205,12 +210,12 @@ function AccountSearch({ history, small }) {
                       {small ? (
                         <TYPE.header>{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</TYPE.header>
                       ) : (
-                          <AccountLink>{account?.slice(0, 42)}</AccountLink>
-                        )}
+                        <AccountLink>{account?.slice(0, 42)}</AccountLink>
+                      )}
                     </ButtonFaded>
                     <Hover onClick={() => removeAccount(account)}>
                       <StyleClose>
-                        <StyledIcon>
+                        <StyledIcon className={small ? 'icon-mall' : ''}>
                           <X size={16} />
                         </StyledIcon>
                       </StyleClose>
@@ -219,8 +224,8 @@ function AccountSearch({ history, small }) {
                 )
               })
             ) : (
-                <Description>No pinned wallets</Description>
-              )}
+              <Description>No pinned wallets</Description>
+            )}
           </>
         )}
       </AutoColumn>
