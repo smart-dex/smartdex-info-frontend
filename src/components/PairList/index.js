@@ -202,7 +202,7 @@ const SORT_FIELD = {
 }
 
 const FIELD_TO_VALUE = {
-  [SORT_FIELD.LIQ]: 'trackedReserveUSD', // sort with tracked volume only
+  [SORT_FIELD.LIQ]: 'reserveUSD', // sort with tracked volume only
   [SORT_FIELD.VOL]: 'oneDayVolumeUSD',
   [SORT_FIELD.VOL_7DAYS]: 'oneWeekVolumeUSD',
   [SORT_FIELD.FEES]: 'oneDayVolumeUSD',
@@ -250,7 +250,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
     const pairData = pairs[pairAddress]
 
     if (pairData && pairData.token0 && pairData.token1) {
-      const liquidity = formattedNum(pairData.reserveUSD, true)
+      const liquidity = formattedNum(pairData.reserveUSD)
       const volume = formattedNum(pairData.oneDayVolumeUSD, true)
       const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.002 * 365 * 100) / pairData.reserveUSD)
 
