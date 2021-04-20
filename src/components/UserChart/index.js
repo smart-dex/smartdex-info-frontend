@@ -123,7 +123,7 @@ const UserChart = ({ account }) => {
               contentStyle={{
                 padding: '10px 14px',
                 borderRadius: 10,
-                borderColor: '#4FD8DE',
+                borderColor: '#0085FF',
                 color: 'black',
               }}
               wrapperStyle={{ top: -70, left: -10 }}
