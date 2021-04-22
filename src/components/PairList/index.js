@@ -8,7 +8,7 @@ import styled from 'styled-components'
 
 import { CustomLink } from '../Link'
 import { withRouter } from 'react-router-dom'
-import { formattedNum, formattedPercent } from '../../utils'
+import { formattedNum, formattedPercent, formattedValue } from '../../utils'
 import DoubleTokenLogo from '../DoubleLogo'
 import FormattedName from '../FormattedName'
 import QuestionHelper from '../QuestionHelper'
@@ -250,7 +250,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
     const pairData = pairs[pairAddress]
 
     if (pairData && pairData.token0 && pairData.token1) {
-      const liquidity = formattedNum(pairData.reserveUSD)
+      const liquidity = formattedValue(pairData.reserveUSD, false, true)
       const volume = formattedNum(pairData.oneDayVolumeUSD, true)
       const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.002 * 365 * 100) / pairData.reserveUSD)
 
