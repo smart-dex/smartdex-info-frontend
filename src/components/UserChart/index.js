@@ -52,7 +52,7 @@ const UserChart = ({ account }) => {
       {below600 ? (
         <RowBetween mb={40}>
           <div />
-          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#4FD8DE'} />
+          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#2172E5'} />
         </RowBetween>
       ) : (
         <BottomHeader>

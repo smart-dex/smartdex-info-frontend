@@ -114,7 +114,7 @@ const GlobalChart = ({ display }) => {
   return chartDataFiltered ? (
     <>
       {below800 && (
-        <DropdownSelect options={CHART_VIEW} active={chartView} setActive={setChartView} color={'#4FD8DE'} />
+        <DropdownSelect options={CHART_VIEW} active={chartView} setActive={setChartView} color={'#2172E5'} />
       )}
 
       {chartDataFiltered && chartView === CHART_VIEW.LIQUIDITY && (
@@ -173,8 +173,8 @@ const GlobalChart = ({ display }) => {
       )}
     </>
   ) : (
-      ''
-    )
+    ''
+  )
 }
 
 export default GlobalChart
