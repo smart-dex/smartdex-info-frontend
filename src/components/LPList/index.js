@@ -210,7 +210,7 @@ function LPList({ lps, disbaleLinks, maxItems = 10 }) {
 
         <DataText justifyContent="flex-start">
           <CustomLink area="pair" to={'/pair/' + lp.pairAddress}>
-            <RowFixed>
+            <RowFixed style={{ textAlign: 'left' }}>
               {!below600 && <DoubleTokenLogo a0={lp.token0} a1={lp.token1} size={16} margin={true} />}
               {lp.pairName}
             </RowFixed>
