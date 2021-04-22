@@ -374,11 +374,13 @@ function PositionList({ positions }) {
           return p0?.hodl?.sum > p1?.hodl?.sum ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
         }
         if (sortedColumn === SORT_FIELD.pancakeswap_RETURN) {
-          return p0?.pancakeswap?.return > p1?.pancakeswap?.return ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
+          const val0 = p0?.fees.sum || 0
+          const val1 = p1?.fees.sum || 0
+          return val0 > val1 ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
         }
         if (sortedColumn === SORT_FIELD.VALUE) {
-          const bal0 = (p0.liquidityTokenBalance / p0.pair.totalSupply) * p0.pair.reserveUSD
-          const bal1 = (p1.liquidityTokenBalance / p1.pair.totalSupply) * p1.pair.reserveUSD
+          const bal0 = (p0.liquidityTokenBalance / p0.pair.totalSupply) * p0.pair.reserveUSD || 0
+          const bal1 = (p1.liquidityTokenBalance / p1.pair.totalSupply) * p1.pair.reserveUSD || 0
           return bal0 > bal1 ? (sortDirection ? -1 : 1) : sortDirection ? 1 : -1
         }
         return 1
