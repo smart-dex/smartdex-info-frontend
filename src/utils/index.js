@@ -40,13 +40,13 @@ export function getTimeframe(timeWindow) {
 export function getPoolLink(token0Address, token1Address = null, remove = false) {
   if (!token1Address) {
     return (
-      `${process.env.REACT_APP_EXCHANGE_URL}/#/` +
+      `${process.env.REACT_APP_EXCHANGE_URL}/#/pool/` +
       (remove ? `remove` : `add`) +
       `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${'ETH'}`
     )
   } else {
     return (
-      `${process.env.REACT_APP_EXCHANGE_URL}/#/` +
+      `${process.env.REACT_APP_EXCHANGE_URL}/#/pool/` +
       (remove ? `remove` : `add`) +
       `/${token0Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token0Address}/${token1Address === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'ETH' : token1Address
       }`
