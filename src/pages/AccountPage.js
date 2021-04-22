@@ -165,6 +165,9 @@ const StyleChart = styled.div`
   border-radius: 20px;
   box-shadow: 5px 5px 20px ${({ theme }) => theme.shadowItemInfo};
   padding: 20px 21px;
+  svg {
+    overflow: inherit;
+  }
 `
 
 const IconArrow = styled.span`
