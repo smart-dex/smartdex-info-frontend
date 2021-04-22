@@ -454,7 +454,7 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
       <DashGrid className="header" center={true}>
         {below780 ? (
           <RowBetween area="txn">
-            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={'#4FD8DE'} />
+            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={'#2172E5'} />
           </RowBetween>
         ) : (
           <RowFixed area="txn" gap="10px" pl={4}>
