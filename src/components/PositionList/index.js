@@ -146,7 +146,7 @@ const SelectStyle = styled.select`
   width: 65px;
   height: 39px;
   padding: 10px;
-  background: #5f5e761a;
+  background: ${({ theme }) => theme.backgroundSelect};
   border: 1px solid transparent;
   border-radius: 5px;
   color: ${({ theme }) => theme.textSelectPaging};
@@ -163,6 +163,7 @@ const SelectStyle = styled.select`
     outline: none;
   }
   option {
+    background: ${({ theme }) => theme.backgroundOption};
     :hover {
       background-color: yellow !important;
     }
