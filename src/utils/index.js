@@ -339,7 +339,7 @@ export const toSignificant = (number, significantDigits) => {
   return updated.toFormat(updated.decimalPlaces(), { groupSeparator: '' })
 }
 
-export const formattedNum = (number, usd = false, acceptNegatives = false) => {
+export const formattedNum = (number, usd = false, check) => {
   if (isNaN(number) || number === '' || number === undefined) {
     return usd ? '$0' : 0
   }
@@ -361,6 +361,9 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
   }
 
   if (num > 1000) {
+    if (check) {
+      return formatDollarAmount(num, 0)
+    }
     return usd ? formatDollarAmount(num, 0) : Number(parseFloat(num).toFixed(0)).toLocaleString()
   }
 
@@ -372,7 +375,7 @@ export const formattedNum = (number, usd = false, acceptNegatives = false) => {
     }
   }
 
-  return Number(parseFloat(num).toFixed(5)).toLocaleString()
+  return check ? Number(parseFloat(num).toFixed(3)) : Number(parseFloat(num).toFixed(5)).toLocaleString()
 }
 
 export function rawPercent(percentRaw) {

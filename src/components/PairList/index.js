@@ -250,7 +250,7 @@ function PairList({ pairs, color, disbaleLinks, maxItems = 10 }) {
     const pairData = pairs[pairAddress]
 
     if (pairData && pairData.token0 && pairData.token1) {
-      const liquidity = formattedNum(pairData.reserveUSD)
+      const liquidity = formattedNum(pairData.reserveUSD, false, true)
       const volume = formattedNum(pairData.oneDayVolumeUSD, true)
       const apy = formattedPercent((pairData.oneDayVolumeUSD * 0.002 * 365 * 100) / pairData.reserveUSD)
 
