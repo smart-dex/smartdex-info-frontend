@@ -59,7 +59,7 @@ const PairReturnsChart = ({ account, position }) => {
       {below600 ? (
         <RowBetween mb={40}>
           <div />
-          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} />
+          <DropdownSelect options={timeframeOptions} active={timeWindow} setActive={setTimeWindow} color={'#2172E5'} />
         </RowBetween>
       ) : (
         <OptionsRow>
