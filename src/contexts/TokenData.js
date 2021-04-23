@@ -209,20 +209,20 @@ const getTopTokens = async (ethPrice, ethPriceOld) => {
       query: TOKENS_DYNAMIC(oneDayBlock),
       fetchPolicy: 'cache-first',
     })
-
+    console.log('oneDayResult', oneDayResult)
     let twoDayResult = await client.query({
       query: TOKENS_DYNAMIC(twoDayBlock),
       fetchPolicy: 'cache-first',
     })
-
+    console.log('twoDayResult', twoDayResult)
     let oneDayData = oneDayResult?.data?.tokens.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
-
+    console.log('oneDayData', oneDayData)
     let twoDayData = twoDayResult?.data?.tokens.reduce((obj, cur, i) => {
       return { ...obj, [cur.id]: cur }
     }, {})
-
+    console.log('twoDayData', twoDayData)
     let bulkResults = await Promise.all(
       current &&
         oneDayData &&
@@ -522,7 +522,7 @@ const getIntervalTokenData = async (tokenAddress, startTime, interval = 3600, la
     let index = 0
     for (var brow in result) {
       let timestamp = brow.split('b')[1]
-      if (timestamp) {
+      if (timestamp && result[brow] && values[index]) {
         values[index].priceUSD = result[brow].ethPrice * values[index].derivedETH
         index += 1
       }
@@ -591,6 +591,9 @@ const getTokenChartData = async (tokenAddress) => {
     while (timestamp < utcEndTime.startOf('minute').unix() - oneDay) {
       const nextDay = timestamp + oneDay
       let currentDayIndex = (nextDay / oneDay).toFixed(0)
+      console.log('dayIndexSet', dayIndexSet)
+      console.log('currentDayIndex', currentDayIndex)
+      console.log(dayIndexSet.has(currentDayIndex))
       if (!dayIndexSet.has(currentDayIndex)) {
         data.push({
           date: nextDay,
