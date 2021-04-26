@@ -428,12 +428,12 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         {!below780 && (
           <>
             <DataText area="amountOther">
-              {formattedNum(item.token1Amount) + ' '}{' '}
-              <FormattedName text={item.token1Symbol} maxCharacters={5} margin={true} />
-            </DataText>
-            <DataText area="amountToken">
               {formattedNum(item.token0Amount) + ' '}{' '}
               <FormattedName text={item.token0Symbol} maxCharacters={5} margin={true} />
+            </DataText>
+            <DataText area="amountToken">
+              {formattedNum(item.token1Amount) + ' '}{' '}
+              <FormattedName text={item.token1Symbol} maxCharacters={5} margin={true} />
             </DataText>
           </>
         )}
@@ -454,50 +454,50 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
       <DashGrid className="header" center={true}>
         {below780 ? (
           <RowBetween area="txn">
-            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={'#2172E5'} />
+            <DropdownSelect options={TXN_TYPE} active={txFilter} setActive={setTxFilter} color={'#4FD8DE'} />
           </RowBetween>
         ) : (
-          <RowFixed area="txn" gap="10px" pl={4}>
-            <HeaderLeftTransaction>
-              <SortText
-                onClick={() => {
-                  setTxFilter(TXN_TYPE.ALL)
-                }}
-                active={txFilter === TXN_TYPE.ALL}
-                className={txFilter === TXN_TYPE.ALL ? 'active' : 'no-active'}
-              >
-                All
+            <RowFixed area="txn" gap="10px" pl={4}>
+              <HeaderLeftTransaction>
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.ALL)
+                  }}
+                  active={txFilter === TXN_TYPE.ALL}
+                  className={txFilter === TXN_TYPE.ALL ? 'active' : 'no-active'}
+                >
+                  All
                 </SortText>
-              <SortText
-                onClick={() => {
-                  setTxFilter(TXN_TYPE.SWAP)
-                }}
-                active={txFilter === TXN_TYPE.SWAP}
-                className={txFilter === TXN_TYPE.SWAP ? 'active' : 'no-active'}
-              >
-                Swaps
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.SWAP)
+                  }}
+                  active={txFilter === TXN_TYPE.SWAP}
+                  className={txFilter === TXN_TYPE.SWAP ? 'active' : 'no-active'}
+                >
+                  Swaps
                 </SortText>
-              <SortText
-                onClick={() => {
-                  setTxFilter(TXN_TYPE.ADD)
-                }}
-                active={txFilter === TXN_TYPE.ADD}
-                className={txFilter === TXN_TYPE.ADD ? 'active' : 'no-active'}
-              >
-                Adds
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.ADD)
+                  }}
+                  active={txFilter === TXN_TYPE.ADD}
+                  className={txFilter === TXN_TYPE.ADD ? 'active' : 'no-active'}
+                >
+                  Adds
                 </SortText>
-              <SortText
-                onClick={() => {
-                  setTxFilter(TXN_TYPE.REMOVE)
-                }}
-                active={txFilter === TXN_TYPE.REMOVE}
-                className={txFilter === TXN_TYPE.REMOVE ? 'active' : 'not-active'}
-              >
-                Removes
+                <SortText
+                  onClick={() => {
+                    setTxFilter(TXN_TYPE.REMOVE)
+                  }}
+                  active={txFilter === TXN_TYPE.REMOVE}
+                  className={txFilter === TXN_TYPE.REMOVE ? 'active' : 'not-active'}
+                >
+                  Removes
                 </SortText>
-            </HeaderLeftTransaction>
-          </RowFixed>
-        )}
+              </HeaderLeftTransaction>
+            </RowFixed>
+          )}
 
         <Flex alignItems="center" justifyContent="flexStart">
           <ClickableText
@@ -571,14 +571,14 @@ function TxnList({ transactions, symbol0Override, symbol1Override, color }) {
         ) : filteredList.length === 0 ? (
           <EmptyCard>No recent transactions found.</EmptyCard>
         ) : (
-          filteredList.map((item, index) => {
-            return (
-              <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
-                <ListItem key={index} index={index + 1} item={item} />
-              </div>
-            )
-          })
-        )}
+              filteredList.map((item, index) => {
+                return (
+                  <div key={index} className={index % 2 !== 0 ? 'background-item' : ''}>
+                    <ListItem key={index} index={index + 1} item={item} />
+                  </div>
+                )
+              })
+            )}
       </List>
       <PageButtons>
         <div onClick={() => setPage(page === 1 ? page : page - 1)}>
