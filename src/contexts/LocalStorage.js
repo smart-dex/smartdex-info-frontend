@@ -90,10 +90,23 @@ export function Updater() {
 
 export function useDarkModeManager() {
   const [state, { updateKey }] = useLocalStorageContext()
-  let isDarkMode = state[DARK_MODE]
+  let isDarkMode = JSON.parse(state[DARK_MODE])
   const toggleDarkMode = useCallback(
     (value) => {
       updateKey(DARK_MODE, value === false || value === true ? value : !isDarkMode)
+
+      const iframeE=document.getElementById("iframe-x-exchange")
+      if (iframeE instanceof HTMLIFrameElement){
+        const win = iframeE.contentWindow;
+        win.postMessage({key: "IS_DARK", value: value === false || value === true ? value : !isDarkMode}, "*")
+      }
+
+      const iframeF=document.getElementById("iframe-x-finance")
+      if (iframeF instanceof HTMLIFrameElement){
+        const win = iframeF.contentWindow;
+        win.postMessage({key: "IS_DARK", value: value === false || value === true ? value : !isDarkMode}, "*")
+      }
+
     },
     [updateKey, isDarkMode]
   )
