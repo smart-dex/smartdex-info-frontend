@@ -18,6 +18,7 @@ import Link from '../components/Link'
 import { FEE_WARNING_TOKENS } from '../constants'
 import { useMedia } from 'react-use'
 import Search from '../components/Search'
+import BigNumber from 'bignumber.js'
 
 const Header = styled.div``
 
@@ -229,19 +230,18 @@ function AccountPage({ account }) {
   const [activePosition, setActivePosition] = useState()
 
   const dynamicPositions = activePosition ? [activePosition] : positions
-
   const aggregateFees = dynamicPositions?.reduce(function (total, position) {
-    return total + position.fees.sum
+    return total + (position.fees.sum ? position.fees.sum : 0)
   }, 0)
 
   const positionValue = useMemo(() => {
     return dynamicPositions
       ? dynamicPositions.reduce((total, position) => {
-        return (
-          total +
-          (parseFloat(position?.liquidityTokenBalance) / parseFloat(position?.pair?.totalSupply)) *
-          position?.pair?.reserveUSD
-        )
+        const liquidityTokenBalance = new BigNumber(position?.liquidityTokenBalance)
+        const totalSupply = new BigNumber(position?.pair?.totalSupply)
+        const reserveUSD = new BigNumber(position?.pair?.reserveUSD)
+        const balance = new BigNumber(totalSupply).isZero() ? 0 : new BigNumber(liquidityTokenBalance).div(totalSupply).times(reserveUSD).toNumber()
+        return (new BigNumber(total).plus(balance).toNumber())
       }, 0)
       : null
   }, [dynamicPositions])
