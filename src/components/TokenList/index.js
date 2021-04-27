@@ -65,7 +65,7 @@ const DashGrid = styled.div`
   @media screen and (min-width: 1080px) {
     display: grid;
     grid-gap: 0.5em;
-    grid-template-columns: 1.5fr 0.6fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 0.6fr 1fr 1.4fr 0.8fr 1fr;
     grid-template-areas: 'name symbol liq vol price change';
   }
 `
@@ -268,7 +268,9 @@ function TopTokenList({ tokens, itemMax = 10 }) {
             return a[sortedColumn] > b[sortedColumn] ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1
           }
           if (sortedColumn === SORT_FIELD.SYMBOL) {
-            return (a[sortedColumn]).toUpperCase() > (b[sortedColumn]).toUpperCase() ? (sortDirection ? -1 : 1) * 1 : (sortDirection ? -1 : 1) * -1
+            return a[sortedColumn].toUpperCase() > b[sortedColumn].toUpperCase()
+              ? (sortDirection ? -1 : 1) * 1
+              : (sortDirection ? -1 : 1) * -1
           }
           return parseFloat(a[sortedColumn]) > parseFloat(b[sortedColumn])
             ? (sortDirection ? -1 : 1) * 1
@@ -347,22 +349,26 @@ function TopTokenList({ tokens, itemMax = 10 }) {
                   setSortDirection(sortedColumn !== SORT_FIELD.NAME ? true : !sortDirection)
                 }}
               >
-                <StyleHeader style={{ marginLeft: '1.1rem' }}>Name{sortedColumn === SORT_FIELD.NAME ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+                <StyleHeader style={{ marginLeft: '1.1rem' }}>
+                  Name{sortedColumn === SORT_FIELD.NAME ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
+                </StyleHeader>
               </ClickableText>
             </>
           ) : (
-              <>
-                <ClickableText
-                  area="symbol"
-                  onClick={(e) => {
-                    setSortedColumn(SORT_FIELD.SYMBOL)
-                    setSortDirection(sortedColumn !== SORT_FIELD.SYMBOL ? true : !sortDirection)
-                  }}
-                >
-                  <StyleHeader style={{ marginLeft: '0px' }}>Symbol{sortedColumn === SORT_FIELD.SYMBOL ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
-                </ClickableText>
-              </>
-            )}
+            <>
+              <ClickableText
+                area="symbol"
+                onClick={(e) => {
+                  setSortedColumn(SORT_FIELD.SYMBOL)
+                  setSortDirection(sortedColumn !== SORT_FIELD.SYMBOL ? true : !sortDirection)
+                }}
+              >
+                <StyleHeader style={{ marginLeft: '0px' }}>
+                  Symbol{sortedColumn === SORT_FIELD.SYMBOL ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
+                </StyleHeader>
+              </ClickableText>
+            </>
+          )}
         </Flex>
         {!below680 && (
           <Flex alignItems="center">
@@ -373,7 +379,9 @@ function TopTokenList({ tokens, itemMax = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.SYMBOL ? true : !sortDirection)
               }}
             >
-              <StyleHeader>Symbol {sortedColumn === SORT_FIELD.SYMBOL ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+              <StyleHeader>
+                Symbol {sortedColumn === SORT_FIELD.SYMBOL ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
+              </StyleHeader>
             </ClickableText>
           </Flex>
         )}
@@ -386,7 +394,9 @@ function TopTokenList({ tokens, itemMax = 10 }) {
               setSortDirection(sortedColumn !== SORT_FIELD.LIQ ? true : !sortDirection)
             }}
           >
-            <StyleHeader>Liquidity {sortedColumn === SORT_FIELD.LIQ ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+            <StyleHeader>
+              Liquidity {sortedColumn === SORT_FIELD.LIQ ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
+            </StyleHeader>
           </ClickableText>
         </Flex>
         <Flex alignItems="center">
@@ -398,8 +408,8 @@ function TopTokenList({ tokens, itemMax = 10 }) {
             }}
           >
             <StyleHeader>
-              Volume (24hrs)
-              {sortedColumn === SORT_FIELD.VOL ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}
+              Volume Change (24hrs)
+              {sortedColumn === SORT_FIELD.VOL ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
             </StyleHeader>
           </ClickableText>
         </Flex>
@@ -412,7 +422,9 @@ function TopTokenList({ tokens, itemMax = 10 }) {
                 setSortDirection(sortedColumn !== SORT_FIELD.PRICE ? true : !sortDirection)
               }}
             >
-              <StyleHeader>Price {sortedColumn === SORT_FIELD.PRICE ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}</StyleHeader>
+              <StyleHeader>
+                Price {sortedColumn === SORT_FIELD.PRICE ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
+              </StyleHeader>
             </ClickableText>
           </Flex>
         )}
@@ -427,7 +439,7 @@ function TopTokenList({ tokens, itemMax = 10 }) {
             >
               <StyleHeader>
                 Price Change (24hrs)
-                {sortedColumn === SORT_FIELD.CHANGE ? (!sortDirection ? <SortEsc /> : <SortDesc />) : ''}
+                {sortedColumn === SORT_FIELD.CHANGE ? !sortDirection ? <SortEsc /> : <SortDesc /> : ''}
               </StyleHeader>
             </ClickableText>
           </Flex>
