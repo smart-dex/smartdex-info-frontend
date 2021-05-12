@@ -101,7 +101,7 @@ const theme = (darkMode, color) => ({
   // color table
   activeTransaction: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
   noActiveTransaction: darkMode ? 'rgba(255, 255, 255, 0.38)' : 'rgba(95, 94, 118, 0.5)',
-  colorHeader: darkMode ? 'rgba(255, 255, 255, 0.87)' : '#5F5E76',
+  colorHeader: darkMode ? '#ffffffde' : '#5F5E76',
   backgroundHeader: darkMode ? '#0F162C' : '#F0F6FB',
   backgroundItem: darkMode ? '#0F162C' : '#F8FBFE',
   backgroundChart: darkMode ? '#0F162C' : '#FFFFFF',
