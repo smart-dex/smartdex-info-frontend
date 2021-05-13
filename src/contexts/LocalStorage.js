@@ -44,7 +44,7 @@ function reducer(state, { type, payload }) {
 function init() {
   const defaultLocalStorage = {
     [VERSION]: CURRENT_VERSION,
-    [DARK_MODE]: true,
+    [DARK_MODE]: false,
     [DISMISSED_PATHS]: {},
     [SAVED_ACCOUNTS]: [],
     [SAVED_TOKENS]: {},
@@ -95,18 +95,17 @@ export function useDarkModeManager() {
     (value) => {
       updateKey(DARK_MODE, value === false || value === true ? value : !isDarkMode)
 
-      const iframeE=document.getElementById("iframe-x-exchange")
-      if (iframeE instanceof HTMLIFrameElement){
-        const win = iframeE.contentWindow;
-        win.postMessage({key: "IS_DARK", value: value === false || value === true ? value : !isDarkMode}, "*")
+      const iframeE = document.getElementById('iframe-x-exchange')
+      if (iframeE instanceof HTMLIFrameElement) {
+        const win = iframeE.contentWindow
+        win.postMessage({ key: 'IS_DARK', value: value === false || value === true ? value : !isDarkMode }, '*')
       }
 
-      const iframeF=document.getElementById("iframe-x-finance")
-      if (iframeF instanceof HTMLIFrameElement){
-        const win = iframeF.contentWindow;
-        win.postMessage({key: "IS_DARK", value: value === false || value === true ? value : !isDarkMode}, "*")
+      const iframeF = document.getElementById('iframe-x-finance')
+      if (iframeF instanceof HTMLIFrameElement) {
+        const win = iframeF.contentWindow
+        win.postMessage({ key: 'IS_DARK', value: value === false || value === true ? value : !isDarkMode }, '*')
       }
-
     },
     [updateKey, isDarkMode]
   )
