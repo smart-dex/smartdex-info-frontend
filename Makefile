@@ -16,7 +16,9 @@ build-image:
 deploy-development:
 	npm run build:development
 	rsync -a build  sotatek@192.168.1.206:/var/www/test/smartdex-info
-
+build-production:
+	sudo npm install env-cmd --save 
+	npm run build:production
 deploy-staging:
 	npm run build:staging
 	rsync -a build  ubuntu@35.73.146.166:/var/www/smart-dex/smartdex-info
